@@ -1,0 +1,7 @@
+D:\Clay\source\UserManager\UserManager\bin\Debug\UserManager.exe.config
+D:\Clay\source\UserManager\UserManager\bin\Debug\UserManager.exe
+D:\Clay\source\UserManager\UserManager\bin\Debug\UserManager.pdb
+D:\Clay\source\UserManager\UserManager\obj\Debug\UserManager.csprojAssemblyReference.cache
+D:\Clay\source\UserManager\UserManager\obj\Debug\UserManager.csproj.CoreCompileInputs.cache
+D:\Clay\source\UserManager\UserManager\obj\Debug\UserManager.exe
+D:\Clay\source\UserManager\UserManager\obj\Debug\UserManager.pdb

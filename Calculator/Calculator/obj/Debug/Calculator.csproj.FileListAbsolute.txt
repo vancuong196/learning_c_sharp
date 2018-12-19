@@ -1,0 +1,14 @@
+C:\Users\Clay\source\repos\Calculator\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\Clay\source\repos\Calculator\Calculator\bin\Debug\Calculator.exe
+C:\Users\Clay\source\repos\Calculator\Calculator\bin\Debug\Calculator.pdb
+C:\Users\Clay\source\repos\Calculator\Calculator\obj\Debug\Calculator.csprojAssemblyReference.cache
+C:\Users\Clay\source\repos\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+C:\Users\Clay\source\repos\Calculator\Calculator\obj\Debug\Calculator.exe
+C:\Users\Clay\source\repos\Calculator\Calculator\obj\Debug\Calculator.pdb
+D:\Clay\source\Calculator\Calculator\bin\Debug\Calculator.exe.config
+D:\Clay\source\Calculator\Calculator\bin\Debug\Calculator.exe
+D:\Clay\source\Calculator\Calculator\bin\Debug\Calculator.pdb
+D:\Clay\source\Calculator\Calculator\obj\Debug\Calculator.csprojAssemblyReference.cache
+D:\Clay\source\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+D:\Clay\source\Calculator\Calculator\obj\Debug\Calculator.exe
+D:\Clay\source\Calculator\Calculator\obj\Debug\Calculator.pdb
