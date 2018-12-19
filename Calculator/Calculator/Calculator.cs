@@ -3,124 +3,57 @@ using System.Linq;
 
 namespace CalculatorApplicaiton
 {
-    class Calculator
+    public class Calculator
     {
 
-        private string MemoryStatus;
-        private string FirstLineOfDisplay;
-        private string SecondLineOfDisplay;
-        private string Memory;
-        private string Result;
-        private string FirstOperand;
-        private string SecondOperand;
-        private string CurrentOperator;
+        private string _memoryStatus;
+        private string _firstLineOfDisplay;
+        private string _secondLineOfDisplay;
+        private string _memory;
+        private string _result;
+        private string _firstOperand;
+        private string _secondOperand;
+        private string _currentOperator;
 
 
         public Calculator()
         {
-            FirstOperand = null;
-            SecondOperand = null;
-            CurrentOperator = null;
-            Result = null;
-            FirstLineOfDisplay = "";
-            SecondLineOfDisplay = "";
-            MemoryStatus = "";
-            SetDisplay(FirstLineOfDisplay,SecondLineOfDisplay);
+            _firstOperand = null;
+            _secondOperand = null;
+            _currentOperator = null;
+            _result = null;
+            _firstLineOfDisplay = "";
+            _secondLineOfDisplay = "";
+            _memoryStatus = "";
+            SetDisplay(_firstLineOfDisplay,_secondLineOfDisplay);
         }
 
-        public void SetDisplay(string firstLine, string secondLine)
+        private void SetDisplay(string firstLine, string secondLine)
         {
             Console.Clear();
             Console.WriteLine(Constants.Hint);
-            Console.WriteLine(MemoryStatus);
-            FirstLineOfDisplay = firstLine;
-            SecondLineOfDisplay = secondLine;
-            Console.WriteLine(FirstLineOfDisplay);
-            Console.WriteLine(SecondLineOfDisplay);
+            Console.WriteLine(_memoryStatus);
+            _firstLineOfDisplay = firstLine;
+            _secondLineOfDisplay = secondLine;
+            Console.WriteLine(_firstLineOfDisplay);
+            Console.WriteLine(_secondLineOfDisplay);
         }
-        public void UpdateMemoryStatus()
+        private void UpdateMemoryStatus()
         {
-            if (Memory != null)
+            if (_memory != null)
             {
-                MemoryStatus = "M enabled";
+                _memoryStatus = "M enabled";
             } else
             {
-                MemoryStatus = "";
+                _memoryStatus = "";
             }
             Console.Clear();
             Console.WriteLine(Constants.Hint);
-            Console.WriteLine(MemoryStatus);
-            Console.WriteLine(FirstLineOfDisplay);
-            Console.WriteLine(SecondLineOfDisplay);
+            Console.WriteLine(_memoryStatus);
+            Console.WriteLine(_firstLineOfDisplay);
+            Console.WriteLine(_secondLineOfDisplay);
         }
         
-        public void Start()
-        {
-            // Read a single key input from keyboard and process depend on what key has been pressed.
-            while (true)
-            {
-                // Wait for key input.
-                char pressedKeyName = ReadKey();
-
-                // Memory related funtion key has been pressed.
-
-                if (Constants.SupportedMemoryFuntionKey.Contains(pressedKeyName))
-                {
-                    OnMemoryFuntionKeyPressed(pressedKeyName);
-                }
-                // Operator key has been pressed.
-                else if (Constants.SupportedOperatorKey.Contains(pressedKeyName))
-                {
-                    OnOperatorKeysPressed(pressedKeyName);
-
-                }
-                // Numberic key has been pressed.
-                else if (Constants.SupportedNumberKey.Contains(pressedKeyName))
-                {
-                    OnNumberKeysPressed(pressedKeyName);
-                }
-                // Enter key has been press.
-                else if (pressedKeyName == (char)Constants.EnterKeyCode)
-                {
-                    OnEnterKeyPressed();
-                }
-                // Esc key has been press.
-                else if (pressedKeyName == (char) Constants.EscKeyCode)
-                {
-
-                    OnEscKeyPressed();
-                }
-                // Backspace key has been press.
-                else if (pressedKeyName == (char)Constants.BackspaceKeyCode)
-                { 
-                    OnBackspaceKeyPressed();
-                }
-                // Negative key has been press. 
-                else if (pressedKeyName == Constants.NegativeKeyName)
-                {
-                    OnNegativeKeyPressed();
-                }
-                // Inverse key pressed 
-                else if (pressedKeyName == Constants.InverseKeyName)
-                {
-                    OnInverseKeyPressed();
-                }
-                // SquareRoot key pressed.
-                else if (pressedKeyName == Constants.SqrtKeyName)
-                {
-                    OnSquareRootKeyPressed();
-                }
-
-            }
-        }
-
-        public char ReadKey()
-        {
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            Char keyName = keyInfo.KeyChar;
-            return keyName;            
-
-        }
         private double Calculate(string firstNumber, string secondNumber, string operand )
         {
             double a;
@@ -160,220 +93,220 @@ namespace CalculatorApplicaiton
             Double.TryParse(number, out a);
             return Math.Sqrt(a);
         }
-        private void OnEnterKeyPressed()
+        public void OnEnterKeyPressed()
         {
-            if (CurrentOperator == null)
+            if (_currentOperator == null)
             {
-                this.Result = FirstOperand;
+                this._result = _firstOperand;
             }
             else
             {
                 try
                 {
-                    Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                    SetDisplay(FirstOperand + " " + CurrentOperator + " " + SecondOperand + " =", "Result: " + Result);
-                    FirstOperand = null;
-                    SecondOperand = null;
-                    CurrentOperator = null;
+                    _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                    SetDisplay(_firstOperand + " " + _currentOperator + " " + _secondOperand + " =", "Result: " + _result);
+                    _firstOperand = null;
+                    _secondOperand = null;
+                    _currentOperator = null;
                 }
                 catch (DivideByZeroException e)
                 {
-                    SetDisplay(FirstOperand + " " + CurrentOperator + " " + SecondOperand + " =", "Result: Divide By Zero Exception");
-                    FirstOperand = null;
-                    SecondOperand = null;
-                    CurrentOperator = null;
+                    SetDisplay(_firstOperand + " " + _currentOperator + " " + _secondOperand + " =", "Result: Divide By Zero Exception");
+                    _firstOperand = null;
+                    _secondOperand = null;
+                    _currentOperator = null;
                 }
 
             }
         }
-        private void OnNegativeKeyPressed()
+        public void OnNegativeKeyPressed()
         {
-            if (FirstOperand == null)
+            if (_firstOperand == null)
             {
-                FirstOperand = "-";
-                SetDisplay("", FirstOperand);
+                _firstOperand = "-";
+                SetDisplay("", _firstOperand);
 
             }
-            else if (FirstOperand != null && CurrentOperator == null)
+            else if (_firstOperand != null && _currentOperator == null)
             {
-                if (FirstOperand.Contains("-"))
+                if (_firstOperand.Contains("-"))
                 {
                     // Remove - sign in first operand.
-                    FirstOperand = FirstOperand.Substring(1, FirstOperand.Length - 1);
+                    _firstOperand = _firstOperand.Substring(1, _firstOperand.Length - 1);
 
                 }
                 else
                 {
                     // Add - sign to first operand.
-                    FirstOperand = "-" + FirstOperand;
+                    _firstOperand = "-" + _firstOperand;
                 }
-                SetDisplay("", FirstOperand);
+                SetDisplay("", _firstOperand);
 
             }
-            else if (CurrentOperator != null)
+            else if (_currentOperator != null)
             {
-                if (SecondOperand == null)
+                if (_secondOperand == null)
                 {
-                    SecondOperand = "-";
+                    _secondOperand = "-";
                 }
                 else
                 {
-                    if (SecondOperand.Contains("-"))
+                    if (_secondOperand.Contains("-"))
                     {
                         // Remove - sign in second operand.
-                        SecondOperand = SecondOperand.Substring(1, SecondOperand.Length - 1);
+                        _secondOperand = _secondOperand.Substring(1, _secondOperand.Length - 1);
 
                     }
                     else
                     {
                         // Add - sign to second operand.
-                        SecondOperand = "-" + SecondOperand;
+                        _secondOperand = "-" + _secondOperand;
 
                     }
                 }
-                SetDisplay(FirstOperand + " " + CurrentOperator + " ", SecondOperand);
+                SetDisplay(_firstOperand + " " + _currentOperator + " ", _secondOperand);
 
             }
         }
-        private void OnEscKeyPressed()
+        public void OnEscKeyPressed()
         {
 
             SetDisplay("", "");
-            FirstOperand = null;
-            SecondOperand = null;
-            CurrentOperator = null;
-            Result = null;
+            _firstOperand = null;
+            _secondOperand = null;
+            _currentOperator = null;
+            _result = null;
         }
-        private void OnBackspaceKeyPressed()
+        public void OnBackspaceKeyPressed()
         {
-            if (CurrentOperator == null && FirstOperand != null)
+            if (_currentOperator == null && _firstOperand != null)
             {
-                if (FirstOperand.Length == 1)
+                if (_firstOperand.Length == 1)
                 {
-                    FirstOperand = null;
+                    _firstOperand = null;
                 }
                 else
                 {
-                    FirstOperand = FirstOperand.Substring(0, FirstOperand.Length - 1);
+                    _firstOperand = _firstOperand.Substring(0, _firstOperand.Length - 1);
 
                 }
-                SetDisplay("", FirstOperand);
+                SetDisplay("", _firstOperand);
 
             }
-            else if (CurrentOperator != null && SecondOperand != null)
+            else if (_currentOperator != null && _secondOperand != null)
             {
-                if (SecondOperand.Length == 1)
+                if (_secondOperand.Length == 1)
                 {
-                    SecondOperand = null;
+                    _secondOperand = null;
                 }
                 else
                 {
-                    SecondOperand = SecondOperand.Substring(0, SecondOperand.Length - 1);
+                    _secondOperand = _secondOperand.Substring(0, _secondOperand.Length - 1);
 
                 }
-                SetDisplay(FirstOperand + " " + CurrentOperator + " ", SecondOperand);
+                SetDisplay(_firstOperand + " " + _currentOperator + " ", _secondOperand);
 
             }
         }
-        private void OnNumberKeysPressed(char pressedKeyName)
+        public void OnNumberKeysPressed(char pressedKeyName)
         {
-            if (CurrentOperator == null)
+            if (_currentOperator == null)
             {
-                if (!(pressedKeyName == '.' && FirstOperand.Contains(pressedKeyName)))
+                if (!(pressedKeyName == '.' && _firstOperand.Contains(pressedKeyName)))
                 {
-                    if (FirstOperand == null)
+                    if (_firstOperand == null)
                     {
-                        FirstOperand = pressedKeyName.ToString();
+                        _firstOperand = pressedKeyName.ToString();
                     }
                     else
                     {
-                        FirstOperand = FirstOperand + pressedKeyName;
+                        _firstOperand = _firstOperand + pressedKeyName;
                     }
-                    SetDisplay("", FirstOperand);
+                    SetDisplay("", _firstOperand);
                 }
             }
-            if (CurrentOperator != null)
+            if (_currentOperator != null)
             {
-                if (!(pressedKeyName == '.' && SecondOperand.Contains(pressedKeyName)))
+                if (!(pressedKeyName == '.' && _secondOperand.Contains(pressedKeyName)))
                 {
-                    if (SecondOperand == null)
+                    if (_secondOperand == null)
                     {
-                        SecondOperand = pressedKeyName.ToString();
+                        _secondOperand = pressedKeyName.ToString();
 
                     }
                     else
                     {
-                        SecondOperand = SecondOperand + pressedKeyName;
+                        _secondOperand = _secondOperand + pressedKeyName;
                     }
-                    SetDisplay(FirstOperand + " " + CurrentOperator + " ", SecondOperand);
+                    SetDisplay(_firstOperand + " " + _currentOperator + " ", _secondOperand);
                 }
             }
 
         }
-        private void OnMemoryFuntionKeyPressed(char pressedKeyName)
+        public void OnMemoryFuntionKeyPressed(char pressedKeyName)
         {
             // M+ has been pressed.
             if (pressedKeyName == Constants.MemoryPlusKeyName)
             {
-                if (Memory == null)
+                if (_memory == null)
                 {
-                    Memory = "0";
+                    _memory = "0";
                 }
-                if (Result != null && FirstOperand == null)
+                if (_result != null && _firstOperand == null)
                 {
-                    Memory = Calculate(Memory, Result, "+").ToString();
-                    SetDisplay("resultM+ = ", "result = " + Result);
+                    _memory = Calculate(_memory, _result, "+").ToString();
+                    SetDisplay("resultM+ = ", "result = " + _result);
                 }
-                else if (CurrentOperator == null && FirstOperand != null)
+                else if (_currentOperator == null && _firstOperand != null)
                 {
-                    Memory = Calculate(Memory, FirstOperand, "+").ToString();
-                    Result = FirstOperand;
+                    _memory = Calculate(_memory, _firstOperand, "+").ToString();
+                    _result = _firstOperand;
 
-                    SetDisplay(FirstOperand + "M+ = ", "result = " + Result);
-                    FirstOperand = null;
+                    SetDisplay(_firstOperand + "M+ = ", "result = " + _result);
+                    _firstOperand = null;
                 }
-                else if (CurrentOperator != null && SecondOperand != null)
+                else if (_currentOperator != null && _secondOperand != null)
                 {
-                    Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                    Memory = Calculate(Memory, Result, "+").ToString();
+                    _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                    _memory = Calculate(_memory, _result, "+").ToString();
 
-                    SetDisplay("(" + FirstOperand + " " + CurrentOperator + " " + SecondOperand + ")M+", "result = " + Result);
-                    FirstOperand = null;
-                    SecondOperand = null;
-                    CurrentOperator = null;
+                    SetDisplay("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M+", "result = " + _result);
+                    _firstOperand = null;
+                    _secondOperand = null;
+                    _currentOperator = null;
 
                 }
             }
             // M- has been pressd.
             else if (pressedKeyName == Constants.MemorySubtractionKeyName)
             {
-                if (Memory == null)
+                if (_memory == null)
                 {
-                    Memory = "0";
+                    _memory = "0";
                 }
-                if (Result != null && FirstOperand == null)
+                if (_result != null && _firstOperand == null)
                 {
-                    Memory = Calculate(Memory, Result, "-").ToString();
-                    SetDisplay("resultM- = ", "result = " + Result);
+                    _memory = Calculate(_memory, _result, "-").ToString();
+                    SetDisplay("resultM- = ", "result = " + _result);
                 }
-                else if (CurrentOperator == null && FirstOperand != null)
+                else if (_currentOperator == null && _firstOperand != null)
                 {
 
-                    Memory = Calculate(Memory, FirstOperand, "-").ToString();
-                    Result = FirstOperand;
-                    SetDisplay(FirstOperand + "M- = ", "result = " + Result);
-                    FirstOperand = null;
+                    _memory = Calculate(_memory, _firstOperand, "-").ToString();
+                    _result = _firstOperand;
+                    SetDisplay(_firstOperand + "M- = ", "result = " + _result);
+                    _firstOperand = null;
 
                 }
-                else if (CurrentOperator != null && SecondOperand != null)
+                else if (_currentOperator != null && _secondOperand != null)
                 {
-                    Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                    Memory = Calculate(Memory, Result, "-").ToString();
+                    _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                    _memory = Calculate(_memory, _result, "-").ToString();
 
-                    SetDisplay("(" + FirstOperand + " " + CurrentOperator + " " + SecondOperand + ")M-", "result = " + Result);
-                    FirstOperand = null;
-                    SecondOperand = null;
-                    CurrentOperator = null;
+                    SetDisplay("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M-", "result = " + _result);
+                    _firstOperand = null;
+                    _secondOperand = null;
+                    _currentOperator = null;
 
                 }
             }
@@ -381,31 +314,31 @@ namespace CalculatorApplicaiton
             else if (pressedKeyName == Constants.MemorySaveKeyName)
             {
 
-                if (Result != null && FirstOperand == null)
+                if (_result != null && _firstOperand == null)
                 {
-                    Memory = Result;
+                    _memory = _result;
                 }
-                else if (CurrentOperator == null && FirstOperand != null)
+                else if (_currentOperator == null && _firstOperand != null)
                 {
-                    Memory = FirstOperand;
+                    _memory = _firstOperand;
 
                 }
-                else if (CurrentOperator != null && SecondOperand != null)
+                else if (_currentOperator != null && _secondOperand != null)
                 {
-                    Memory = SecondOperand;
+                    _memory = _secondOperand;
 
                 }
             }
             // MR has been pressed.
             else if (pressedKeyName == Constants.MemoryRecallKeyName)
             {
-                FirstOperand = null;
-                SecondOperand = null;
-                CurrentOperator = null;
-                if (Memory != null)
+                _firstOperand = null;
+                _secondOperand = null;
+                _currentOperator = null;
+                if (_memory != null)
                 {
-                    Result = Memory;
-                    SetDisplay("Memory = " + Result, "");
+                    _result = _memory;
+                    SetDisplay("Memory = " + _result, "");
 
                 }
                 else
@@ -418,82 +351,82 @@ namespace CalculatorApplicaiton
             }
             else if (pressedKeyName == Constants.MemoryClearKeyName)
             {
-                this.Memory = null;
+                this._memory = null;
             }
 
             UpdateMemoryStatus();
         }
-        private void OnOperatorKeysPressed(char pressedKeyName)
+        public void OnOperatorKeysPressed(char pressedKeyName)
         {
-            if (SecondOperand == null && FirstOperand != null)
+            if (_secondOperand == null && _firstOperand != null)
             {
-                CurrentOperator = pressedKeyName.ToString();
+                _currentOperator = pressedKeyName.ToString();
 
             }
-            else if (FirstOperand == null && Result != null)
+            else if (_firstOperand == null && _result != null)
             {
-                FirstOperand = Result;
-                CurrentOperator = pressedKeyName.ToString();
+                _firstOperand = _result;
+                _currentOperator = pressedKeyName.ToString();
             }
-            else if (FirstOperand != null && SecondOperand != null)
+            else if (_firstOperand != null && _secondOperand != null)
             {
-                Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                FirstOperand = Result;
-                SecondOperand = null;
-                CurrentOperator = pressedKeyName.ToString();
-                SetDisplay(FirstOperand + " " + CurrentOperator, "");
+                _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                _firstOperand = _result;
+                _secondOperand = null;
+                _currentOperator = pressedKeyName.ToString();
+                SetDisplay(_firstOperand + " " + _currentOperator, "");
             }
-            SetDisplay(FirstOperand + " " + CurrentOperator + " ", "");
+            SetDisplay(_firstOperand + " " + _currentOperator + " ", "");
 
         }
-        private void OnInverseKeyPressed()
+        public void OnInverseKeyPressed()
         {
 
-            if (Result != null && FirstOperand == null)
+            if (_result != null && _firstOperand == null)
             {
-                string previousResult = Result;
-                Result = Calculate("1", Result, "/").ToString();
-                SetDisplay("(1/"+previousResult +") = ", "result = " + Result);
+                string previousResult = _result;
+                _result = Calculate("1", _result, "/").ToString();
+                SetDisplay("(1/"+previousResult +") = ", "result = " + _result);
             }
-            else if (CurrentOperator == null && FirstOperand != null)
+            else if (_currentOperator == null && _firstOperand != null)
             {
-                Result = Calculate("1",FirstOperand,"/").ToString();
-                SetDisplay("(1/"+FirstOperand + ") = ", "result = " + Result);
-                FirstOperand = null;
+                _result = Calculate("1",_firstOperand,"/").ToString();
+                SetDisplay("(1/"+_firstOperand + ") = ", "result = " + _result);
+                _firstOperand = null;
             }
-            else if (CurrentOperator != null && SecondOperand != null)
+            else if (_currentOperator != null && _secondOperand != null)
             {
-                Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                Result = Calculate("1", Result, "/").ToString();
-                SetDisplay("1/(" + FirstOperand + " " + CurrentOperator + " " + SecondOperand + ")", "result = " + Result);
-                FirstOperand = null;
-                SecondOperand = null;
-                CurrentOperator = null;
+                _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                _result = Calculate("1", _result, "/").ToString();
+                SetDisplay("1/(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")", "result = " + _result);
+                _firstOperand = null;
+                _secondOperand = null;
+                _currentOperator = null;
 
             }
         }
-        private void OnSquareRootKeyPressed()
+        public void OnSquareRootKeyPressed()
         {
-            if (Result != null && FirstOperand == null)
+            if (_result != null && _firstOperand == null)
             {
-                string previousResult = Result;
-                Result = SquareRoot(Result).ToString();
-                SetDisplay("sqrt(" + previousResult + ") = ", "result = " + Result);
+                string previousResult = _result;
+                _result = SquareRoot(_result).ToString();
+                SetDisplay("sqrt(" + previousResult + ") = ", "result = " + _result);
             }
-            else if (CurrentOperator == null && FirstOperand != null)
+            else if (_currentOperator == null && _firstOperand != null)
             {
-                Result = SquareRoot(FirstOperand).ToString();
-                SetDisplay("sqrt(" + FirstOperand + ") = ", "result = " + Result);
-                FirstOperand = null;
+                _result = SquareRoot(_firstOperand).ToString();
+                SetDisplay("sqrt(" + _firstOperand + ") = ", "result = " + _result);
+                _firstOperand = null;
             }
-            else if (CurrentOperator != null && SecondOperand != null)
+            else if (_currentOperator != null && _secondOperand != null)
             {
-                Result = Calculate(FirstOperand, SecondOperand, CurrentOperator).ToString();
-                Result = SquareRoot(Result).ToString();
-                SetDisplay("sqrt(" + FirstOperand + " " + CurrentOperator + " " + SecondOperand + ")", "result = " + Result);
-                FirstOperand = null;
-                SecondOperand = null;
-                CurrentOperator = null;
+                _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
+                _result = SquareRoot(_result).ToString();
+                SetDisplay("sqrt(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")", "result = " + _result);
+                _firstOperand = null;
+                _secondOperand = null;
+                _currentOperator = null;
             }
         }
     }
