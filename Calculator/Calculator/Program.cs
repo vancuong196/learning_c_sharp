@@ -64,6 +64,12 @@ namespace CalculatorApplicaiton
                 {
                     calculator.OnSquareRootKeyPressed();
                 }
+                // History key pressed.
+                else if (pressedKeyName == Constants.HistoryKeyName)
+                {
+                    calculator.OnShowHistory();
+                    calculator.SetDisplay("", "");
+                }
 
             }
         }

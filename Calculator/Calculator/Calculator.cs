@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CalculatorApplicaiton
@@ -21,6 +22,7 @@ namespace CalculatorApplicaiton
         private string _secondOperand;
         // Current operator.
         private string _currentOperator;
+        private List<string> _history;
 
 
         public Calculator()
@@ -32,19 +34,11 @@ namespace CalculatorApplicaiton
             _firstLineOfDisplay = "";
             _secondLineOfDisplay = "";
             _memoryStatus = "";
+            _history = new List<string>();
             SetDisplay(_firstLineOfDisplay,_secondLineOfDisplay);
         }
+      
 
-        private void SetDisplay(string firstLine, string secondLine)
-        {
-            Console.Clear();
-            Console.WriteLine(Constants.Hint);
-            Console.WriteLine(_memoryStatus);
-            _firstLineOfDisplay = firstLine;
-            _secondLineOfDisplay = secondLine;
-            Console.WriteLine(_firstLineOfDisplay);
-            Console.WriteLine(_secondLineOfDisplay);
-        }
         private void UpdateMemoryStatus()
         {
             if (_memory != null)
@@ -94,12 +88,26 @@ namespace CalculatorApplicaiton
 
 
         }
+        private void OnResult(string mathExpression)
+        {
+            _history.Add(mathExpression);
+        }
         // Calculate square root of a number.
         private double SquareRoot(string number)
         {
             double a;
             Double.TryParse(number, out a);
             return Math.Sqrt(a);
+        }
+        public void SetDisplay(string firstLine, string secondLine)
+        {
+            Console.Clear();
+            Console.WriteLine(Constants.Hint);
+            Console.WriteLine(_memoryStatus);
+            _firstLineOfDisplay = firstLine;
+            _secondLineOfDisplay = secondLine;
+            Console.WriteLine(_firstLineOfDisplay);
+            Console.WriteLine(_secondLineOfDisplay);
         }
         public void OnEnterKeyPressed()
         {
@@ -113,6 +121,7 @@ namespace CalculatorApplicaiton
                 {
                     _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
                     SetDisplay(_firstOperand + " " + _currentOperator + " " + _secondOperand + " =", "Result: " + _result);
+                    OnResult(_firstOperand + " " + _currentOperator + " " + _secondOperand + " = " + _result);
                     _firstOperand = null;
                     _secondOperand = null;
                     _currentOperator = null;
@@ -120,6 +129,7 @@ namespace CalculatorApplicaiton
                 catch (DivideByZeroException e)
                 {
                     SetDisplay(_firstOperand + " " + _currentOperator + " " + _secondOperand + " =", "Result: Divide By Zero Exception");
+                    OnResult(_firstOperand + " " + _currentOperator + " " + _secondOperand + " =  Divide By Zero Exception");
                     _firstOperand = null;
                     _secondOperand = null;
                     _currentOperator = null;
@@ -264,6 +274,7 @@ namespace CalculatorApplicaiton
                 {
                     _memory = Calculate(_memory, _result, "+").ToString();
                     SetDisplay("resultM+ = ", "result = " + _result);
+                    OnResult(_result + "M+ = " + _result);
                 }
                 else if (_currentOperator == null && _firstOperand != null)
                 {
@@ -271,6 +282,7 @@ namespace CalculatorApplicaiton
                     _result = _firstOperand;
 
                     SetDisplay(_firstOperand + "M+ = ", "result = " + _result);
+                    OnResult(_firstOperand + "M+ = " + _result);
                     _firstOperand = null;
                 }
                 else if (_currentOperator != null && _secondOperand != null)
@@ -279,6 +291,7 @@ namespace CalculatorApplicaiton
                     _memory = Calculate(_memory, _result, "+").ToString();
 
                     SetDisplay("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M+", "result = " + _result);
+                    OnResult("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M+ = " + _result);
                     _firstOperand = null;
                     _secondOperand = null;
                     _currentOperator = null;
@@ -296,6 +309,7 @@ namespace CalculatorApplicaiton
                 {
                     _memory = Calculate(_memory, _result, "-").ToString();
                     SetDisplay("resultM- = ", "result = " + _result);
+                    OnResult(_result + "M- = " + _result);
                 }
                 else if (_currentOperator == null && _firstOperand != null)
                 {
@@ -303,6 +317,7 @@ namespace CalculatorApplicaiton
                     _memory = Calculate(_memory, _firstOperand, "-").ToString();
                     _result = _firstOperand;
                     SetDisplay(_firstOperand + "M- = ", "result = " + _result);
+                    OnResult(_firstOperand + "M- = " + _result);
                     _firstOperand = null;
 
                 }
@@ -312,6 +327,7 @@ namespace CalculatorApplicaiton
                     _memory = Calculate(_memory, _result, "-").ToString();
 
                     SetDisplay("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M-", "result = " + _result);
+                    OnResult("(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")M- = " + _result);
                     _firstOperand = null;
                     _secondOperand = null;
                     _currentOperator = null;
@@ -395,11 +411,13 @@ namespace CalculatorApplicaiton
                 string previousResult = _result;
                 _result = Calculate("1", _result, "/").ToString();
                 SetDisplay("(1/"+previousResult +") = ", "result = " + _result);
+                OnResult("(1/" + previousResult + ") = " + _result);
             }
             else if (_currentOperator == null && _firstOperand != null)
             {
                 _result = Calculate("1",_firstOperand,"/").ToString();
                 SetDisplay("(1/"+_firstOperand + ") = ", "result = " + _result);
+                OnResult("(1/" + _firstOperand + ") = " + _result);
                 _firstOperand = null;
             }
             else if (_currentOperator != null && _secondOperand != null)
@@ -407,6 +425,7 @@ namespace CalculatorApplicaiton
                 _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
                 _result = Calculate("1", _result, "/").ToString();
                 SetDisplay("1/(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")", "result = " + _result);
+                OnResult("1/(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ") = " + _result);
                 _firstOperand = null;
                 _secondOperand = null;
                 _currentOperator = null;
@@ -420,11 +439,13 @@ namespace CalculatorApplicaiton
                 string previousResult = _result;
                 _result = SquareRoot(_result).ToString();
                 SetDisplay("sqrt(" + previousResult + ") = ", "result = " + _result);
+                OnResult("sqrt(" + previousResult + ") = " + _result);
             }
             else if (_currentOperator == null && _firstOperand != null)
             {
                 _result = SquareRoot(_firstOperand).ToString();
                 SetDisplay("sqrt(" + _firstOperand + ") = ", "result = " + _result);
+                OnResult("sqrt(" + _firstOperand + ") = " + _result);
                 _firstOperand = null;
             }
             else if (_currentOperator != null && _secondOperand != null)
@@ -432,11 +453,25 @@ namespace CalculatorApplicaiton
                 _result = Calculate(_firstOperand, _secondOperand, _currentOperator).ToString();
                 _result = SquareRoot(_result).ToString();
                 SetDisplay("sqrt(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ")", "result = " + _result);
+                OnResult("sqrt(" + _firstOperand + " " + _currentOperator + " " + _secondOperand + ") = " + _result);
                 _firstOperand = null;
                 _secondOperand = null;
                 _currentOperator = null;
             }
         }
+        public void OnShowHistory()
+        {
+            Console.Clear();
+            Console.WriteLine("History:");
+            foreach (string line in _history)
+            {
+                Console.WriteLine(line);
+
+            }
+            Console.WriteLine("Pess any key to come back.");
+            Console.ReadKey();
+        }
+        
     }
  
 }
