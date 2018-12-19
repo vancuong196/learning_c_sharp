@@ -9,29 +9,29 @@ namespace UserManager
             string info = "ID: " + this.ID + "| name: " + this.Name + " | " + " age: " + this.Age + " | type = normal";
             return info;
         }
-        public void input()
+        public void Input()
         {
             Console.WriteLine("Please input ID:");
 
-            string id = Console.ReadLine();
+            string inputID = Console.ReadLine();
 
             Console.WriteLine("Please input name:");
 
-            string name = Console.ReadLine();
+            string inputName = Console.ReadLine();
          
             Console.WriteLine("Please input age:");
 
             string ageAsString = Console.ReadLine();
 
-            int age = 0;
+            int inputAge = 0;
 
-            Int32.TryParse(ageAsString, out age);
+            Int32.TryParse(ageAsString, out inputAge);
 
-            this.Name = name;
+            this.Name = inputName;
 
-            this.Age = age;
+            this.Age = inputAge;
 
-            this.ID = id;
+            this.ID = inputID;
 
         }
 

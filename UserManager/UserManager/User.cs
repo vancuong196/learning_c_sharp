@@ -8,6 +8,7 @@ namespace UserManager
         public int Age { get; set; }
         public string ID { get; set; }
         public abstract string GetInfo();
+      
 
     }
 }

@@ -5,14 +5,21 @@ namespace CalculatorApplicaiton
 {
     public class Calculator
     {
-
+        // Store status of memory.
         private string _memoryStatus;
+        // Show current math expression.
         private string _firstLineOfDisplay;
+        // Show current input number or result.
         private string _secondLineOfDisplay;
+        // Store value.
         private string _memory;
+        // Current result.
         private string _result;
+        // The first operand in a math expression (ex, 15 + 20, 15 is first operand).
         private string _firstOperand;
+        // The second operand.
         private string _secondOperand;
+        // Current operator.
         private string _currentOperator;
 
 
@@ -53,13 +60,13 @@ namespace CalculatorApplicaiton
             Console.WriteLine(_firstLineOfDisplay);
             Console.WriteLine(_secondLineOfDisplay);
         }
-        
-        private double Calculate(string firstNumber, string secondNumber, string operand )
+        // Calculate a math expression.
+        private double Calculate(string firstOperand, string secondOperand, string operand )
         {
             double a;
-            Double.TryParse(firstNumber, out a);
+            Double.TryParse(firstOperand, out a);
             double b;
-            Double.TryParse(secondNumber, out b);
+            Double.TryParse(secondOperand, out b);
             if (operand=="+")
             {
                 return a + b;
@@ -87,6 +94,7 @@ namespace CalculatorApplicaiton
 
 
         }
+        // Calculate square root of a number.
         private double SquareRoot(string number)
         {
             double a;
@@ -170,7 +178,7 @@ namespace CalculatorApplicaiton
         }
         public void OnEscKeyPressed()
         {
-
+            // Clear text and all input.
             SetDisplay("", "");
             _firstOperand = null;
             _secondOperand = null;

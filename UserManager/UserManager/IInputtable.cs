@@ -3,6 +3,6 @@ namespace UserManager
 {
     interface IInputtable
     {
-        void input();
+        void Input();
     }
 }

@@ -67,6 +67,7 @@ namespace CalculatorApplicaiton
 
             }
         }
+        // Read single key from keyboard.
         public static char ReadKey()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);

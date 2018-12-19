@@ -2,32 +2,33 @@
 
 namespace UserManager
 {
-    
-    class Vipuser : User,IInputtable
+
+    class Vipuser : User, IInputtable
     {
         public override string GetInfo()
         {
-            string info = "ID: "+this.ID+"| name: " + this.Name + " | " + " age: " + this.Age+" | type = vip";
+            string info = "ID: " + this.ID + " | name: " + this.Name + " | " + " age: " + this.Age + " | type = vip";
             return info;
         }
-        public void input()
+        public void Input()
         {
             Console.WriteLine("Please input ID:");
-            string id = Console.ReadLine();
+            string inputID = Console.ReadLine();
 
             Console.WriteLine("Please input name:");
-            string name = Console.ReadLine();
- 
+            string inputName = Console.ReadLine();
+
             Console.WriteLine("Please input age:");
             string ageAsString = Console.ReadLine();
-            int age = 0;
-            Int32.TryParse(ageAsString, out age);
-        
-            this.Name = name;
 
-            this.Age = age;
+            int inputAge = 0;
+            Int32.TryParse(ageAsString, out inputAge);
 
-            this.ID = id;
+            this.Name = inputName;
+
+            this.Age = inputAge;
+
+            this.ID = inputID;
 
         }
     }

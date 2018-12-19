@@ -7,10 +7,10 @@ namespace UserManager
 
     class Manager
     {
-        List<User> UserList;
+        private List<User> _userList;
         public Manager()
         {
-            UserList = new List<User>();
+            _userList = new List<User>();
         }
         public void AddUser()
         {
@@ -23,8 +23,8 @@ namespace UserManager
             switch (option)
             {
                 case 1:
-                    NormalUser user = new NormalUser();
-                    user.input();
+                    var user = new NormalUser();
+                    user.Input();
                     if (IsIDExist(user.ID))
                     {
                         Console.WriteLine("User Id is exist");
@@ -33,12 +33,12 @@ namespace UserManager
                         Console.Clear();
                         return;
                     }
-                    this.UserList.Add(user);
+                    this._userList.Add(user);
 
                     break;
                 case 2:
-                    Vipuser vipuser = new Vipuser();
-                    vipuser.input();
+                    var vipuser = new Vipuser();
+                    vipuser.Input();
                     if (IsIDExist(vipuser.ID))
                     {
                         Console.WriteLine("User Id is exist");
@@ -47,7 +47,7 @@ namespace UserManager
                         Console.Clear();
                         return;
                     }
-                    this.UserList.Add(vipuser);
+                    this._userList.Add(vipuser);
                     break;
 
             }
@@ -59,13 +59,13 @@ namespace UserManager
         }
         public void ShowUserList()
         {
-            if (UserList.Count == 0)
+            if (_userList.Count == 0)
             {
                 Console.WriteLine("Empty list!");
             }
             else
             {
-                foreach (User user in UserList)
+                foreach (User user in _userList)
                 {
                     Console.WriteLine(user.GetInfo());
                 }
@@ -79,13 +79,13 @@ namespace UserManager
         {
             Console.WriteLine("Enter an UserID to delete: ");
             string UserID = Console.ReadLine();
-            for (int i = 0; i < UserList.Count; i++)
+            for (int i = 0; i < _userList.Count; i++)
             {
-                if (UserList[i].ID == UserID)
+                if (_userList[i].ID == UserID)
                 {
 
-                    Console.Write("Found and deleted 1: {0}", UserList[i].GetInfo());
-                    UserList.RemoveAt(i);
+                    Console.WriteLine("Found and deleted 1: {0}", _userList[i].GetInfo());
+                    _userList.RemoveAt(i);
 
                     break;
                 }
@@ -100,12 +100,13 @@ namespace UserManager
             string Username = Console.ReadLine();
             Console.WriteLine("Result: ");
 
-            for (int i = 0; i < UserList.Count; i++)
+            for (int i = 0; i < _userList.Count; i++)
             {
-                if (UserList[i].Name.Contains(Username) || UserList[i].Name == Username)
+                if (_userList[i].Name.Contains(Username) || _userList[i].Name == Username)
                 {
-                    Console.WriteLine("{0}", UserList[i].GetInfo());
+                    Console.WriteLine("{0}", _userList[i].GetInfo());
                 }
+                
             }
             Console.WriteLine("Press any key to back to menu");
             Console.ReadKey();
@@ -114,9 +115,9 @@ namespace UserManager
         public bool IsIDExist(String id)
         {
 
-            for (int i = 0; i < UserList.Count; i++)
+            for (int i = 0; i < _userList.Count; i++)
             {
-                if (UserList[i].ID == id)
+                if (_userList[i].ID == id)
                 {
                     return true;
                 }
