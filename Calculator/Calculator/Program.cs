@@ -6,6 +6,7 @@ namespace CalculatorApplicaiton
 {
     class Program
     {
+        public static object Keys { get; private set; }
 
         static void Main(string[] args)
         {
@@ -68,9 +69,19 @@ namespace CalculatorApplicaiton
                 else if (pressedKeyName == Constants.HistoryKeyName)
                 {
                     calculator.OnShowHistory();
-                    calculator.SetDisplay("", "");
+                    calculator.OnEscKeyPressed();
                 }
-
+                // Previous line in history.
+                else if (pressedKeyName == Constants.NavigationUpKeyCode)
+                {
+                    calculator.OnNavigationUpArrow();
+                   
+                }
+                // Next line in history.
+                else if (pressedKeyName == Constants.NavigationDownKeyCode)
+                {
+                    calculator.OnNavigationDownArrow();
+                }
             }
         }
         // Read single key from keyboard.

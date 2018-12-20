@@ -23,7 +23,7 @@ namespace CalculatorApplicaiton
         // Current operator.
         private string _currentOperator;
         private List<string> _history;
-
+        private int _currentPostionInHistory;
 
         public Calculator()
         {
@@ -34,6 +34,7 @@ namespace CalculatorApplicaiton
             _firstLineOfDisplay = "";
             _secondLineOfDisplay = "";
             _memoryStatus = "";
+            _currentPostionInHistory = -1;
             _history = new List<string>();
             SetDisplay(_firstLineOfDisplay,_secondLineOfDisplay);
         }
@@ -90,7 +91,9 @@ namespace CalculatorApplicaiton
         }
         private void OnResult(string mathExpression)
         {
+           
             _history.Add(mathExpression);
+            _currentPostionInHistory = _history.Count;
         }
         // Calculate square root of a number.
         private double SquareRoot(string number)
@@ -190,6 +193,7 @@ namespace CalculatorApplicaiton
         {
             // Clear text and all input.
             SetDisplay("", "");
+            _currentPostionInHistory = _history.Count;
             _firstOperand = null;
             _secondOperand = null;
             _currentOperator = null;
@@ -230,7 +234,7 @@ namespace CalculatorApplicaiton
         {
             if (_currentOperator == null)
             {
-                if (!(pressedKeyName == '.' && _firstOperand.Contains(pressedKeyName)))
+                if (!(pressedKeyName == '.' &&_firstOperand!=null &&_firstOperand.Contains(pressedKeyName)))
                 {
                     if (_firstOperand == null)
                     {
@@ -245,7 +249,7 @@ namespace CalculatorApplicaiton
             }
             if (_currentOperator != null)
             {
-                if (!(pressedKeyName == '.' && _secondOperand.Contains(pressedKeyName)))
+                if (!(pressedKeyName == '.' && _secondOperand != null && _secondOperand.Contains(pressedKeyName)))
                 {
                     if (_secondOperand == null)
                     {
@@ -471,7 +475,49 @@ namespace CalculatorApplicaiton
             Console.WriteLine("Pess any key to come back.");
             Console.ReadKey();
         }
+        public void OnNavigationUpArrow()
+        {
         
+            if (_history.Count == 0)
+            {
+                return;
+            }
+            else if (_currentPostionInHistory >= 1)
+            {
+                _currentOperator = null;
+                _firstOperand = null;
+                _secondOperand = null;
+                string line = _history.ElementAt(_currentPostionInHistory-1);
+                string[] partsOfMathExpression = line.Split('=');
+                _result = partsOfMathExpression[1].Trim();
+                SetDisplay(partsOfMathExpression[0].Trim() + " = ", "Result: " + _result);
+                if (_currentPostionInHistory >= 0)
+                {
+                    _currentPostionInHistory--;
+                }
+            }
+        }
+        public void OnNavigationDownArrow()
+        {
+
+            if (_history.Count == 0)
+            {
+                return;
+            }
+            else if (_currentPostionInHistory < _history.Count - 1)
+            {
+                _currentOperator = null;
+                _firstOperand = null;
+                _secondOperand = null;
+                _currentPostionInHistory++;
+                string line = _history.ElementAt(_currentPostionInHistory);
+                string[] partsOfMathExpression = line.Split('=');
+                _result = partsOfMathExpression[1].Trim();
+                SetDisplay(partsOfMathExpression[0].Trim() + " = ", "Result: " + _result);
+
+            }
+        }
+
     }
  
 }
