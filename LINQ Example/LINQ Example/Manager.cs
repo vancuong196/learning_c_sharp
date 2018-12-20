@@ -129,9 +129,14 @@ namespace LINQ_Example
         public void Analyze()
         {
             Console.Clear();
-            Console.WriteLine("Average GPA: " + _studentList.Average(s => s.Gpa));
+            Console.WriteLine("Average GPA: " + Math.Round(_studentList.Average(s => s.Gpa),2));
             Console.WriteLine("Max GPA: " + _studentList.Max(s => s.Gpa));
             Console.WriteLine("Min GPA: " + _studentList.Min(s => s.Gpa));
+            Console.WriteLine("Number of A student: " + _studentList.Where(s => s.Gpa >= 8.5).Count());
+            Console.WriteLine("Number of B student: " + _studentList.Where(s => s.Gpa >= 7 && s.Gpa<8.5).Count());
+            Console.WriteLine("Number of C student: " + _studentList.Where(s => s.Gpa >= 5.5&& s.Gpa<7).Count());
+            Console.WriteLine("Number of D student: " + _studentList.Where(s => s.Gpa >= 4 && s.Gpa<5.5).Count());
+            Console.WriteLine("Number of F student: " + _studentList.Where(s => s.Gpa <4).Count());
             Console.WriteLine("Press any key to back!");
             Console.ReadKey();
         }
