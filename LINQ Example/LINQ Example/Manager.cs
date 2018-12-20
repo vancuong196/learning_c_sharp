@@ -20,7 +20,7 @@ namespace LINQ_Example
         {   
             int pageNumber = 1;
             int numberOfRecord = students.Count;
-            int numberOfPage = numberOfRecord%Constants.MaxRecordPerPage == 0? numberOfRecord/Constants.MaxRecordPerPage:numberOfRecord/10+1;
+            int numberOfPage = numberOfRecord%Constants.MaxRecordPerPage == 0? numberOfRecord/Constants.MaxRecordPerPage:numberOfRecord/Constants.MaxRecordPerPage + 1;
            
             while (true)
             {
