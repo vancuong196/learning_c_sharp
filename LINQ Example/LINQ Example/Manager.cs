@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Data.Sql;
 namespace LINQ_Example
 {
     
@@ -52,13 +52,14 @@ namespace LINQ_Example
         }
         public void Search()
         {
+            Console.Clear();
             Console.WriteLine("Please enter a name or an id to search");
             string searchkeyWord = Console.ReadLine();
             var result = from student in _studentList
                          where student.StudentID.Contains(searchkeyWord) || (student.FirstName + " " + student.LastName).Contains(searchkeyWord)
                          orderby student.StudentID ascending
                          select student;
-            Console.WriteLine("There are " + result.Count().ToString() + " student match the key word: " + searchkeyWord+". Press any key to show!");
+            Console.WriteLine("There are " + result.Count().ToString() + " student match the key word: " + searchkeyWord+". Press any key to show the list!");
             Console.ReadKey();
             PrintStudentList(result.ToList<Student>());
 
