@@ -12,12 +12,22 @@ namespace Taskmanager.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private ObservableCollection<TaskItem> _allTask;
+        private ObservableCollection<TaskItem> _unFinishedTasks;
+        private ObservableCollection<Tag> _allTags;
 
         public ObservableCollection<TaskItem> AllTasks
         {
             get { return _allTask; }
             set { Set(ref _allTask, value); }
         }
+        
+        public ObservableCollection<Tag> AllTag
+        {
+            get { return _allTags; }
+            set { Set(ref _allTags, value); }
+        }
+            
+
 
         private TaskItem _selectedTaskItem;
 
@@ -32,6 +42,8 @@ namespace Taskmanager.ViewModels
                 Set(ref _selectedTaskItem, value);
             }
         }
+
+        
         public MainViewModel()
         {
             var taskList = new ObservableCollection<TaskItem>();
@@ -46,13 +58,18 @@ namespace Taskmanager.ViewModels
             taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
             taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
             taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
+            var tagList = new ObservableCollection<Tag>();
+            tagList.Add(new Tag("Todo"));
+            tagList.Add(new Tag("Must do"));
+            tagList.Add(new Tag("Remind"));
+            _allTags = tagList;
 
             _allTask = taskList;
-            Load();
+            //Load();
         }
 
         string connectionString =
-            "Data Source=CPU003;" +
+            "Data Source=ACE;" +
             "Initial Catalog=TaskDatabase;" +
             "User id=sa;" +
             "Password=123456;";

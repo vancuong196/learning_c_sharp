@@ -4,85 +4,192 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    mc:Ignorable="d">
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Visible"
+        HorizontalScrollMode="Enabled"
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" Margin="40,12" FontSize="50" Style="{StaticResource BaseTextBlockStyle}" >Task Manager</TextBlock>
-        <SplitView Grid.Row="1" x:Name="splitView" IsPaneOpen="True" DisplayMode="Inline" Margin="40,0,0,0">
-            <SplitView.Pane>
-                
-                <StackPanel Orientation="Vertical" Visibility="Visible">
-                <TextBlock Text="Categories" x:Name="PaneHeader" Margin="12,0" Style="{StaticResource BaseTextBlockStyle}" FontSize="24"/>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Dashboard" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="All Tasks" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Importance Tasks" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Overdue Task" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Normal Taks" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Task Without Date" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Search by Task" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
-                    <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="60" Content="Finished Tasks" Margin="12,8" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" FontSize="24"></Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="40,12"
+                FontSize="44"
+                Style="{StaticResource BaseTextBlockStyle}">
+                Task Manager
+            </TextBlock>
+            <SplitView
+                x:Name="splitView"
+                Grid.Row="1"
+                Margin="40,0,0,0"
+                DisplayMode="Inline"
+                IsPaneOpen="True">
+                <SplitView.Pane>
 
-                </StackPanel>
-            </SplitView.Pane>
-            <SplitView.Content>
-                <Grid>
+                    <StackPanel Orientation="Vertical" Visibility="Visible">
+                        <TextBlock
+                            x:Name="PaneHeader"
+                            Margin="12,0"
+                            FontSize="24"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Categories" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Click="OnDasboardButtonClick"
+                            Content="Dashboard"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="All Tasks"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Importance Tasks"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Overdue Task"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Normal Taks"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Task Without Date"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Search by Task"
+                            FontSize="24" />
+                        <Button
+                            Height="60"
+                            Margin="12,8"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Bottom"
+                            Content="Finished Tasks"
+                            FontSize="24" />
+
+                    </StackPanel>
+                </SplitView.Pane>
+                <SplitView.Content>
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="500"/>
-                            <ColumnDefinition Width="500"/>
-                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="500" />
                         </Grid.ColumnDefinitions>
-                    
-                        <ListView Header="Overdue Task" Margin="40,0" FontSize="24" ItemsSource="{Binding Path=AllTasks}">
+
+                        <ListView
+                            Margin="40,0"
+                            FontSize="24"
+                            Header="Overdue Task"
+                            ItemsSource="{Binding Path=AllTasks}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Path=Title}" Style="{StaticResource SubtitleTextBlockStyle}" />
-                                        <TextBlock Text="{Binding Path=Description}" Style="{StaticResource TitleTextBlockStyle}" />
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding Path=Title}" />
+                                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Path=Description}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                     
-                            <ListView Grid.Column="1" Header="Today Tasks" Margin="40,0" FontSize="24" ItemsSource="{Binding Path=AllTasks}">
-                            
+
+                        <ListView
+                            Grid.Column="1"
+                            Margin="40,0"
+                            FontSize="24"
+                            Header="Today Tasks"
+                            ItemsSource="{Binding Path=AllTasks}">
+
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Path=Title}" Style="{StaticResource SubtitleTextBlockStyle}" />
-                                        <TextBlock Text="{Binding Path=Description}" Style="{StaticResource TitleTextBlockStyle}" />
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding Path=Title}" />
+                                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Path=Description}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                            
-                     <StackPanel Grid.Column="2" >
-                        <ListView Header="Tags" Margin="40,0" FontSize="24" ItemsSource="{Binding Path=AllTasks}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Path=Title}" Style="{StaticResource SubtitleTextBlockStyle}" />
-                                        <TextBlock Text="{Binding Path=Description}" Style="{StaticResource TitleTextBlockStyle}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+
+                        <StackPanel Grid.Column="2">
+                            <ListView
+                                Margin="40,0"
+                                FontSize="24"
+                                Header="Tags"
+                                ItemsSource="{Binding Path=AllTag}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+
+                                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Path=Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </StackPanel>
                     </Grid>
-            </SplitView.Content>
-        </SplitView>
-    </Grid>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
     </ScrollViewer>
     <Page.BottomAppBar>
-        <CommandBar IsOpen="True"  ClosedDisplayMode="Compact">
-            <AppBarButton Icon="Add" />
-            <AppBarButton Icon="Refresh"/>
-        </CommandBar>
+        <AppBar ClosedDisplayMode="Compact" IsOpen="True">
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton
+                    Click="OnAddTaskButtonClicked"
+                    Icon="Add"
+                    Label="Add"
+                    LabelPosition="Default" />
+                <AppBarButton
+                    Icon="Refresh"
+                    Label="Refresh"
+                    LabelPosition="Default" />
+            </StackPanel>
+        </AppBar>
     </Page.BottomAppBar>
 </Page>

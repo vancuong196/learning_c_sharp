@@ -1,4 +1,5 @@
-﻿using System;
+﻿using info.lundin.math;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace CalculateMathExpression
 {
@@ -32,11 +32,11 @@ namespace CalculateMathExpression
             Button button = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
-                MathExpressionTextBoxY.Text = MathExpressionTextBoxY.Text + button.Content;
+                YMathFormularTextBox.Text = YMathFormularTextBox.Text + button.Content;
             }
             else
             {
-                MathExpressionTextBoxX.Text = MathExpressionTextBoxX.Text + button.Content;
+                XMathFormularTextBox.Text = XMathFormularTextBox.Text + button.Content;
 
             }
         }
@@ -44,11 +44,11 @@ namespace CalculateMathExpression
         {
             if (RadioButtonY.IsChecked == true)
             {
-                MathExpressionTextBoxY.Text = MathExpressionTextBoxY.Text + "^2";
+                YMathFormularTextBox.Text = YMathFormularTextBox.Text + "^2";
             }
             else
             {
-                MathExpressionTextBoxX.Text = MathExpressionTextBoxX.Text + "^2";
+                XMathFormularTextBox.Text = XMathFormularTextBox.Text + "^2";
 
             }
         }
@@ -56,11 +56,11 @@ namespace CalculateMathExpression
         {
             if (RadioButtonY.IsChecked == true)
             {
-                MathExpressionTextBoxY.Text = MathExpressionTextBoxY.Text + " √(";
+                YMathFormularTextBox.Text = YMathFormularTextBox.Text + " √(";
             }
             else
             {
-                MathExpressionTextBoxX.Text = MathExpressionTextBoxX.Text + " √(";
+                XMathFormularTextBox.Text = XMathFormularTextBox.Text + " √(";
 
             }
         }
@@ -68,11 +68,11 @@ namespace CalculateMathExpression
         {
             if (RadioButtonY.IsChecked == true)
             {
-                MathExpressionTextBoxY.Text = "";
+                YMathFormularTextBox.Text = "";
             }
             else
             {
-                MathExpressionTextBoxX.Text = "";
+                XMathFormularTextBox.Text = "";
 
             }
         }
@@ -82,11 +82,11 @@ namespace CalculateMathExpression
             TextBox currentFocusTextBox;
             if (RaidoButtonX.IsChecked == true)
             {
-                currentFocusTextBox = MathExpressionTextBoxX;
+                currentFocusTextBox = XMathFormularTextBox;
             }
             else
             {
-                currentFocusTextBox = MathExpressionTextBoxY;
+                currentFocusTextBox = YMathFormularTextBox;
             }
             if (currentFocusTextBox.Text == "")
             {
@@ -117,17 +117,72 @@ namespace CalculateMathExpression
         }
         private void OnSpecialButtonClicked(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog();
-            Button button = (Button)sender;
+            
+            Button clickedButton = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
-                MathExpressionTextBoxY.Text = MathExpressionTextBoxY.Text + button.Tag;
+                YMathFormularTextBox.Text = YMathFormularTextBox.Text + clickedButton.Tag;
             }
             else
             {
-                MathExpressionTextBoxX.Text = MathExpressionTextBoxX.Text + button.Tag;
-
+                XMathFormularTextBox.Text = XMathFormularTextBox.Text + clickedButton.Tag;
             }
         }
+        private void OnCalculateButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            TextBox[] allTextBox = { xc1, xc2, xc3, xc4, yc1, yc2, yc3, yc4, xbc1, xbc2, xbc3, xbc4, ybc1, ybc2, ybc3, ybc4 };
+
+            string xSpreadFormular = XMathFormularTextBox.Text;
+
+            string ySpreadFormular = YMathFormularTextBox.Text;
+
+            var neededTextBox = allTextBox.Where(s => xSpreadFormular.Contains((string)s.Tag) || ySpreadFormular.Contains((string)s.Tag));
+
+            foreach ( TextBox textBox in neededTextBox)
+            {
+                if (textBox.Text =="")
+                {
+                    textBox.StartBringIntoView();
+                    ShowDialog("Error, You must input a vaule for textbox: " + textBox.Tag + "!");
+                    return;
+                } else
+                {
+                    double valueOfTextbox;
+                    if (!Double.TryParse(textBox.Text, out valueOfTextbox))
+                    {
+                        ShowDialog("Error, Textbox: " + textBox.Tag + " does not contain a number!");
+                        return;
+                    }
+                    ySpreadFormular = ySpreadFormular.Replace((string)textBox.Tag, valueOfTextbox.ToString());
+                    xSpreadFormular = xSpreadFormular.Replace((string)textBox.Tag, valueOfTextbox.ToString());
+                }
+               
+            }
+
+            ySpreadFormular = ySpreadFormular.Replace("√", "sqrt");
+            xSpreadFormular = xSpreadFormular.Replace("√", "sqrt");
+            ExpressionParser parser = new ExpressionParser();
+            try
+            {
+                double resultOfX = parser.Parse(xSpreadFormular);
+                double resultOfY = parser.Parse(ySpreadFormular);
+                ShowDialog("XSPREAD result: " + resultOfX + "/n" + "YSPREAD result: " + resultOfY);
+            } catch (Exception exception)
+            {
+                ShowDialog("Formular ERROR: "+exception.Message);
+            }
+
+        }
+
+        private void ShowDialog(string info)
+        {
+            ContentDialog alertDialog = new ContentDialog();
+            alertDialog.Content = info;
+            alertDialog.PrimaryButtonText = "OK";
+            alertDialog.SecondaryButtonText = "Cancel";
+            alertDialog.ShowAsync();
+        }
+
     }
 }

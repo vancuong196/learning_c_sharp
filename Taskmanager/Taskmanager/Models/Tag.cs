@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Taskmanager.Models
 {
-    class Tag
+    public class Tag
     {
+        public string Name
+        {
+            get;
+            set;
+        }
+        public Tag(string tagName)
+        {
+            Name = tagName;
+        }
     }
 }

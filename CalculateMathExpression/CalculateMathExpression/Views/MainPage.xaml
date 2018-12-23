@@ -2,32 +2,32 @@
     x:Class="CalculateMathExpression.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CalculateMathExpression"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:CalculateMathExpression"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
 
     <Pivot>
         <PivotItem Header="Spread Formular">
-            <Grid>
+            <Grid Margin="12,32,0,0">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height = "173*" />
-                    <RowDefinition Height = "196*" />
-                    <RowDefinition Height="237*"/>
-                    <RowDefinition Height = "346*" />
+                    <RowDefinition Height="173*" />
+                    <RowDefinition Height="196*" />
+                    <RowDefinition Height="237*" />
+                    <RowDefinition Height="346*" />
                 </Grid.RowDefinitions>
 
-
-
                 <Grid
-            Grid.Row="0"
-            Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -35,63 +35,63 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height = "*" />
-                        <RowDefinition Height = "*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <RadioButton
-                Name="RaidoButtonX"
-                Height="Auto"
-                Width="Auto"
-                IsChecked="True"
-                
-                Grid.Column="0"
-                Grid.Row="0"
-                Content="SpreadX"
-                GroupName="choice"
-                />
-                    <RadioButton
-                Name="RadioButtonY"
-               
-                Grid.Column="0"
-                Grid.Row="1"
-                Content="SpreadY"
-                GroupName="choice"
-                />
-                    <TextBox
-                        Name="MathExpressionTextBoxX"        
-                        IsReadOnly="True"
-                        Grid.Column="1"          
+                        Name="RaidoButtonX"
                         Grid.Row="0"
-                        Margin="24"/>
+                        Grid.Column="0"
+                        Width="Auto"
+                        Height="Auto"
+                        HorizontalAlignment="Center"
+                        Content="SpreadX"
+                        GroupName="choice"
+                        IsChecked="True" />
+                    <RadioButton
+                        Name="RadioButtonY"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        Content="SpreadY"
+                        GroupName="choice" />
                     <TextBox
-                        Name="MathExpressionTextBoxY"
-                        Grid.Column="1"         
-                        IsReadOnly="True"
-                        Grid.Row="1" 
-                        Margin="24"/>
-
-
+                        Name="XMathFormularTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="4,4"
+                        IsReadOnly="True" />
+                    <TextBox
+                        Name="YMathFormularTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="4,4"
+                        IsReadOnly="True" />
                 </Grid>
                 <Grid
-            Grid.Row="1"
-            Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="2" VerticalAlignment="Stretch"
-            >
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Margin="12,32,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height = "*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid
-                Grid.Row="0"
-                Grid.Column="0"
-                >
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        ColumnSpacing="5"
+                        RowSpacing="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -100,379 +100,324 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height = "*" />
-                            <RowDefinition Height = "*" />
-                            <RowDefinition Height = "*" />
-                            <RowDefinition Height = "*" />
-                            <RowDefinition Height = "*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="7"
-                    Grid.Row="0"
-                    Click="OnGenericButtonClicked"
-                    Grid.Column="0"/>
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="7" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    Click="OnGenericButtonClicked"
-
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="4"
-                    Grid.Row="1"
-                    Grid.Column="0"/>
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="4" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="1"
-                    Grid.Row="2"
-                    Grid.Column="0"/>
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="1" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="+"
-                    Grid.Row="3"
-                    Grid.Column="0"/>
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="+" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    Click="OnSqrtButtonClicked"
-                    Content=" √"
-                    Grid.Row="4" Margin="0,0,0,13"/>
+                            Grid.Row="4"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSqrtButtonClicked"
+                            Content=" √" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="8"
-                    Click="OnGenericButtonClicked"
-                    Grid.Row="0"
-                    Grid.Column="1"/>
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="8" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    Click="OnGenericButtonClicked"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="9"
-                    Grid.Row="0"
-                    Grid.Column="2"/>
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="9" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    Click="OnBackspaceButtonClicked"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="Back"
-                    Grid.Row="0"
-                    Grid.Column="3"/>
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnBackspaceButtonClicked"
+                            Content="Back" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    Click="OnGenericButtonClicked"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="6"
-                    Grid.Row="1"
-                    Grid.Column="2"/>
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="6" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    Click="OnSquareRootButtonClicked"
-                    VerticalAlignment="Center"
-                    Content="x²"
-                    Grid.Row="4"
-                    Grid.Column="1"/>
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSquareRootButtonClicked"
+                            Content="x²" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="-"
-                    Grid.Row="3"
-                    Grid.Column="1"/>
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="-" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="2"
-                    Grid.Row="2"
-                    Grid.Column="1"/>
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="2" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="("
-                    Grid.Row="4"
-                    Grid.Column="2"/>
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="(" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="*"
-                    Grid.Row="3"
-                    Grid.Column="2"/>
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="*" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="3"
-                    Grid.Row="2"
-                    Grid.Column="2"/>
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="3" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="5"
-                    Grid.Row="1"
-                    Grid.Column="1"/>
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="5" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnClearButtonClicked"
-                    Content="Clear"
-                    Grid.Row="1"
-                    Grid.Column="3"/>
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnClearButtonClicked"
+                            Content="Clear" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="OnGenericButtonClicked"
-                    Content="1"
-                    Grid.Row="2"
-                    Grid.Column="3"/>
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="1" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="/"
-                    Grid.Row="3"
-                    Click="OnGenericButtonClicked"
-                    Grid.Column="3"/>
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content="/" />
                         <Button
-                    Height="60"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content=")"
-                    Click="OnGenericButtonClicked"
-                    Grid.Row="4"
-                    Grid.Column="3"/>
+                            Grid.Row="4"
+                            Grid.Column="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnGenericButtonClicked"
+                            Content=")" />
                     </Grid>
                     <Grid
-                    Grid.Column="1"
-                    Grid.Row="0"
-                        >
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,0"
+                        ColumnSpacing="5"
+                        RowSpacing="5">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
 
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button 
-                                Content="ΔX Camera 1"
-                                Tag="[ΔXC1]"
-                                Click="OnSpecialButtonClicked"
-                                Height="60"
-                                Width="Auto"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                />
-                        <Button Content="ΔY Camera 1"
-                                    Grid.Column="1"
-                                Click="OnSpecialButtonClicked"
-                                    Grid.Row="0"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYC1]"
-                                    />
-                        <Button Content="ΔX Camera 2"
-                                    Grid.Column="0"
-                                    Grid.Row="1"
-                                Click="OnSpecialButtonClicked"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔXC2]"
-                                    />
-                        <Button Content="ΔY Camera 2"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                Click="OnSpecialButtonClicked"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYC2]"
-                                    />
-                        <Button Content="ΔX Camera 3"
-                                    Grid.Column="0"
-                                    Grid.Row="2"
-                                    HorizontalAlignment="Center"
-                                Click="OnSpecialButtonClicked"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔXC3]"
-                                    />
-                        <Button Content="ΔY Camera 3"
-                                    Grid.Column="1"
-                                    Grid.Row="2"
-                                    HorizontalAlignment="Center"
-                                Click="OnSpecialButtonClicked"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYC3]"
-                                    />
-                        <Button Content="ΔX Camera 4"
-                                    Grid.Column="0"
-                                    Grid.Row="3"
-                                Click="OnSpecialButtonClicked"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔXC4]"
-                                    />
-                        <Button Content="ΔY Camera 4"
-                                    Grid.Column="1"
-                                    Grid.Row="3"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                Click="OnSpecialButtonClicked"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYC4]"
-                                    />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Camera 1"
+                            Tag="[ΔXC1]" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Camera 1"
+                            Tag="[ΔYC1]" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Camera 2"
+                            Tag="[ΔXC2]" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Camera 2"
+                            Tag="[ΔYC2]" />
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Camera 3"
+                            Tag="[ΔXC3]" />
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Camera 3"
+                            Tag="[ΔYC3]" />
+                        <Button
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Camera 4"
+                            Tag="[ΔXC4]" />
+                        <Button
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Camera 4"
+                            Tag="[ΔYC4]" />
 
                     </Grid>
                     <Grid
-                    Grid.Column="2"
-                    Grid.Row="0"
-                        >
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="5,0"
+                        ColumnSpacing="5"
+                        RowSpacing="5">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
 
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button 
-                                Content="ΔX Bot. Camera 1"
-                                Tag="[ΔXBC1]"
-                                Click="OnSpecialButtonClicked"
-                                Height="60"
-                                Width="Auto"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                />
-                        <Button Content="ΔY Bot. Camera 1"
-                                    Grid.Column="1"
-                                    Grid.Row="0"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                Click="OnSpecialButtonClicked"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYBC2]"
-                                    />
-                        <Button Content="ΔX Bot. Camera 2"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Bottom"
-                                Click="OnSpecialButtonClicked"
-                                    Tag="[ΔXBC2]" Margin="0,0,0,11"
-                                    />
-                        <Button Content="ΔY Bot. Camera 2"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                Click="OnSpecialButtonClicked"
-                                    Tag="[ΔYBC2]"
-                                    />
-                        <Button Content="ΔX Bot. Camera 3"
-                                    Grid.Column="0"
-                                    Grid.Row="2"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                Click="OnSpecialButtonClicked"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔXBC3]"
-                                    />
-                        <Button Content="ΔY Bot. Camera 3"
-                                    Grid.Column="1"
-                                    Grid.Row="2"
-                                Click="OnSpecialButtonClicked"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYBC3]"
-                                    />
-                        <Button Content="ΔX Bot. Camera 4"
-                                    Grid.Column="0"
-                                    Grid.Row="3"
-                                Click="OnSpecialButtonClicked"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    Width="Auto"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔXBC4]"
-                                    />
-                        <Button Content="ΔY Bot. Camera 4"
-                                    Grid.Column="1"
-                                    Grid.Row="3"
-                                Click="OnSpecialButtonClicked"
-                                    HorizontalAlignment="Center"
-                                    Height="60"
-                                    VerticalAlignment="Center"
-                                    Tag="[ΔYBC4]"
-                                    />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Bot. Camera 1"
+                            Tag="[ΔXBC1]" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Bot. Camera 1"
+                            Tag="[ΔYBC2]" />
+                        <Button
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Bot. Camera 2"
+                            Tag="[ΔXBC2]" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Bot. Camera 2"
+                            Tag="[ΔYBC2]" />
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Bot. Camera 3"
+                            Tag="[ΔXBC3]" />
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Bot. Camera 3"
+                            Tag="[ΔYBC3]" />
+                        <Button
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔX Bot. Camera 4"
+                            Tag="[ΔXBC4]" />
+                        <Button
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="OnSpecialButtonClicked"
+                            Content="ΔY Bot. Camera 4"
+                            Tag="[ΔYBC4]" />
 
                     </Grid>
 
@@ -480,23 +425,19 @@
             </Grid>
         </PivotItem>
         <PivotItem Header="Calculate">
-            <Grid>
+            <Grid Margin="12,32,0,0">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height = "2*" />
-                    <RowDefinition Height = "5*" />
-                    <RowDefinition Height = "4*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
 
-
-
-                <Grid
-            Grid.Row="0"
-            Grid.Column="0">
+                <Grid Grid.Row="0" Grid.Column="0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -504,51 +445,199 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height = "*" />
-                        <RowDefinition Height = "*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <TextBlock
-                        Height="Auto"
-                        Width="Auto"   
-                        VerticalAlignment="Center"
-                        Grid.Column="0"
-                        Grid.Row="0">
-                        
-                        SpreadX</TextBlock>
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Grid.Column="0"
-                        Grid.Row="1">
-                        SpreadY</TextBlock>
-                    <TextBox      
-                        IsReadOnly="True"
-                        Grid.Column="1"          
                         Grid.Row="0"
-                        Text="{Binding ElementName = MathExpressionTextBoxX, Path=Text, Mode = OneWay, UpdateSourceTrigger = PropertyChanged}"
-                        Margin="24"/>
+                        Grid.Column="0"
+                        Width="Auto"
+                        Height="Auto"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        SpreadX
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        SpreadY
+                    </TextBlock>
                     <TextBox
-                        Grid.Column="1"         
+                        Name="XMathXpressionTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="4"
                         IsReadOnly="True"
-                        Grid.Row="1" 
-                        Text="{Binding ElementName = MathExpressionTextBoxY, Path=Text, Mode = OneWay, UpdateSourceTrigger = PropertyChanged}"
-                        Margin="24"/>
+                        Text="{Binding ElementName=XMathFormularTextBox, Path=Text, Mode=OneWay}" />
+                    <TextBox
+                        Name="YMathXpressionTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="4"
+                        IsReadOnly="True"
+                        Text="{Binding ElementName=YMathFormularTextBox, Path=Text, Mode=OneWay}" />
                 </Grid>
                 <Grid
                     Grid.Row="1"
-                    >
+                    Margin="12,32,0,0"
+                    ColumnSpacing="5"
+                    RowSpacing="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Name="xc1"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Header="ΔXC1:"
+                        InputScope="Number"
+                        Tag="[ΔXC1]"
+                        Text="0" />
+                    <TextBox
+                        Name="xc2"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Header="ΔXC1:"
+                        InputScope="Number"
+                        Tag="[ΔXC2]"
+                        Text="0" />
+                    <TextBox
+                        Name="xc3"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Header="ΔXC1:"
+                        InputScope="Number"
+                        Tag="[ΔXC3]"
+                        Text="0" />
+                    <TextBox
+                        Name="xc4"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Header="ΔXC1:"
+                        InputScope="Number"
+                        Tag="[ΔXC4]"
+                        Text="0" />
+                    <TextBox
+                        Name="yc1"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Header="ΔYC1:"
+                        InputScope="NumericPin"
+                        Tag="[ΔYC1]"
+                        Text="0" />
+                    <TextBox
+                        Name="yc2"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Header="ΔYC1:"
+                        InputScope="Number"
+                        Tag="[ΔYC2]"
+                        Text="0" />
+                    <TextBox
+                        Name="yc3"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Header="ΔYC1:"
+                        InputScope="Number"
+                        Tag="[ΔYC3]"
+                        Text="0" />
+                    <TextBox
+                        Name="yc4"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Header="ΔYC1:"
+                        InputScope="Number"
+                        Tag="[ΔYC4]"
+                        Text="0" />
+                    <TextBox
+                        Name="xbc1"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Header="ΔXBC1:"
+                        InputScope="Number"
+                        Tag="[ΔXBC1]"
+                        Text="0" />
+                    <TextBox
+                        Name="xbc2"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Header="ΔXBC2:"
+                        InputScope="Number"
+                        Tag="[ΔXBC2]"
+                        Text="0" />
+                    <TextBox
+                        Name="xbc3"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Header="ΔXBC3:"
+                        InputScope="Number"
+                        Tag="[ΔXBC3]"
+                        Text="0" />
+                    <TextBox
+                        Name="xbc4"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Header="ΔXBC4:"
+                        InputScope="Number"
+                        Tag="[ΔXBC4]"
+                        Text="0" />
+                    <TextBox
+                        Name="ybc1"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Header="ΔYBC1:"
+                        InputScope="Number"
+                        Tag="[ΔYBC1]"
+                        Text="0" />
+                    <TextBox
+                        Name="ybc2"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Header="ΔYBC2:"
+                        InputScope="Number"
+                        Tag="[ΔYBC2]"
+                        Text="0" />
+                    <TextBox
+                        Name="ybc3"
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        Header="ΔYBC3:"
+                        InputScope="Number"
+                        Tag="[ΔYBC3]"
+                        Text="0" />
+                    <TextBox
+                        Name="ybc4"
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Header="ΔYBC4:"
+                        InputScope="Number"
+                        Tag="[ΔYBC4]"
+                        Text="0" />
                 </Grid>
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="0,0,0,30"
+                    VerticalAlignment="Bottom">
+                    <Button
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnCalculateButtonClick"
+                        Content="Calculate" />
+                </StackPanel>
             </Grid>
         </PivotItem>
-
     </Pivot>
-
 </Page>
