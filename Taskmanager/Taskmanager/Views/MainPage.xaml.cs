@@ -1,4 +1,6 @@
 ﻿
+using Taskmanager.Models;
+using Taskmanager.ViewModels;
 using Taskmanager.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +30,32 @@ namespace Taskmanager
             rootFrame.Navigate(typeof(AddTaskFromPage));
             Window.Current.Activate();
             
+        }
+
+        private void OnImportantTaskButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView listView =sender as ListView;
+            TaskItem task = listView.SelectedItem as TaskItem;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = task.Description;
+            dialog.ShowAsync();
+        }
+
+        private void AllTaskButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+
+        }
+
+        private void OnNormalTaskButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.NormalTasks;
+
         }
     }
 }

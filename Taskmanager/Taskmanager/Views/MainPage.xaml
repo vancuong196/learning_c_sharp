@@ -57,6 +57,7 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Bottom"
+                            Click="AllTaskButtonClicked"
                             Content="All Tasks"
                             FontSize="24" />
                         <Button
@@ -66,6 +67,7 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Bottom"
+                            Click="OnImportantTaskButtonClicked"
                             Content="Importance Tasks"
                             FontSize="24" />
                         <Button
@@ -84,6 +86,7 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Bottom"
+                            Click="OnNormalTaskButtonClicked"
                             Content="Normal Taks"
                             FontSize="24" />
                         <Button
@@ -125,10 +128,12 @@
                         </Grid.ColumnDefinitions>
 
                         <ListView
+                            Name="ListViewTasks"
                             Margin="40,0"
                             FontSize="24"
                             Header="Overdue Task"
-                            ItemsSource="{Binding Path=AllTasks}">
+                            ItemsSource="{Binding Path=AllTasks}"
+                            SelectionChanged="ListView_SelectionChanged">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
