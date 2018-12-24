@@ -1,0 +1,171 @@
+﻿<Page
+    x:Class="Taskmanager.Views.DetailTaskPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Taskmanager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedItem}"
+    mc:Ignorable="d">
+
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,20">
+
+            <TextBlock
+                Margin="0,12"
+                VerticalAlignment="Center"
+                FontSize="44"
+                Style="{StaticResource BaseTextBlockStyle}">
+                Task Details
+            </TextBlock>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,24,0,0"
+                VerticalAlignment="Center"
+                FontSize="40"
+                Style="{StaticResource BaseTextBlockStyle}"
+                Text="{Binding Title}" />
+
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Date
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,12"
+                        VerticalAlignment="Center"
+                        FontSize="36"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{Binding Date}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+
+                    <TextBlock
+                        Margin="0,0,12,0"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Time
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,12"
+                        VerticalAlignment="Center"
+                        FontSize="36"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{Binding Time}" />
+                </StackPanel>
+
+
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                        Margin="0,12"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Priority
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,0,0,12"
+                        VerticalAlignment="Center"
+                        FontSize="36"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{Binding Priority}" />
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                        Margin="0,12"
+                        VerticalAlignment="Center"
+                        FontSize="40"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Tag
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,0,0,12"
+                        VerticalAlignment="Center"
+                        FontSize="36"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Text="{Binding Tag}" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock
+                Margin="0,0,0,12"
+                VerticalAlignment="Center"
+                FontSize="40"
+                Style="{StaticResource BaseTextBlockStyle}">
+                Description
+            </TextBlock>
+            <TextBox
+                Height="400"
+                AcceptsReturn="True"
+                FontSize="24"
+                IsReadOnly="True"
+                Text="{Binding Description}" />
+        </StackPanel>
+
+    </Grid>
+    <Page.BottomAppBar>
+        <AppBar ClosedDisplayMode="Minimal" IsOpen="True">
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton
+                    Click="OnBackButtonClicked"
+                    Icon="Back"
+                    Label="Back" />
+                <AppBarButton Icon="Delete" Label="Delete" />
+                <AppBarButton Icon="Previous" Label="Previous" />
+                <AppBarButton
+                    Command="{Binding Source={StaticResource Locator}, Path=Main.NextItemCommand}"
+                    Icon="Next"
+                    Label="Next" />
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
+</Page>

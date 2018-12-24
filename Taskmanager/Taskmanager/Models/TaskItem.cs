@@ -16,14 +16,25 @@ namespace Taskmanager.Models
         public string Date { set; get; }
         public string Tag { set; get; }
         public bool IsImportant { set; get; }
+        public int ID { set; get; }
+        public bool IsFinished { set; get; }
         public TaskItem()
         {
 
         }
-        public TaskItem(string title, string time, string date, string description, bool isImportant,string tag)
+        public string Priority
         {
+            get
+            {
+                return IsImportant == true ? "Important" : "Normal";
+            }
+        }
+        public TaskItem(int id, string title, string time, string date, string description, bool isImportant,string tag, bool isFinished = false)
+        {
+            ID = id;
             Title = title;
             Time = time;
+            IsFinished = isFinished;
             Description = description;
             Date = date;
             Time = time;

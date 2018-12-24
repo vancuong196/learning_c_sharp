@@ -1,6 +1,7 @@
 ﻿
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using Taskmanager.DatabaseAccess;
 
 namespace Taskmanager.ViewModels
 {
@@ -21,6 +22,7 @@ namespace Taskmanager.ViewModels
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            SimpleIoc.Default.Register<IDatabaseAccessService, DatabaseAccessService>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
     }

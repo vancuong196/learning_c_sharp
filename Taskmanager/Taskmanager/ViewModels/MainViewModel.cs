@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Taskmanager.DatabaseAccess;
 using Taskmanager.Models;
 
 
@@ -12,22 +15,66 @@ namespace Taskmanager.ViewModels
 
     public class MainViewModel : ViewModelBase
     {
+        private readonly IDatabaseAccessService _databaseAccessService;
         private ObservableCollection<TaskItem> _allTask;
         private ObservableCollection<TaskItem> _importantTasks;
-        private ObservableCollection<TaskItem> _unFinishedTasks;
+        private ObservableCollection<TaskItem> _finishedTasks;
         private ObservableCollection<TaskItem> _overdueTasks;
         private ObservableCollection<TaskItem> _todayTasks;
         private ObservableCollection<TaskItem> _normalTasks;
         private ObservableCollection<TaskItem> _noDateTasks;
-        private ObservableCollection<Tag> _allTags;
+        private ObservableCollection<TagItem> _allTags;
+        private TaskItem _selectedItem;
+        private RelayCommand<int> _selecteTaskItemRelayCommand;
+        private RelayCommand<TaskItem> _saveTaskItemRelayCommand;
+        private RelayCommand _nextTaskItemRelayCommand;
+        private RelayCommand _previousTaskItemRelayCommand;
+        private RelayCommand _deleteTaskItemRelayCommand;
+        private RelayCommand _reloadCommand;
+
+
+        public MainViewModel(IDatabaseAccessService databaseAccessService)
+        {
+            _databaseAccessService = databaseAccessService;
+
+            LoadCommand.Execute(null);
+        }
+
+        private void SelectItemFromTaskList(int id)
+        {
+            TaskItem item = _allTask.FirstOrDefault(s => s.ID == id);
+            Debug.WriteLine("selected: " + item.Title);
+            SelectedItem = item;
+        }
+
+        public TaskItem SelectedItem
+        {
+            set
+            {
+                Set(ref _selectedItem, value);
+            }
+            get
+            {
+                return _selectedItem;
+            }
+        }
+        
 
         public ObservableCollection<TaskItem> AllTasks
+
         {
             get { return _allTask; }
             set { Set(ref _allTask, value); }
         }
 
-        public ObservableCollection<Tag> AllTag
+        public ObservableCollection<TaskItem> OverdueTasks
+
+        {
+            get { return _overdueTasks; }
+            set { Set(ref _overdueTasks, value); }
+        }
+
+        public ObservableCollection<TagItem> AllTags
         {
             get { return _allTags; }
             set { Set(ref _allTags, value); }
@@ -44,15 +91,15 @@ namespace Taskmanager.ViewModels
                 return _importantTasks;
             }
         }
-        public ObservableCollection<TaskItem> UnFinishedTasks
+        public ObservableCollection<TaskItem> FinishedTasks
         {
             set
             {
-                Set(ref _unFinishedTasks, value);
+                Set(ref _finishedTasks, value);
             }
             get
             {
-                return _unFinishedTasks;
+                return _finishedTasks;
             }
         }
         public ObservableCollection<TaskItem> NormalTasks
@@ -89,90 +136,123 @@ namespace Taskmanager.ViewModels
             }
         }
 
-        private TaskItem _selectedTaskItem;
-
-        public TaskItem SelectedFeedItem
+        public RelayCommand<int> SelectListItemRelayCommand
         {
             get
             {
-                return _selectedTaskItem;
-            }
-            set
-            {
-                Set(ref _selectedTaskItem, value);
-            }
-        }
-
-
-        public MainViewModel()
-        {
-            var taskList = new ObservableCollection<TaskItem>();
-            taskList.Add(new TaskItem("Test1", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", true, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", true, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            taskList.Add(new TaskItem("Test2", "12:30", "10/10/2018", "Descrition1", false, "Todo"));
-            var tagList = new ObservableCollection<Tag>();
-            tagList.Add(new Tag("Todo"));
-            tagList.Add(new Tag("Must do"));
-            tagList.Add(new Tag("Remind"));
-            _allTags = tagList;
-
-            _allTask = taskList;
-            _importantTasks = new ObservableCollection<TaskItem>(taskList.Where(s => s.IsImportant));
-            //Load();
-        }
-
-        string connectionString =
-            "Data Source=ACE;" +
-            "Initial Catalog=TaskDatabase;" +
-            "User id=sa;" +
-            "Password=123456;";
-        public ObservableCollection<TaskItem> Load()
-        {
-            string query = "select * from TaskTable;";
-            var tasks = new ObservableCollection<TaskItem>();
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+               if (_selecteTaskItemRelayCommand== null)
                 {
-                    conn.Open();
-                    if (conn.State == System.Data.ConnectionState.Open)
-                    {
-                        using (SqlCommand cmd = conn.CreateCommand())
-                        {
-                            cmd.CommandText = query;
-                            using (SqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    var task = new TaskItem();
-                                    task.Time = reader.GetString(3);
-                                    task.Date = reader.GetString(2);
-                                    task.Title = reader.GetString(0);
-                                    task.Description = reader.GetString(1);
-                                    task.IsImportant = reader.GetBoolean(4);
-                                    task.Tag = reader.GetString(5);
-                                    tasks.Add(task);
-                                }
-                            }
-                        }
-                    }
+                    return _selecteTaskItemRelayCommand = new RelayCommand<int>((itemID) => SelectItemFromTaskList(itemID));
                 }
-                return tasks;
+                else
+                {
+                    return _selecteTaskItemRelayCommand;
+                }
             }
-            catch (Exception eSql)
-            {
-                Debug.WriteLine("Exception: " + eSql.Message);
-            }
-            return null;
+            
         }
+
+
+        
+
+        public RelayCommand LoadCommand
+        {
+            get
+            {
+                if (_reloadCommand == null)
+                {
+                    _reloadCommand = new RelayCommand(async () =>
+                    {
+                        List<TaskItem> items = await _databaseAccessService.GetTasks();
+                        List<TagItem> tags = await _databaseAccessService.GetTags();
+                        AllTags = new ObservableCollection<TagItem>(tags);
+                        NoDateTasks =new ObservableCollection<TaskItem>( items.Where(s => s.Date.Trim() == ""||s.Date==null));
+                        ImportantTasks =new ObservableCollection<TaskItem>( items.Where(s => s.IsImportant));
+                        NormalTasks = new ObservableCollection<TaskItem>(items.Where(s => !s.IsImportant));
+                        TodayTasks =new ObservableCollection<TaskItem>( items.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
+                        //Todo fix here!
+                        OverdueTasks =new ObservableCollection<TaskItem>( items.Where(s => 
+                            //   DateTime d1;
+                            //   DateTime.TryParseExact(s.Date.Trim(), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture, out d1);
+                            !s.IsFinished
+                        ));
+                        AllTasks = new ObservableCollection<TaskItem>(items);
+                        FinishedTasks = new ObservableCollection<TaskItem>(items.Where(s=>s.IsFinished));
+                    });
+                }
+
+                return _reloadCommand;
+            }
+        }
+        public RelayCommand<TaskItem> SaveCommand
+        {
+            get
+            {
+                if (_saveTaskItemRelayCommand == null)
+                {
+                    return _saveTaskItemRelayCommand = new RelayCommand<TaskItem>(s =>
+                    {
+                        Debug.WriteLine(s.Date+" "+s.Description+" "+s.Title+" "+s.Time+" "+s.Tag );
+                    });
+                }
+
+                return _saveTaskItemRelayCommand;
+            }
+        }
+        public RelayCommand NextItemCommand
+        {
+            get
+            {
+                if (_nextTaskItemRelayCommand == null)
+                {
+                    _nextTaskItemRelayCommand = new RelayCommand(() =>
+                    {
+                        TaskItem item = _allTask[0];
+                        if (item == null)
+                        {
+                            SelectedItem = _allTask.Last();
+                        }
+                        else
+                        {
+                            SelectedItem = item;
+                        }
+                    });
+                    return _nextTaskItemRelayCommand;
+                }
+                else
+                {
+                    return _nextTaskItemRelayCommand;
+                }
+            }
+        }
+        public RelayCommand PreviousItemCommand
+        {
+            get
+            {
+                if (_nextTaskItemRelayCommand == null)
+                {
+                    _nextTaskItemRelayCommand = new RelayCommand(() =>
+                    {
+                        TaskItem item = _allTask[0];
+                        if (item == null)
+                        {
+                            SelectedItem = _allTask.Last();
+                        }
+                        else
+                        {
+                            SelectedItem = item;
+                        }
+                    });
+                    return _nextTaskItemRelayCommand;
+                }
+                else
+                {
+                    return _nextTaskItemRelayCommand;
+                }
+            }
+        }
+
+
     }
 }
 

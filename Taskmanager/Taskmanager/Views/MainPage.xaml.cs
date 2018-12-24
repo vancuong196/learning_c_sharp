@@ -21,6 +21,12 @@ namespace Taskmanager
 
         private void OnDasboardButtonClick(object sender, RoutedEventArgs e)
         {
+            lvTodayTask.Visibility = Visibility.Visible;
+            this.lvTasks.Header = "Overdue tasks";
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.OverdueTasks;
+
+
+
 
         }
 
@@ -34,28 +40,62 @@ namespace Taskmanager
 
         private void OnImportantTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+            lvTodayTask.Visibility = Visibility.Collapsed;
+            this.lvTasks.Header = "Important tasks";
+
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListView listView =sender as ListView;
-            TaskItem task = listView.SelectedItem as TaskItem;
-            ContentDialog dialog = new ContentDialog();
-            dialog.Content = task.Description;
-            dialog.ShowAsync();
+            new ViewModelLocator().Main.SelectListItemRelayCommand.Execute((listView.SelectedItem as TaskItem).ID);
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(DetailTaskPage));
         }
 
         private void AllTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+            this.lvTasks.Header = "All tasks";
+            lvTodayTask.Visibility = Visibility.Collapsed;
+
 
         }
 
         private void OnNormalTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.ListViewTasks.ItemsSource = new ViewModelLocator().Main.NormalTasks;
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.NormalTasks;
+            this.lvTasks.Header = "Normal tasks";
+            lvTodayTask.Visibility = Visibility.Collapsed;
 
+
+
+        }
+
+        private void OnTaskWithoutDateButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.NoDateTasks;
+            this.lvTasks.Header = "Tasks without day";
+            lvTodayTask.Visibility = Visibility.Collapsed;
+
+
+
+        }
+
+        private void OnFinishedTaskButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.FinishedTasks;
+            this.lvTasks.Header = "Finished task";
+            lvTodayTask.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void OnOverdueTaskButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.lvTasks.ItemsSource = new ViewModelLocator().Main.OverdueTasks;
+            this.lvTasks.Header = "Overdue task";
+            lvTodayTask.Visibility = Visibility.Collapsed;
         }
     }
 }
