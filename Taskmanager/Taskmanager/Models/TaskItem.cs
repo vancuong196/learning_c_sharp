@@ -18,6 +18,19 @@ namespace Taskmanager.Models
         public bool IsImportant { set; get; }
         public int ID { set; get; }
         public bool IsFinished { set; get; }
+        public bool IsTimeConstraint
+        {
+            get
+            {
+                if (Date.Trim() == "" || Time.Trim() == "")
+                {
+                    return false;
+                }
+                return true;
+
+            }
+
+        }
         public TaskItem()
         {
 

@@ -129,7 +129,7 @@
                     <Grid Height="650" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="500" />
-                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="500" />
                         </Grid.ColumnDefinitions>
 

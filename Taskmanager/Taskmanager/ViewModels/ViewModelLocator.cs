@@ -22,7 +22,7 @@ namespace Taskmanager.ViewModels
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<IDatabaseAccessService, DatabaseAccessService>();
+            SimpleIoc.Default.Register<IDatabaseAccessService, FakeDatabaseAccessService>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
     }

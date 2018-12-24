@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -169,13 +170,36 @@ namespace Taskmanager.ViewModels
                         NoDateTasks =new ObservableCollection<TaskItem>( items.Where(s => s.Date.Trim() == ""||s.Date==null));
                         ImportantTasks =new ObservableCollection<TaskItem>( items.Where(s => s.IsImportant));
                         NormalTasks = new ObservableCollection<TaskItem>(items.Where(s => !s.IsImportant));
-                        TodayTasks =new ObservableCollection<TaskItem>( items.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
+                        TodayTasks =new ObservableCollection<TaskItem>( items.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("dd/MM/yyyy"))));
                         //Todo fix here!
-                        OverdueTasks =new ObservableCollection<TaskItem>( items.Where(s => 
+                        OverdueTasks =new ObservableCollection<TaskItem>( items.Where(s => {
                             //   DateTime d1;
-                            //   DateTime.TryParseExact(s.Date.Trim(), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture, out d1);
-                            !s.IsFinished
+                            if (!s.IsTimeConstraint|| s.IsFinished)
+                            {
+                                return false;
+                            }
+
+                            DateTime taskDay = DateTime.ParseExact(s.Date.Trim(), "dd/MM/yyyy",
+                            CultureInfo.InvariantCulture);
+                            Debug.WriteLine(taskDay.ToString());
+                            DateTime currentDay = DateTime.ParseExact(DateTime.Today.ToString("dd/MM/yyyy"), "dd/MM/yyyy",
+                            CultureInfo.InvariantCulture);
+                            Debug.WriteLine(currentDay.ToString());
+                            if (currentDay>taskDay)
+                            {
+                                return true;
+                            }
+                            if (taskDay == currentDay)
+                            {
+                                if (s.Time.Trim().CompareTo(DateTime.Now.ToString("HH:mm:ss"))==-1)
+                                {
+                                    return true;
+                                }
+                            }
+                            return false;
+                            }
                         ));
+                       
                         AllTasks = new ObservableCollection<TaskItem>(items);
                         FinishedTasks = new ObservableCollection<TaskItem>(items.Where(s=>s.IsFinished));
                     });
