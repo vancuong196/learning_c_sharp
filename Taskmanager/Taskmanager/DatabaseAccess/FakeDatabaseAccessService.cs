@@ -37,7 +37,22 @@ namespace Taskmanager.DatabaseAccess
             return Task.FromResult(tagList);
         }
 
-        public void SaveTaskItem(TaskItem item)
+        public void AddTaskItem(TaskItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTaskItem(TaskItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTaskItem(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTagItem(string tagName)
         {
             throw new NotImplementedException();
         }

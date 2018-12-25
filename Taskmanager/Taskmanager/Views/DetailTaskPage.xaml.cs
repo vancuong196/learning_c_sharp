@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Taskmanager.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -29,6 +30,19 @@ namespace Taskmanager.Views
         public void OnBackButtonClicked(object sender, RoutedEventArgs e)
         {
             (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+        }
+
+        private void OnDeletedButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+            //  new ViewModelLocator().Main.DeleteCommand.Execute((sender as AppBarButton).Tag.ToString());
+             
+            (Window.Current.Content as Frame).Navigate(typeof(MainPage));
+        }
+
+        private void OnEditButtonClicked(object sender, RoutedEventArgs e)
+        {
+            (Window.Current.Content as Frame).Navigate(typeof(EditTaskFormPage));
         }
     }
    

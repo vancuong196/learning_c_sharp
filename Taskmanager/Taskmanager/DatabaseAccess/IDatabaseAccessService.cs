@@ -9,9 +9,13 @@ namespace Taskmanager.DatabaseAccess
 {
     public interface IDatabaseAccessService
     {
+
         Task<List<TaskItem>> GetTasks();
         Task<List<TagItem>> GetTags();
-        void SaveTaskItem(TaskItem item);
+        void AddTaskItem(TaskItem item);
+        void UpdateTaskItem(TaskItem item);
+        void DeleteTaskItem(int id);
+        void AddTagItem(string tagName);
     }
 
 }

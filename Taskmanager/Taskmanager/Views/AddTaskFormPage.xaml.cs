@@ -28,19 +28,28 @@ namespace Taskmanager.Views
         public void OnSaveButtonClicked(object sender, RoutedEventArgs e)
         {
             string taskTitle = tbTaskName.Text;
-           
+            if (taskTitle == "")
+            {
+                ShowDialog("Title of task cannot be empty!");
+                return;
+            }
             string taskDescription = tbDescription.Text;
-            bool isImportance;
+            bool isImportant;
             if (radioButtonYes.IsChecked == true)
             {
-                isImportance = true;
+                isImportant = true;
             } else
             {
-                isImportance = false;
+                isImportant = false;
             }
-            string time = timePicker.Time.ToString();
+            string time = "";
+            string date = "";
 
-            string date = datePicker.Date.Date.ToString();
+            if (tsIsTimeConstraint.IsOn)
+            {
+                time = timePicker.Time.ToString();
+                date = datePicker.Date.Date.ToString("MM/dd/yyyy");
+            }
 
             string tag;
             if (cbTag.SelectedItem == null)
@@ -48,13 +57,23 @@ namespace Taskmanager.Views
                 tag = "None";
             } else
             {
-                tag = (cbTag.SelectedValue as TagItem).Name;
+                tag = cbTag.SelectedItem.ToString() ;
             }
            
-            TaskItem taskItem = new TaskItem(-1,taskTitle,time,date,taskDescription,isImportance,tag);
+            TaskItem taskItem = new TaskItem(-1,taskTitle,time,date,taskDescription,isImportant,tag);
 
             new ViewModelLocator().Main.SaveCommand.Execute(taskItem);
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(MainPage));
 
         }
+        private void ShowDialog(string info)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = info;
+            dialog.PrimaryButtonText = "OK";
+            dialog.ShowAsync();
+        }
+
     }
 }

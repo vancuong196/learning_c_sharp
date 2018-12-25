@@ -6,7 +6,7 @@
     xmlns:local="using:Taskmanager.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedItem}"
     mc:Ignorable="d">
 
     <Grid Margin="40">
@@ -74,7 +74,7 @@
                     Grid.Row="1"
                     Margin="0,8,24,12"
                     FontSize="16"
-                    IsOn="True"
+                    IsOn="{Binding Path=IsTimeConstraint}"
                     OffContent="No"
                     OnContent="Yes" />
                 <TextBlock
@@ -102,7 +102,8 @@
                         Grid.Column="1"
                         Margin="0,12,24,12"
                         VerticalAlignment="Center"
-                        Date="{Binding Path=Date}" />
+                        Date="{Binding Path=DateType}"
+                        IsEnabled="{Binding ElementName=tsIsTimeConstraint, Path=IsOn}" />
                 </Grid>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
@@ -121,7 +122,9 @@
                         Name="timePicker"
                         Grid.Column="1"
                         Margin="0,12,24,12"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        IsEnabled="{Binding ElementName=tsIsTimeConstraint, Path=IsOn}"
+                        Time="{Binding Path=Time}" />
                 </Grid>
                 <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
@@ -144,7 +147,7 @@
                         Margin="0,12,24,12"
                         VerticalAlignment="Center"
                         GroupName="priority"
-                        IsChecked="True">
+                        IsChecked="{Binding Path=IsImportant}">
                         Yes
                     </RadioButton>
                     <RadioButton
@@ -152,7 +155,8 @@
                         Grid.Column="2"
                         Margin="0,12,24,12"
                         VerticalAlignment="Center"
-                        GroupName="priority">
+                        GroupName="priority"
+                        IsChecked="{Binding Path=IsNormal}">
                         No
                     </RadioButton>
                 </Grid>
@@ -175,9 +179,8 @@
                         Grid.Column="1"
                         Margin="0,12,24,12"
                         VerticalAlignment="Center"
-                        DisplayMemberPath="Name"
-                        ItemsSource="{Binding Path=AllTags}"
-                        PlaceholderText="None" />
+                        ItemsSource="{Binding Source={StaticResource Locator}, Path=Main.AllTags}"
+                        SelectedItem="{Binding Path=Tag}" />
                 </Grid>
 
 
@@ -193,10 +196,11 @@
                     Margin="0,12,24,12"
                     FontSize="20"
                     Text="Description" />
-                <RichEditBox
+                <TextBox
                     Name="tbDescription"
                     Grid.Row="1"
-                    PlaceholderText="{Binding Path=Description}" />
+                    AcceptsReturn="True"
+                    Text="{Binding Path=Description}" />
             </Grid>
         </Grid>
 
@@ -204,8 +208,14 @@
     <Page.BottomAppBar>
         <AppBar ClosedDisplayMode="Minimal" IsOpen="True">
             <StackPanel Orientation="Horizontal">
-                <AppBarButton Icon="Back" Label="Back" />
-                <AppBarButton Icon="Save" Label="Save" />
+                <AppBarButton
+                    Click="OnBackButtonClicked"
+                    Icon="Back"
+                    Label="Back" />
+                <AppBarButton
+                    Click="OnSaveButtonClicked"
+                    Icon="Save"
+                    Label="Save" />
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>

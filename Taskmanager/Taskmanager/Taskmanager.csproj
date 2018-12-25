@@ -126,6 +126,9 @@
     <Compile Include="Models\TaskItem.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\AddTagDialog.xaml.cs">
+      <DependentUpon>AddTagDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddTaskFormPage.xaml.cs" />
     <Compile Include="Views\DetailTaskPage.xaml.cs" />
     <Compile Include="Views\EditTaskFormPage.xaml.cs" />
@@ -133,7 +136,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\SearchByTaskDialog.xaml.cs" />
+    <Compile Include="Views\SearchByTagDialog.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\AddTagDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddTaskFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,7 +179,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SearchByTaskDialog.xaml">
+    <Page Include="Views\SearchByTagDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

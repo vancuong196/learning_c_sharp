@@ -10,7 +10,7 @@
     <ScrollViewer
         HorizontalScrollBarVisibility="Visible"
         HorizontalScrollMode="Enabled"
-        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        VerticalScrollMode="Disabled">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -32,20 +32,16 @@
                 DisplayMode="Inline"
                 IsPaneOpen="True">
                 <SplitView.Pane>
-
-                    <StackPanel
-                        Height="650"
-                        Orientation="Vertical"
-                        Visibility="Visible">
+                    <StackPanel Orientation="Vertical" Visibility="Visible">
                         <TextBlock
                             x:Name="PaneHeader"
-                            Margin="12,0"
+                            Margin="6,0"
                             FontSize="24"
                             Style="{StaticResource BaseTextBlockStyle}"
                             Text="Categories" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -55,7 +51,7 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -65,7 +61,7 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -75,7 +71,7 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -85,7 +81,7 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -95,7 +91,7 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -105,16 +101,17 @@
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Bottom"
-                            Content="Search by Task"
+                            Click="OnSearchByTagButtonClicked"
+                            Content="Search by Tag"
                             FontSize="24" />
                         <Button
                             Height="60"
-                            Margin="12,8"
+                            Margin="6,8"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
@@ -126,103 +123,129 @@
                     </StackPanel>
                 </SplitView.Pane>
                 <SplitView.Content>
-                    <Grid Height="650" VerticalAlignment="Top">
+                    <Grid
+                        Height="600"
+                        Margin="40,0"
+                        VerticalAlignment="Top"
+                        ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="500" />
                             <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="400" />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
                         <ListView
                             Name="lvTasks"
-                            Margin="40,0"
-                            FontSize="24"
-                            Header="Overdue Task"
-                            ItemsSource="{Binding Path=AllTasks}"
+                            FontSize="28"
+                            Header="Overdue Tasks"
+                            ItemsSource="{Binding Path=OverdueTasks}"
                             SelectionChanged="ListView_SelectionChanged">
+
                             <ListView.ItemTemplate>
+
                                 <DataTemplate>
-
                                     <StackPanel>
-                                        <TextBlock
-                                            FontSize="32"
-                                            MaxLines="2"
-                                            Style="{StaticResource HeaderTextBlockStyle}"
-                                            Text="{Binding Path=Title}" />
-                                        <TextBlock
-                                            MaxLines="3"
-                                            Style="{StaticResource SubtitleTextBlockStyle}"
-                                            Text="{Binding Path=Description}" />
-                                        <Grid ColumnSpacing="10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock
-                                                Grid.Column="0"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Date}" />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Time}" />
-                                            <TextBlock
-                                                Grid.Column="2"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Priority}" />
+                                        <Grid Height="5" />
+                                        <Border Background="AliceBlue">
+                                            <StackPanel Width="500" Padding="12">
+                                                <TextBlock
+                                                    FontSize="32"
+                                                    MaxLines="2"
+                                                    Style="{StaticResource HeaderTextBlockStyle}"
+                                                    Text="{Binding Path=Title}" />
+                                                <TextBlock
+                                                    MaxLines="2"
+                                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                                    Text="{Binding Path=Description}" />
+                                                <Grid ColumnSpacing="10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Date}" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Time}" />
+                                                    <TextBlock
+                                                        Grid.Column="2"
+                                                        MaxLines="1"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Tag}" />
 
-                                        </Grid>
+                                                </Grid>
 
+                                            </StackPanel>
+                                        </Border>
+                                        <Grid Height="5" />
                                     </StackPanel>
+
                                 </DataTemplate>
+
                             </ListView.ItemTemplate>
+
                         </ListView>
 
                         <ListView
                             Name="lvTodayTask"
                             Grid.Column="1"
-                            Margin="40,0"
-                            FontSize="24"
+                            Width="500"
+                            FontSize="28"
                             Header="Today Tasks"
-                            ItemsSource="{Binding Path=TodayTasks}">
-
+                            ItemsSource="{Binding Path=TodayTasks}"
+                            SelectionChanged="ListView_SelectionChanged">
                             <ListView.ItemTemplate>
+
                                 <DataTemplate>
-
                                     <StackPanel>
-                                        <TextBlock
-                                            FontSize="32"
-                                            MaxLines="2"
-                                            Style="{StaticResource HeaderTextBlockStyle}"
-                                            Text="{Binding Path=Title}" />
-                                        <TextBlock
-                                            MaxLines="3"
-                                            Style="{StaticResource SubtitleTextBlockStyle}"
-                                            Text="{Binding Path=Description}" />
-                                        <Grid ColumnSpacing="10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock
-                                                Grid.Column="0"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Date}" />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Time}" />
-                                            <TextBlock
-                                                Grid.Column="2"
-                                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                                Text="{Binding Path=Priority}" />
+                                        <Grid Height="5" />
+                                        <Border Background="AliceBlue">
+                                            <StackPanel Width="520" Padding="12">
+                                                <TextBlock
+                                                    FontSize="32"
+                                                    MaxLines="2"
+                                                    Style="{StaticResource HeaderTextBlockStyle}"
+                                                    Text="{Binding Path=Title}" />
+                                                <TextBlock
+                                                    MaxLines="2"
+                                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                                    Text="{Binding Path=Description}" />
+                                                <Grid ColumnSpacing="10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Date}" />
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Time}" />
+                                                    <TextBlock
+                                                        Grid.Column="2"
+                                                        MaxLines="1"
+                                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                        Text="{Binding Path=Tag}" />
 
-                                        </Grid>
+                                                </Grid>
 
+                                            </StackPanel>
+                                        </Border>
+                                        <Grid Height="5" />
                                     </StackPanel>
+
                                 </DataTemplate>
+
                             </ListView.ItemTemplate>
                         </ListView>
 
@@ -235,8 +258,7 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-
-                                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Path=Name}" />
+                                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -260,6 +282,13 @@
                     Icon="Refresh"
                     Label="Refresh"
                     LabelPosition="Default" />
+                <AppBarButton
+                    Click="OnAddTagButtonClicked"
+                    Icon="Add"
+                    Label="Add Tag"
+                    LabelPosition="Default" />
+
+
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>

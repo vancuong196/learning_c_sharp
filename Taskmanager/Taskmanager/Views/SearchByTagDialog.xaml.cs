@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Taskmanager.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -17,19 +18,22 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Taskmanager.Views
 {
-    public sealed partial class SearchByTaskDialog : ContentDialog
+    public sealed partial class SearchByTagDialog : ContentDialog
     {
-        public SearchByTaskDialog()
+        public SearchByTagDialog()
         {
             this.InitializeComponent();
         }
-
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public string SelectedTag
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            get
+            {
+                if (cbTagName.SelectedItem==null)
+                {
+                    return null;
+                }
+                return cbTagName.SelectedItem as string;
+            }
         }
     }
 }

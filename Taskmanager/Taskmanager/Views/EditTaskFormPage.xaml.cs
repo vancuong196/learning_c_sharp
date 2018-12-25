@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Taskmanager.Models;
+using Taskmanager.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +27,61 @@ namespace Taskmanager.Views
         public EditTaskFormPage()
         {
             this.InitializeComponent();
+        }
+
+        private void OnBackButtonClicked(object sender, RoutedEventArgs e)
+        {
+            (Window.Current.Content as Frame).Navigate(typeof(DetailTaskPage));
+        }
+        private void OnSaveButtonClicked(object sender, RoutedEventArgs e)
+        {
+            string taskTitle = tbTaskName.Text;
+            if (taskTitle == "")
+            {
+                ShowDialog("Title of task cannot be empty!");
+                return;
+            }
+            string taskDescription = tbDescription.Text;
+            bool isImportant;
+            if (radioButtonYes.IsChecked == true)
+            {
+                isImportant = true;
+            }
+            else
+            {
+                isImportant = false;
+            }
+            string time = "";
+            string date = "";
+
+            if (tsIsTimeConstraint.IsOn)
+            {
+                time = timePicker.Time.ToString();
+                date = datePicker.Date.Date.ToString("MM/dd/yyyy");
+            }
+
+            string tag;
+            if (cbTag.SelectedValuePath == null)
+            {
+                tag = "None";
+            }
+            else
+            {
+                tag = cbTag.SelectedValuePath;
+            }
+
+            TaskItem taskItem = new TaskItem(-1, taskTitle, time, date, taskDescription, isImportant, tag);
+
+            new ViewModelLocator().Main.UpdateCommand.Execute(taskItem);
+            (Window.Current.Content as Frame).Navigate(typeof(DetailTaskPage));
+
+        }
+        private void ShowDialog(string info)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = info;
+            dialog.PrimaryButtonText = "OK";
+            dialog.ShowAsync();
         }
     }
 }

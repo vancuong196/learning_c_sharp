@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using Taskmanager.Models;
 using Taskmanager.ViewModels;
 using Taskmanager.Views;
@@ -17,6 +18,8 @@ namespace Taskmanager
         public MainPage()
         {
             this.InitializeComponent();
+            Debug.WriteLine("--------------init view--------------");
+            new ViewModelLocator().Main.LoadCommand.Execute(null);
         }
 
         private void OnDasboardButtonClick(object sender, RoutedEventArgs e)
@@ -24,9 +27,6 @@ namespace Taskmanager
             lvTodayTask.Visibility = Visibility.Visible;
             this.lvTasks.Header = "Overdue tasks";
             this.lvTasks.ItemsSource = new ViewModelLocator().Main.OverdueTasks;
-
-
-
 
         }
 
@@ -49,10 +49,15 @@ namespace Taskmanager
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListView listView =sender as ListView;
+            if (listView.SelectedItem == null)
+            {
+                return;
+            }
             new ViewModelLocator().Main.SelectListItemRelayCommand.Execute((listView.SelectedItem as TaskItem).ID);
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(DetailTaskPage));
         }
+
 
         private void AllTaskButtonClicked(object sender, RoutedEventArgs e)
         {
@@ -96,6 +101,55 @@ namespace Taskmanager
             this.lvTasks.ItemsSource = new ViewModelLocator().Main.OverdueTasks;
             this.lvTasks.Header = "Overdue task";
             lvTodayTask.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnSearchByTagButtonClicked(object sender, RoutedEventArgs e)
+        {
+            
+            SearchByTagDialog dialog = new SearchByTagDialog();
+            dialog.PrimaryButtonClick += SearchByTagDialog_PrimaryButtonClick;
+            dialog.PrimaryButtonText = "Ok";
+            dialog.ShowAsync();
+        }
+        private void SearchByTagDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            string tag = (sender as SearchByTagDialog).SelectedTag;
+            if (tag==null|| tag == "")
+            {
+                lvTasks.Header = "Result for all TAG:";
+                lvTodayTask.Visibility = Visibility.Collapsed;
+                this.lvTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+                
+
+            } else
+            {
+                lvTasks.Header = "Result for "+tag+" TAG:";
+                lvTodayTask.Visibility = Visibility.Collapsed;
+                new ViewModelLocator().Main.SelectTaskWithTag.Execute(tag);
+                this.lvTasks.ItemsSource = new ViewModelLocator().Main.SearchResultTasks;
+            }
+        }
+
+        private void OnAddTagButtonClicked(object sender, RoutedEventArgs e)
+        {
+            AddTagDialog dialog = new AddTagDialog();
+            dialog.PrimaryButtonClick += AddTagTagDialog_PrimaryButtonClick;
+            dialog.PrimaryButtonText = "Ok";
+            dialog.ShowAsync();
+        }
+        private void AddTagTagDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            string tag = (sender as AddTagDialog).TagName;
+            if (tag == null || tag == "")
+            {
+                sender.ShowAsync(); 
+            }
+            else
+            {
+               
+                new ViewModelLocator().Main.AddTagToDatabaseCommand.Execute(tag);
+                
+            }
         }
     }
 }

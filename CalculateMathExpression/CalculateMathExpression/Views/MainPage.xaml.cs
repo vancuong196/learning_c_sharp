@@ -40,6 +40,10 @@ namespace CalculateMathExpression
 
             }
         }
+        private void Check(char number)
+        {
+
+        }
         public void OnSquareRootButtonClicked(object sender, RoutedEventArgs e)
         {
             if (RadioButtonY.IsChecked == true)
