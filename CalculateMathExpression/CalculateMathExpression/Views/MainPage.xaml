@@ -6,7 +6,9 @@
     xmlns:local="using:CalculateMathExpression"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    
+    >
 
     <Pivot>
         <PivotItem Header="Spread Formular">
@@ -21,6 +23,7 @@
                     <RowDefinition Height="196*" />
                     <RowDefinition Height="237*" />
                     <RowDefinition Height="346*" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <Grid
@@ -420,8 +423,19 @@
                             Tag="[ΔYBC4]" />
 
                     </Grid>
+                  
 
                 </Grid>
+                <StackPanel
+                    Grid.Row="5"
+                    Margin="0,0,0,30"
+                    VerticalAlignment="Bottom">
+                    <Button
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OnSaveButtonClicked"
+                        Content="Save" />
+                </StackPanel>
             </Grid>
         </PivotItem>
         <PivotItem Header="Calculate">

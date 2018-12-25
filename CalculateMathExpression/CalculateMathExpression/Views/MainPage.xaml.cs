@@ -26,32 +26,131 @@ namespace CalculateMathExpression
         {
             this.InitializeComponent();
         }
+
+
         private void OnGenericButtonClicked(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new ContentDialog();
             Button button = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
+                if ("*/".Contains(button.Content as string) && !DivAndMulOperatorCheck(YMathFormularTextBox.Text))
+                {
+                    return;
+                }
+                if (")".Contains(button.Content as string) && !CheckOpeningBracket(YMathFormularTextBox.Text))
+                {
+                    return;
+                }
+                if ("0123456789".Contains(button.Content as string) && !NumberCheck(YMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 YMathFormularTextBox.Text = YMathFormularTextBox.Text + button.Content;
             }
             else
             {
+                if ("*/".Contains(button.Content as string) && !DivAndMulOperatorCheck(XMathFormularTextBox.Text))
+                {
+                    return;
+                }
+                if (")".Contains(button.Content as string) && !CheckOpeningBracket(XMathFormularTextBox.Text))
+                {
+                    return;
+                }
+                if ("0123456789".Contains(button.Content as string) && !NumberCheck(XMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 XMathFormularTextBox.Text = XMathFormularTextBox.Text + button.Content;
 
             }
         }
-        private void Check(char number)
+        private bool CheckOpeningBracket(string text)
         {
+            if (text=="" || text == null)
+            {
+                return false;
+            }
+            int count = 0;
+            if ("+-*/^(".Contains(text[text.Length - 1]))
+            {
+                return false; 
+            }
+            foreach (char c in text)
+            {
+                if (c=='(')
+                {
+                    count++;
+                }
+                if (c == ')')
+                {
+                    count--;
+                }
+            }
+            if (count<=0)
+            {
+                return false;
+            }
+            return true;
 
+        }
+        private bool RootCheck(string text)
+        {
+            if (text == "" || text == null)
+            {
+                return false;
+            }
+            int count = 0;
+            if ("+-*/(^".Contains(text[text.Length - 1]))
+            {
+                return false;
+            }
+            return true;
+
+        }
+        private bool DivAndMulOperatorCheck(string text)
+        {
+            if (text == "" || text == null)
+            {
+                return false;
+            }
+            int count = 0;
+            if ("-+*/(^".Contains(text[text.Length - 1]))
+            {
+                return false;
+            }
+            return true;
+        }
+        private bool NumberCheck(string text)
+        {
+            if (text == "")
+            {
+                return true;
+            }
+            int count = 0;
+            if (")".Contains(text[text.Length - 1]))
+            {
+                return false;
+            }
+            return true;
         }
         public void OnSquareRootButtonClicked(object sender, RoutedEventArgs e)
         {
             if (RadioButtonY.IsChecked == true)
             {
+                if (!RootCheck(YMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 YMathFormularTextBox.Text = YMathFormularTextBox.Text + "^2";
             }
             else
             {
+                if (!RootCheck(XMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 XMathFormularTextBox.Text = XMathFormularTextBox.Text + "^2";
 
             }
@@ -125,10 +224,18 @@ namespace CalculateMathExpression
             Button clickedButton = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
+                if (!NumberCheck(YMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 YMathFormularTextBox.Text = YMathFormularTextBox.Text + clickedButton.Tag;
             }
             else
             {
+                if (!NumberCheck(XMathFormularTextBox.Text))
+                {
+                    return;
+                }
                 XMathFormularTextBox.Text = XMathFormularTextBox.Text + clickedButton.Tag;
             }
         }
@@ -171,7 +278,7 @@ namespace CalculateMathExpression
             {
                 double resultOfX = parser.Parse(xSpreadFormular);
                 double resultOfY = parser.Parse(ySpreadFormular);
-                ShowDialog("XSPREAD result: " + resultOfX + "/n" + "YSPREAD result: " + resultOfY);
+                ShowDialog("XSPREAD result: " + resultOfX + ";" + " YSPREAD result: " + resultOfY);
             } catch (Exception exception)
             {
                 ShowDialog("Formular ERROR: "+exception.Message);
@@ -186,6 +293,23 @@ namespace CalculateMathExpression
             alertDialog.PrimaryButtonText = "OK";
             alertDialog.SecondaryButtonText = "Cancel";
             alertDialog.ShowAsync();
+        }
+        public void OnSaveButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (YMathFormularTextBox.Text != "")
+            {
+                if ("^+-*/(√".Contains(YMathFormularTextBox.Text[YMathFormularTextBox.Text.Length - 1]))
+                {
+                    ShowDialog("Formular error!");
+                }
+            }
+            if (XMathFormularTextBox.Text != "")
+            {
+                if ("^+-*/(√".Contains(XMathFormularTextBox.Text[XMathFormularTextBox.Text.Length - 1]))
+                {
+                    ShowDialog("Formular error!");
+                }
+            }
         }
 
     }
