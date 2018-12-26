@@ -7,7 +7,7 @@ using Taskmanager.Models;
 
 namespace Taskmanager.DatabaseAccess
 {
-    public class FakeDatabaseAccessService : IDatabaseAccessService
+    public class DummyDatabaseAccessService : IDatabaseAccessService
     {
         public Task<List<TaskItem>> GetTasks()
         {
@@ -32,8 +32,6 @@ namespace Taskmanager.DatabaseAccess
         {
             var tagList = new List<TagItem>();
             tagList.Add(new TagItem("Todo"));
-            tagList.Add(new TagItem("Must do"));
-            tagList.Add(new TagItem("Remind"));
             return Task.FromResult(tagList);
         }
 

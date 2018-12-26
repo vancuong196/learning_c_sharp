@@ -14,7 +14,7 @@ using Taskmanager.Models;
 namespace Taskmanager.ViewModels
 {
 
-    public class MainViewModel : ViewModelBase
+    public class MainPageViewModel : ViewModelBase
     {
         private readonly IDatabaseAccessService _databaseAccessService;
         private ObservableCollection<TaskItem> _allTask;
@@ -39,7 +39,7 @@ namespace Taskmanager.ViewModels
         private RelayCommand _reloadCommand;
 
 
-        public MainViewModel(IDatabaseAccessService databaseAccessService)
+        public MainPageViewModel(IDatabaseAccessService databaseAccessService)
         {
             _databaseAccessService = databaseAccessService;
 

@@ -55,16 +55,16 @@ namespace Taskmanager.Models
 
         }
     
-        public string DateType
+        public DateTimeOffset DateType
         {
             get
             {
                 if (IsTimeConstraint)
                 {
                     return DateTime.ParseExact(Date, "MM/dd/yyyy",
-                            CultureInfo.InvariantCulture).ToString("dd/MM/yyyy");
+                            CultureInfo.InvariantCulture);
                 }
-                return DateTime.Today.ToString("dd/MM/yyyy");
+                return DateTime.Today;
             }
         }
 

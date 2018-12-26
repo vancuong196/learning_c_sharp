@@ -119,12 +119,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseAccess\DatabaseAccessService.cs" />
-    <Compile Include="DatabaseAccess\FakeDatabaseAccessService.cs" />
-    <Compile Include="DatabaseAccess\IDatabaseAccessService.cs" />
+    <Compile Include="DAL\DatabaseAccessService.cs" />
+    <Compile Include="DAL\DummyDatabaseAccessService.cs" />
+    <Compile Include="DAL\IDatabaseAccessService.cs" />
     <Compile Include="Models\TagItem.cs" />
     <Compile Include="Models\TaskItem.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ExceptionCatchableRelayCommand.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\AddTagDialog.xaml.cs">
       <DependentUpon>AddTagDialog.xaml</DependentUpon>
@@ -190,6 +191,9 @@
     </PackageReference>
     <PackageReference Include="MvvmLightLibs">
       <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.Windows">
+      <Version>6.3.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

@@ -6,24 +6,24 @@
     xmlns:local="using:CalculateMathExpression"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d"
-    
-    >
+    DataContext="{Binding Source={StaticResource Locator}}"
+    SizeChanged="Page_SizeChanged"
+    mc:Ignorable="d">
 
     <Pivot>
         <PivotItem Header="Spread Formular">
             <Grid Margin="12,32,0,0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" MinWidth="500" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="173*" />
-                    <RowDefinition Height="196*" />
-                    <RowDefinition Height="237*" />
-                    <RowDefinition Height="346*" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" MinHeight="60" />
+
                 </Grid.RowDefinitions>
 
                 <Grid
@@ -33,8 +33,8 @@
                     VerticalAlignment="Stretch">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="8*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -60,17 +60,19 @@
                         Content="SpreadY"
                         GroupName="choice" />
                     <TextBox
-                        Name="XMathFormularTextBox"
+                        Name="XMathFormulaTextBox"
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="4,4"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"
+                        Text="{Binding Path=Main.XFormula, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox
-                        Name="YMathFormularTextBox"
+                        Name="YMathFormulaTextBox"
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="4,4"
-                        IsReadOnly="True" />
+                        IsReadOnly="True"
+                        Text="{Binding Path=Main.YFormula, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid
                     Grid.Row="1"
@@ -80,15 +82,13 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" MinWidth="200" />
+                        <ColumnDefinition Width="*" MinWidth="300" />
+                        <ColumnDefinition Width="*" MinWidth="300" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" MinHeight="200" />
                     </Grid.RowDefinitions>
                     <Grid
                         Grid.Row="0"
@@ -161,6 +161,8 @@
                             Grid.Row="0"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             VerticalAlignment="Stretch"
                             Click="OnBackspaceButtonClicked"
                             Content="Back" />
@@ -223,6 +225,8 @@
                         <Button
                             Grid.Row="1"
                             Grid.Column="3"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Click="OnClearButtonClicked"
@@ -423,12 +427,12 @@
                             Tag="[ΔYBC4]" />
 
                     </Grid>
-                  
+
 
                 </Grid>
                 <StackPanel
                     Grid.Row="5"
-                    Margin="0,0,0,30"
+                    Margin="0,30,0,30"
                     VerticalAlignment="Bottom">
                     <Button
                         HorizontalAlignment="Center"
@@ -442,20 +446,20 @@
             <Grid Margin="12,32,0,0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" MinWidth="600" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="5*" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="200" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Grid.Column="0">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="8*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -480,22 +484,23 @@
                         SpreadY
                     </TextBlock>
                     <TextBox
-                        Name="XMathXpressionTextBox"
+                        Name="XMathExpressionTextBox"
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="4"
                         IsReadOnly="True"
-                        Text="{Binding ElementName=XMathFormularTextBox, Path=Text, Mode=OneWay}" />
+                        Text="{Binding Path=Main.SavedXFormula, Mode=OneWay}" />
                     <TextBox
-                        Name="YMathXpressionTextBox"
+                        Name="YMathExpressionTextBox"
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="4"
                         IsReadOnly="True"
-                        Text="{Binding ElementName=YMathFormularTextBox, Path=Text, Mode=OneWay}" />
+                        Text="{Binding Path=Main.SavedYFormula, Mode=OneWay}" />
                 </Grid>
                 <Grid
                     Grid.Row="1"
+                    Grid.Column="0"
                     Margin="12,32,0,0"
                     ColumnSpacing="5"
                     RowSpacing="5">
@@ -524,7 +529,7 @@
                         Name="xc2"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Header="ΔXC1:"
+                        Header="ΔXC2:"
                         InputScope="Number"
                         Tag="[ΔXC2]"
                         Text="0" />
@@ -532,7 +537,7 @@
                         Name="xc3"
                         Grid.Row="2"
                         Grid.Column="0"
-                        Header="ΔXC1:"
+                        Header="ΔXC3:"
                         InputScope="Number"
                         Tag="[ΔXC3]"
                         Text="0" />
@@ -540,7 +545,7 @@
                         Name="xc4"
                         Grid.Row="3"
                         Grid.Column="0"
-                        Header="ΔXC1:"
+                        Header="ΔXC4:"
                         InputScope="Number"
                         Tag="[ΔXC4]"
                         Text="0" />
@@ -556,7 +561,7 @@
                         Name="yc2"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Header="ΔYC1:"
+                        Header="ΔYC2:"
                         InputScope="Number"
                         Tag="[ΔYC2]"
                         Text="0" />
@@ -564,7 +569,7 @@
                         Name="yc3"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Header="ΔYC1:"
+                        Header="ΔYC3:"
                         InputScope="Number"
                         Tag="[ΔYC3]"
                         Text="0" />
@@ -572,7 +577,7 @@
                         Name="yc4"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Header="ΔYC1:"
+                        Header="ΔYC4:"
                         InputScope="Number"
                         Tag="[ΔYC4]"
                         Text="0" />
@@ -643,7 +648,7 @@
                 </Grid>
                 <StackPanel
                     Grid.Row="2"
-                    Margin="0,0,0,30"
+                    Margin="0,30,0,30"
                     VerticalAlignment="Bottom">
                     <Button
                         HorizontalAlignment="Center"

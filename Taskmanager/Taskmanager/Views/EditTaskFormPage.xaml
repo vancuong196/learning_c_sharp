@@ -102,7 +102,7 @@
                         Grid.Column="1"
                         Margin="0,12,24,12"
                         VerticalAlignment="Center"
-                        Date="{Binding Path=DateType}"
+                        Date="{Binding Path=Date}"
                         IsEnabled="{Binding ElementName=tsIsTimeConstraint, Path=IsOn}" />
                 </Grid>
                 <Grid Grid.Row="4">

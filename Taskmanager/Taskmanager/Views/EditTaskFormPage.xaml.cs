@@ -61,13 +61,13 @@ namespace Taskmanager.Views
             }
 
             string tag;
-            if (cbTag.SelectedValuePath == null)
+            if (cbTag.SelectedItem == null)
             {
                 tag = "None";
             }
             else
             {
-                tag = cbTag.SelectedValuePath;
+                tag = cbTag.SelectedValue as string;
             }
 
             TaskItem taskItem = new TaskItem(-1, taskTitle, time, date, taskDescription, isImportant, tag);
