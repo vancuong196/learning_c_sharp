@@ -36,7 +36,7 @@ namespace CalculateMathExpression
                 {
                     return;
                 }
-                if (")".Contains(button.Content as string) && !CheckOpeningBracket(YMathFormulaTextBox.Text))
+                if (")".Contains(button.Content as string) && !CheckClosingBracket(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -44,6 +44,7 @@ namespace CalculateMathExpression
                 {
                     return;
                 }
+         
                 YMathFormulaTextBox.Text = YMathFormulaTextBox.Text + button.Content;
             }
             else
@@ -52,7 +53,7 @@ namespace CalculateMathExpression
                 {
                     return;
                 }
-                if (")".Contains(button.Content as string) && !CheckOpeningBracket(XMathFormulaTextBox.Text))
+                if (")".Contains(button.Content as string) && !CheckClosingBracket(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -73,7 +74,7 @@ namespace CalculateMathExpression
                 {
                     return;
                 }
-                YMathFormulaTextBox.Text = YMathFormulaTextBox.Text + "^2";
+                YMathFormulaTextBox.Text = YMathFormulaTextBox.Text + "²";
             }
             else
             {
@@ -81,7 +82,7 @@ namespace CalculateMathExpression
                 {
                     return;
                 }
-                XMathFormulaTextBox.Text = XMathFormulaTextBox.Text + "^2";
+                XMathFormulaTextBox.Text = XMathFormulaTextBox.Text + "²";
 
             }
         }
@@ -136,6 +137,11 @@ namespace CalculateMathExpression
                         currentFocusTextBox.Text = currentFocusTextBox.Text.Substring(0, currentFocusTextBox.Text.Length - 2);
                         return;
                     }
+                    if (currentFocusTextBox.Text[currentFocusTextBox.Text.Length - 1] == '2' && currentFocusTextBox.Text[currentFocusTextBox.Text.Length - 2] == '^')
+                    {
+                        currentFocusTextBox.Text = currentFocusTextBox.Text.Substring(0, currentFocusTextBox.Text.Length - 2);
+                        return;
+                    }
                 }
                 if (currentFocusTextBox.Text[currentFocusTextBox.Text.Length-1]==']')
                 {
@@ -158,6 +164,7 @@ namespace CalculateMathExpression
             }
 
         }
+
         private void OnSpecialButtonClicked(object sender, RoutedEventArgs e)
         {
             
@@ -212,7 +219,9 @@ namespace CalculateMathExpression
             }
 
             ySpreadFormula = ySpreadFormula.Replace("√", "sqrt");
+            ySpreadFormula = ySpreadFormula.Replace("²", "^(2)");
             xSpreadFormula = xSpreadFormula.Replace("√", "sqrt");
+            xSpreadFormula = xSpreadFormula.Replace("²", "^(2)");
             ExpressionParser parser = new ExpressionParser();
             string xResult;
             string yResult;
@@ -238,6 +247,7 @@ namespace CalculateMathExpression
 
         }
 
+
         private void ShowDialog(string info, string title="")
         {
             ContentDialog alertDialog = new ContentDialog();
@@ -255,18 +265,19 @@ namespace CalculateMathExpression
    
         }
 
+
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
          //   ApplicationView.GetForCurrentView().TryResizeView(new Size(900, 600));
         }
-        private bool CheckOpeningBracket(string text)
+        private bool CheckClosingBracket(string text)
         {
             if (text == "" || text == null)
             {
                 return false;
             }
             int count = 0;
-            if ("+-*/^(".Contains(text[text.Length - 1]))
+            if ("+-*/(".Contains(text[text.Length - 1]))
             {
                 return false;
             }
@@ -294,8 +305,27 @@ namespace CalculateMathExpression
             {
                 return false;
             }
-            int count = 0;
-            if ("+-*/(^".Contains(text[text.Length - 1]))
+            
+            if (text.Contains("²") &&text[text.Length-1]!= '²')
+            {
+                int i = text.Length - 1;
+                while (i > 0)
+                {
+                    if (text[i] == '²')
+                    {
+                        break;
+                    }
+                    i--;
+                }
+                string subGap = text.Substring(i, text.Length - 1 - i);
+                if (!(subGap.Contains("*") || subGap.Contains("+") || subGap.Contains("/") || subGap.Contains("-")||subGap.Contains("(") || subGap.Contains(")")))
+                {
+                    return false;
+                }
+            }
+
+
+            if ("+-*/(²".Contains(text[text.Length - 1]))
             {
                 return false;
             }
@@ -309,7 +339,7 @@ namespace CalculateMathExpression
                 return false;
             }
             int count = 0;
-            if ("-+*/(^".Contains(text[text.Length - 1]))
+            if ("-+*/(".Contains(text[text.Length - 1]))
             {
                 return false;
             }
@@ -322,8 +352,8 @@ namespace CalculateMathExpression
             {
                 return true;
             }
-            int count = 0;
-            if (")]".Contains(text[text.Length - 1]))
+
+            if (")]²".Contains(text[text.Length - 1]))
             {
                 return false;
             }
@@ -335,12 +365,8 @@ namespace CalculateMathExpression
             {
                 return true;
             }
-            int count = 0;
-            if (")".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            if ("0123456789".Contains(text[text.Length - 1]))
+
+            if ("0123456789])".Contains(text[text.Length - 1]))
             {
                 return false;
             }
