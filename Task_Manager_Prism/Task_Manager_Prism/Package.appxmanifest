@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="66b698cb-7550-4293-9cf1-bea95aa73e0d"
+    Name="b464488c-3038-4ca0-8a98-f6abe1a835f4"
     Publisher="CN=Clay"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="66b698cb-7550-4293-9cf1-bea95aa73e0d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="b464488c-3038-4ca0-8a98-f6abe1a835f4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>TaskManagerPrism</DisplayName>
+    <DisplayName>Task_Manager_Prism</DisplayName>
     <PublisherDisplayName>Clay</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="TaskManagerPrism.App">
+      EntryPoint="Task_Manager_Prism.App">
       <uap:VisualElements
-        DisplayName="TaskManagerPrism"
+        DisplayName="Task_Manager_Prism"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="TaskManagerPrism"
+        Description="Task_Manager_Prism"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
