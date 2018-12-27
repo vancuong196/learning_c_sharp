@@ -29,48 +29,86 @@ namespace CalculateMathExpression
         private void OnGenericButtonClicked(object sender, RoutedEventArgs e)
         {
             ContentDialog dialog = new ContentDialog();
-            Button button = (Button)sender;
+            Button clikedButton = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
-                if ("*/".Contains(button.Content as string) && !CheckDivAndMulOperator(YMathFormulaTextBox.Text))
+                if ("*/".Contains(clikedButton.Content as string) && !IsCanAddMulOrDivOperater(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
-                if (")".Contains(button.Content as string) && !CheckClosingBracket(YMathFormulaTextBox.Text))
+                if (")".Contains(clikedButton.Content as string) && !IsCanAddClosingBracket(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
-                if ("0123456789".Contains(button.Content as string) && !NumberCheck(YMathFormulaTextBox.Text))
+                if ("0123456789".Contains(clikedButton.Content as string) && !IsCanAddNumber(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
-         
-                YMathFormulaTextBox.Text = YMathFormulaTextBox.Text + button.Content;
+                if ((clikedButton.Content as string) == "-")
+                {
+
+                    if ("+-*/".Contains(YMathFormulaTextBox.Text[YMathFormulaTextBox.Text.Length - 1]))
+                    {
+                        return;
+                    }
+                }
+                if ((clikedButton.Content as string) == "+")
+                {
+                    if (YMathFormulaTextBox.Text == "")
+                    {
+                        return;
+                    }
+                    if ("+-*/(".Contains(YMathFormulaTextBox.Text[YMathFormulaTextBox.Text.Length - 1]))
+                    {
+                        return;
+                    }
+                }
+
+
+                YMathFormulaTextBox.Text = YMathFormulaTextBox.Text + clikedButton.Content;
             }
             else
             {
-                if ("*/".Contains(button.Content as string) && !CheckDivAndMulOperator(XMathFormulaTextBox.Text))
+                if ("*/".Contains(clikedButton.Content as string) && !IsCanAddMulOrDivOperater(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
-                if (")".Contains(button.Content as string) && !CheckClosingBracket(XMathFormulaTextBox.Text))
+                if (")".Contains(clikedButton.Content as string) && !IsCanAddClosingBracket(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
-                if ("0123456789".Contains(button.Content as string) && !NumberCheck(XMathFormulaTextBox.Text))
+                if ("0123456789".Contains(clikedButton.Content as string) && !IsCanAddNumber(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
-                XMathFormulaTextBox.Text = XMathFormulaTextBox.Text + button.Content;
+                if ((clikedButton.Content as string) == "-")
+                {
+
+                    if (XMathFormulaTextBox.Text.Length > 0&&"+-*/".Contains(XMathFormulaTextBox.Text[XMathFormulaTextBox.Text.Length - 1]))
+                    {
+                        return;
+                    }
+                }
+                if ((clikedButton.Content as string) == "+")
+                {
+                    if (XMathFormulaTextBox.Text == "")
+                    {
+                        return;
+                    }
+                    if ("+-*/(".Contains(XMathFormulaTextBox.Text[XMathFormulaTextBox.Text.Length - 1]))
+                    {
+                        return;
+                    }
+                }
+                XMathFormulaTextBox.Text = XMathFormulaTextBox.Text + clikedButton.Content;
 
             }
         }
- 
         private void OnSquareRootButtonClicked(object sender, RoutedEventArgs e)
         {
             if (RadioButtonY.IsChecked == true)
             {
-                if (!RootCheck(YMathFormulaTextBox.Text))
+                if (!IsCanAddSquareRoot(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -78,7 +116,7 @@ namespace CalculateMathExpression
             }
             else
             {
-                if (!RootCheck(XMathFormulaTextBox.Text))
+                if (!IsCanAddSquareRoot(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -137,11 +175,7 @@ namespace CalculateMathExpression
                         currentFocusTextBox.Text = currentFocusTextBox.Text.Substring(0, currentFocusTextBox.Text.Length - 2);
                         return;
                     }
-                    if (currentFocusTextBox.Text[currentFocusTextBox.Text.Length - 1] == '2' && currentFocusTextBox.Text[currentFocusTextBox.Text.Length - 2] == '^')
-                    {
-                        currentFocusTextBox.Text = currentFocusTextBox.Text.Substring(0, currentFocusTextBox.Text.Length - 2);
-                        return;
-                    }
+         
                 }
                 if (currentFocusTextBox.Text[currentFocusTextBox.Text.Length-1]==']')
                 {
@@ -165,13 +199,13 @@ namespace CalculateMathExpression
 
         }
 
-        private void OnSpecialButtonClicked(object sender, RoutedEventArgs e)
+        private void OnVariableButtonClicked(object sender, RoutedEventArgs e)
         {
             
             Button clickedButton = (Button)sender;
             if (RadioButtonY.IsChecked == true)
             {
-                if (!CheckSpecialButton(YMathFormulaTextBox.Text))
+                if (!IsCanAddVariableToFormula(YMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -179,7 +213,7 @@ namespace CalculateMathExpression
             }
             else
             {
-                if (!CheckSpecialButton(XMathFormulaTextBox.Text))
+                if (!IsCanAddVariableToFormula(XMathFormulaTextBox.Text))
                 {
                     return;
                 }
@@ -202,14 +236,14 @@ namespace CalculateMathExpression
                 if (textBox.Text =="")
                 {
                     textBox.StartBringIntoView();
-                    ShowDialog("Error, You must input a value for: " + textBox.Tag + "!");
+                    ShowDialog("Error! You must input a value for: " + textBox.Tag + "!");
                     return;
                 } else
                 {
                     double valueOfTextbox;
                     if (!Double.TryParse(textBox.Text, out valueOfTextbox))
                     {
-                        ShowDialog("Error, Textbox: " + textBox.Tag + " does not contain a number!");
+                        ShowDialog("Error! Textbox: " + textBox.Tag + " does not contain a number!");
                         return;
                     }
                     ySpreadFormula = ySpreadFormula.Replace((string)textBox.Tag, valueOfTextbox.ToString());
@@ -259,18 +293,11 @@ namespace CalculateMathExpression
         }
         public void OnSaveButtonClicked(object sender, RoutedEventArgs e)
         {
-          
-                
+                       
             (new ViewModelLocator()).Main.SaveCommand.Execute(null);
-   
         }
 
-
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-         //   ApplicationView.GetForCurrentView().TryResizeView(new Size(900, 600));
-        }
-        private bool CheckClosingBracket(string text)
+        private bool IsCanAddClosingBracket(string text)
         {
             if (text == "" || text == null)
             {
@@ -299,7 +326,7 @@ namespace CalculateMathExpression
             return true;
 
         }
-        private bool RootCheck(string text)
+        private bool IsCanAddSquareRoot(string text)
         {
             if (text == "" || text == null)
             {
@@ -332,7 +359,7 @@ namespace CalculateMathExpression
             return true;
 
         }
-        private bool CheckDivAndMulOperator(string text)
+        private bool IsCanAddMulOrDivOperater(string text)
         {
             if (text == "" || text == null)
             {
@@ -346,7 +373,7 @@ namespace CalculateMathExpression
             return true;
         }
 
-        private bool NumberCheck(string text)
+        private bool IsCanAddNumber(string text)
         {
             if (text == "")
             {
@@ -359,14 +386,14 @@ namespace CalculateMathExpression
             }
             return true;
         }
-        private bool CheckSpecialButton(string text)
+        private bool IsCanAddVariableToFormula(string text)
         {
             if (text == "")
             {
                 return true;
             }
 
-            if ("0123456789])".Contains(text[text.Length - 1]))
+            if ("0123456789])²".Contains(text[text.Length - 1]))
             {
                 return false;
             }

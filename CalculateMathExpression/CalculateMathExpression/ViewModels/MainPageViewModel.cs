@@ -97,7 +97,7 @@ namespace CalculateMathExpression.ViewModels
             {
                 if ("^+-*/(√".Contains(YFormula[YFormula.Length - 1]))
                 {
-                    throw new System.Exception("YFormula is not correct!");
+                    throw new System.Exception("YFormula is not correct! (End with '"+ YFormula[YFormula.Length - 1]+"').");
                 }
                 foreach (char c in YFormula)
                 {
@@ -112,14 +112,14 @@ namespace CalculateMathExpression.ViewModels
                 }
                 if (count != 0)
                 {
-                    throw new Exception("Bracket fault in YFormula");
+                    throw new Exception("Error! Missing closing bracket in YFormula.");
                 }
             }
             if (XFormula != "" && XFormula!=null)
             {
                 if ("^+-*/(√".Contains(XFormula[XFormula.Length - 1]))
                 {
-                    throw new System.Exception("XFormula is not correct");
+                    throw new System.Exception("XFormula is not correct! (End with '"+ XFormula[XFormula.Length - 1]+"')");
                 }
                 count = 0;
                 foreach (char c in XFormula)
@@ -135,7 +135,7 @@ namespace CalculateMathExpression.ViewModels
                 }
                 if (count != 0)
                 {
-                    throw new Exception("Bracket fault in XFormular");
+                    throw new Exception("Error! Missing closing bracket in XFormula");
                 }
                 
 
