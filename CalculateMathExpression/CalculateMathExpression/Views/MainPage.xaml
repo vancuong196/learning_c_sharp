@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding Source={StaticResource Locator}}"
-    
     mc:Ignorable="d">
 
     <Pivot>
@@ -51,14 +50,15 @@
                         HorizontalAlignment="Center"
                         Content="SpreadX"
                         GroupName="choice"
-                        IsChecked="True" />
+                        IsChecked="{Binding Path=Main.IsRadioButtonXChecked, Mode=TwoWay}" />
                     <RadioButton
                         Name="RadioButtonY"
                         Grid.Row="1"
                         Grid.Column="0"
                         HorizontalAlignment="Center"
                         Content="SpreadY"
-                        GroupName="choice" />
+                        GroupName="choice"
+                        IsChecked="{Binding Path=Main.IsRadioButtonYChecked, Mode=TwoWay}" />
                     <TextBox
                         Name="XMathFormulaTextBox"
                         Grid.Row="0"
@@ -114,143 +114,167 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="7" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="4" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="1" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="+" />
                         <Button
                             Grid.Row="4"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnSqrtButtonClicked"
-                            Content=" √" />
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            Content="√"
+                            Tag="sqrt" />
                         <Button
                             Grid.Row="0"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="8" />
                         <Button
                             Grid.Row="0"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="9" />
                         <Button
                             Grid.Row="0"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            VerticalAlignment="Stretch"
-                            Click="OnBackspaceButtonClicked"
-                            Content="Back" />
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            Content="Back"
+                            Tag="back" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="6" />
                         <Button
                             Grid.Row="4"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnSquareRootButtonClicked"
-                            Content="x²" />
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            Content="x²"
+                            Tag="sqr" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="-" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="2" />
                         <Button
                             Grid.Row="4"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="(" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="*" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="3" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="5" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="3"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnClearButtonClicked"
-                            Content="Clear" />
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            Content="Clear"
+                            Tag="clear" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="1" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="/" />
                         <Button
                             Grid.Row="4"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnGenericButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content=")" />
                     </Grid>
                     <Grid
@@ -279,7 +303,8 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 1"
                             Tag="[ΔXC1]" />
                         <Button
@@ -287,7 +312,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 1"
                             Tag="[ΔYC1]" />
                         <Button
@@ -295,7 +321,8 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 2"
                             Tag="[ΔXC2]" />
                         <Button
@@ -303,7 +330,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 2"
                             Tag="[ΔYC2]" />
                         <Button
@@ -311,7 +339,8 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 3"
                             Tag="[ΔXC3]" />
                         <Button
@@ -319,7 +348,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 3"
                             Tag="[ΔYC3]" />
                         <Button
@@ -327,7 +357,8 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 4"
                             Tag="[ΔXC4]" />
                         <Button
@@ -335,7 +366,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 4"
                             Tag="[ΔYC4]" />
 
@@ -366,7 +398,8 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 1"
                             Tag="[ΔXBC1]" />
                         <Button
@@ -374,14 +407,16 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 1"
                             Tag="[ΔYBC2]" />
                         <Button
                             Grid.Row="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 2"
                             Tag="[ΔXBC2]" />
                         <Button
@@ -389,7 +424,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 2"
                             Tag="[ΔYBC2]" />
                         <Button
@@ -397,7 +433,8 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 3"
                             Tag="[ΔXBC3]" />
                         <Button
@@ -405,7 +442,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 3"
                             Tag="[ΔYBC3]" />
                         <Button
@@ -414,7 +452,8 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 4"
                             Tag="[ΔXBC4]" />
                         <Button
@@ -422,7 +461,8 @@
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Click="OnVariableButtonClicked"
+                            Command="{Binding Main.GenericButtonClickedCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 4"
                             Tag="[ΔYBC4]" />
 
@@ -437,7 +477,7 @@
                     <Button
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnSaveButtonClicked"
+                        Command="{Binding Path=Main.SaveCommand}"
                         Content="Save" />
                 </StackPanel>
             </Grid>
@@ -489,14 +529,14 @@
                         Grid.Column="1"
                         Margin="4"
                         IsReadOnly="True"
-                        Text="{Binding Path=Main.SavedXFormula, Mode=OneWay}" />
+                        Text="{Binding Path=SecondTabViewModel.SavedXFormula, Mode=OneWay}" />
                     <TextBox
                         Name="YMathExpressionTextBox"
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="4"
                         IsReadOnly="True"
-                        Text="{Binding Path=Main.SavedYFormula, Mode=OneWay}" />
+                        Text="{Binding Path=SecondTabViewModel.SavedYFormula, Mode=OneWay}" />
                 </Grid>
                 <Grid
                     Grid.Row="1"
@@ -523,8 +563,7 @@
                         Grid.Column="0"
                         Header="ΔXC1:"
                         InputScope="Number"
-                        Tag="[ΔXC1]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XC1Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xc2"
                         Grid.Row="1"
@@ -532,7 +571,7 @@
                         Header="ΔXC2:"
                         InputScope="Number"
                         Tag="[ΔXC2]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XC2Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xc3"
                         Grid.Row="2"
@@ -540,7 +579,7 @@
                         Header="ΔXC3:"
                         InputScope="Number"
                         Tag="[ΔXC3]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XC3Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xc4"
                         Grid.Row="3"
@@ -548,7 +587,7 @@
                         Header="ΔXC4:"
                         InputScope="Number"
                         Tag="[ΔXC4]"
-                        Text="0" />
+                       Text="{Binding Path=SecondTabViewModel.XC4Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="yc1"
                         Grid.Row="0"
@@ -556,7 +595,7 @@
                         Header="ΔYC1:"
                         InputScope="NumericPin"
                         Tag="[ΔYC1]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YC1Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="yc2"
                         Grid.Row="1"
@@ -564,7 +603,7 @@
                         Header="ΔYC2:"
                         InputScope="Number"
                         Tag="[ΔYC2]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YC2Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="yc3"
                         Grid.Row="2"
@@ -572,7 +611,7 @@
                         Header="ΔYC3:"
                         InputScope="Number"
                         Tag="[ΔYC3]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YC3Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="yc4"
                         Grid.Row="3"
@@ -580,7 +619,7 @@
                         Header="ΔYC4:"
                         InputScope="Number"
                         Tag="[ΔYC4]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YC4Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xbc1"
                         Grid.Row="0"
@@ -588,7 +627,7 @@
                         Header="ΔXBC1:"
                         InputScope="Number"
                         Tag="[ΔXBC1]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XBC1Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xbc2"
                         Grid.Row="1"
@@ -596,7 +635,7 @@
                         Header="ΔXBC2:"
                         InputScope="Number"
                         Tag="[ΔXBC2]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XBC2Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xbc3"
                         Grid.Row="2"
@@ -604,7 +643,7 @@
                         Header="ΔXBC3:"
                         InputScope="Number"
                         Tag="[ΔXBC3]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XBC3Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="xbc4"
                         Grid.Row="3"
@@ -612,7 +651,7 @@
                         Header="ΔXBC4:"
                         InputScope="Number"
                         Tag="[ΔXBC4]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.XBC4Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="ybc1"
                         Grid.Row="0"
@@ -620,7 +659,7 @@
                         Header="ΔYBC1:"
                         InputScope="Number"
                         Tag="[ΔYBC1]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YBC1Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="ybc2"
                         Grid.Row="1"
@@ -628,7 +667,7 @@
                         Header="ΔYBC2:"
                         InputScope="Number"
                         Tag="[ΔYBC2]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YBC2Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="ybc3"
                         Grid.Row="2"
@@ -636,7 +675,7 @@
                         Header="ΔYBC3:"
                         InputScope="Number"
                         Tag="[ΔYBC3]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YBC3Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="ybc4"
                         Grid.Row="3"
@@ -644,7 +683,7 @@
                         Header="ΔYBC4:"
                         InputScope="Number"
                         Tag="[ΔYBC4]"
-                        Text="0" />
+                        Text="{Binding Path=SecondTabViewModel.YBC4Box.Value, Mode=TwoWay}" />
                 </Grid>
                 <StackPanel
                     Grid.Row="2"
@@ -653,7 +692,7 @@
                     <Button
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OnCalculateButtonClick"
+                        Command="{Binding Path=SecondTabViewModel.CalculateCommand}"
                         Content="Calculate" />
                 </StackPanel>
             </Grid>

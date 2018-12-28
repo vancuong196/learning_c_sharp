@@ -7,8 +7,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Taskmanager.DatabaseAccess;
-using Taskmanager.Models;
+using Task_Manager_Prism.Models;
+using Task_Manager_Prism.DatabaseAccess;
+
 
 namespace Task_Manager_Prism.ViewModels
 {

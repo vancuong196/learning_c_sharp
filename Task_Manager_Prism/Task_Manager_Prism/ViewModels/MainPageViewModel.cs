@@ -7,9 +7,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using Task_Manager_Prism.Models;
 using Task_Manager_Prism.Ultils;
-using Taskmanager.DatabaseAccess;
-using Taskmanager.Models;
+using Task_Manager_Prism.DatabaseAccess;
+
 
 
 namespace Task_Manager_Prism.ViewModels
@@ -23,15 +24,9 @@ namespace Task_Manager_Prism.ViewModels
         private ObservableCollection<TaskItem> _allTask;
         private ObservableCollection<TaskItem> _searchResultTasks;
         private ObservableCollection<String> _allTags;
-        private TaskItem _selectedItem;
         private DelegateCommand<int?> _selectTaskItemDelegateCommand;
-        private DelegateCommand<TaskItem> _saveTaskItemDelegateCommand;
-        private DelegateCommand<TaskItem> _updateTaskItemDelegateCommand;
         private DelegateCommand<string> _selectTaskItemWithTag;
         private DelegateCommand<string> _addTagToDatabase;
-        private DelegateCommand _nextTaskItemDelegateCommand;
-        private DelegateCommand _previousTaskItemDelegateCommand;
-        private DelegateCommand _markAsFinishedRelayComand;
         private DelegateCommand<int> _deleteTaskItemDelegateCommand;
         private DelegateCommand _reloadCommand;
         private DelegateCommand<int?> _loadListCommand;
@@ -47,12 +42,7 @@ namespace Task_Manager_Prism.ViewModels
             ReloadCommand.Execute();
         }
 
-        private void SelectItemFromTaskList(int? id)
-        {
-            TaskItem item = _allTask.FirstOrDefault(s => s.ID == id);
-            Debug.WriteLine("selected: " + item.Title);
-            SelectedItem = item;
-        }
+
         
         public DelegateCommand<int?> LoadListCommand
         {
@@ -67,17 +57,7 @@ namespace Task_Manager_Prism.ViewModels
                 return _loadListCommand;
             }
         }
-        public TaskItem SelectedItem
-        {
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-            }
-            get
-            {
-                return _selectedItem;
-            }
-        }
+
         public ObservableCollection<TaskItem> SearchResultTasks
         {
             set
@@ -126,9 +106,9 @@ namespace Task_Manager_Prism.ViewModels
                if (_selectTaskItemDelegateCommand== null)
                 {
                     return _selectTaskItemDelegateCommand = new DelegateCommand<int?>((itemID) => {
-                        SelectItemFromTaskList(itemID);
-                        var navParameters = new Dictionary<string,string>();
-                        
+                        TaskItem selectedItem = AllTasks.FirstOrDefault(s => s.ID == itemID);
+                        var navParameters = new Dictionary<string,object>();
+                        navParameters.Add(Constants.SelectedTaskKey, selectedItem);   
                         _navigationService.Navigate("Detail", navParameters);
                      
                     });
@@ -186,45 +166,9 @@ namespace Task_Manager_Prism.ViewModels
                 return _addTagToDatabase;
             }
         }
-        public DelegateCommand<TaskItem> UpdateCommand
-        {
-            get
-            {
-                if (_updateTaskItemDelegateCommand == null)
-                {
-                    return _updateTaskItemDelegateCommand = new DelegateCommand<TaskItem>(s =>
-                    {
-                        Debug.WriteLine(s.ToString());
-                        s.ID = SelectedItem.ID;
-                        _databaseAccessService.UpdateTaskItem(s);
-                        SelectedItem = s;
-                        ReloadCommand.Execute();
 
-                    });
-                }
 
-                return _updateTaskItemDelegateCommand;
-            }
-        }
 
-        public DelegateCommand<int> DeleteCommand
-        {
-            get
-            {
-                if (_deleteTaskItemDelegateCommand == null)
-                {
-                    return _deleteTaskItemDelegateCommand = new DelegateCommand<int>(s =>
-                    {
-                        Debug.WriteLine(s.ToString());
-                        _databaseAccessService.DeleteTaskItem(s);
-                        ReloadCommand.Execute();
-
-                    });
-                }
-
-                return _deleteTaskItemDelegateCommand;
-            }
-        }
 
         public DelegateCommand<string> SelectTaskWithTag
         {
@@ -242,86 +186,8 @@ namespace Task_Manager_Prism.ViewModels
                 return _selectTaskItemWithTag;
             }
         }
-        public DelegateCommand NextItemCommand
-        {
-            get
-            {
-                if (_nextTaskItemDelegateCommand == null)
-                {
-                    _nextTaskItemDelegateCommand = new DelegateCommand(() =>
-                    {
-                       
-                        for (int i=0; i < AllTasks.Count; i++)
-                        {
-                            if (AllTasks[i].ID == SelectedItem.ID)
-                            {
-                                if ((i + 1) < AllTasks.Count)
-                                {
-                                    SelectedItem = AllTasks[i + 1];
-                                    break;
-                                }
-                            }
-                        }
-                    });
-                    return _nextTaskItemDelegateCommand;
-                }
-                else
-                {
-                    return _nextTaskItemDelegateCommand;
-                }
-            }
-        }
-        public DelegateCommand PreviousItemCommand
-        {
-            get
-            {
-                if (_previousTaskItemDelegateCommand == null)
-                {
-                    _previousTaskItemDelegateCommand = new DelegateCommand(() =>
-                    {
 
-                        for (int i = AllTasks.Count-1; i>=0; i--)
-                        {
-                            if (AllTasks[i].ID == SelectedItem.ID)
-                            {
-                                if ((i - 1) >= 0)
-                                {
-                                    SelectedItem = AllTasks[i - 1];
-                                    break;
-                                }
-                              
-                            }
-                        }
-                    });
-                    return _previousTaskItemDelegateCommand;
-                }
-                else
-                {
-                    return _nextTaskItemDelegateCommand;
-                }
-            }
-        }
-       public DelegateCommand MarkAsFinishedCommand
-        {
-            get
-            {
-                if (_markAsFinishedRelayComand == null)
-                {
-                    _markAsFinishedRelayComand = new DelegateCommand(() =>
-                    {
 
-                        SelectedItem.IsFinished = true;
-                     
-                        UpdateCommand.Execute(SelectedItem);
-                    });
-                    return _markAsFinishedRelayComand;
-                }
-                else
-                {
-                    return _markAsFinishedRelayComand;
-                }
-            }
-        }
 
     private void LoadNewList(int? listID)
         {

@@ -16,6 +16,17 @@ namespace CalculateMathExpression.ViewModels
                 Main = value;
             }
         }
+        public CalculateTabModel SecondTabViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CalculateTabModel>();
+            }
+            set
+            {
+                SecondTabViewModel = value;
+            }
+        }
 
 
         static ViewModelLocator()
@@ -23,6 +34,7 @@ namespace CalculateMathExpression.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
            // SimpleIoc.Default.Register<IMessageService, MessageService>();
             SimpleIoc.Default.Register<MainPageViewModel>();
+            SimpleIoc.Default.Register<CalculateTabModel>();
         }
 
             

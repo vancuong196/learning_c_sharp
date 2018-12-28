@@ -1,7 +1,6 @@
 ﻿
+using Task_Manager_Prism.Models;
 using Task_Manager_Prism.ViewModels;
-using Task_Manager_Prism.Views;
-using Taskmanager.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -24,7 +23,7 @@ namespace Task_Manager_Prism.Views
         {
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(MainPage));
-           
+
         }
         public void OnSaveButtonClicked(object sender, RoutedEventArgs e)
         {
@@ -39,7 +38,8 @@ namespace Task_Manager_Prism.Views
             if (radioButtonYes.IsChecked == true)
             {
                 isImportant = true;
-            } else
+            }
+            else
             {
                 isImportant = false;
             }
@@ -56,12 +56,13 @@ namespace Task_Manager_Prism.Views
             if (cbTag.SelectedItem == null)
             {
                 tag = "None";
-            } else
-            {
-                tag = cbTag.SelectedItem.ToString() ;
             }
-           
-            TaskItem taskItem = new TaskItem(-1,taskTitle,time,date,taskDescription,isImportant,tag);
+            else
+            {
+                tag = cbTag.SelectedItem.ToString();
+            }
+
+            TaskItem taskItem = new TaskItem(-1, taskTitle, time, date, taskDescription, isImportant, tag);
 
             (DataContext as AddTaskPageViewModel).SaveCommand.Execute(taskItem);
             Frame rootFrame = Window.Current.Content as Frame;

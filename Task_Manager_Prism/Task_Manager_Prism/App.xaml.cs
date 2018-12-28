@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Prism.Unity.Windows;
-using Taskmanager.DatabaseAccess;
 using Microsoft.Practices.Unity;
-using Task_Manager_Prism.ViewModels;
-using Taskmanager.Views;
+using Task_Manager_Prism.DatabaseAccess;
 
 namespace Task_Manager_Prism
 {
@@ -13,12 +11,15 @@ namespace Task_Manager_Prism
     /// </summary>
     sealed partial class App : PrismUnityApplication
     {
+        /// <summary>
+        /// Initializes the singleton application object.  This is the first line of authored code
+        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// </summary>
         public App()
         {
-            InitializeComponent();
-            //  ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.InitializeComponent();
+            
         }
-
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
@@ -32,9 +33,9 @@ namespace Task_Manager_Prism
 
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
-            
+
             Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessService());
-      
+
             return base.OnInitializeAsync(args);
         }
 

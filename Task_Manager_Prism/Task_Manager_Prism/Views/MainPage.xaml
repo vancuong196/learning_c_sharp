@@ -197,7 +197,9 @@
                         <ListView
                             Name="lvTodayTask"
                             Grid.Column="1"
-                            Width="500"
+                            Width="Auto"
+                            MinWidth="200"
+                            MaxWidth="500"
                             FontSize="28"
                             Header="Today Tasks"
                             ItemsSource="{Binding Path=TodayTasks}"
@@ -255,7 +257,7 @@
                                 Margin="40,0"
                                 FontSize="24"
                                 Header="Tags"
-                                ItemsSource="{x:Bind Path=ConcreteDataContext.AllTags}">
+                                ItemsSource="{Binding Path=AllTags}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Taskmanager.Models;
+using Task_Manager_Prism.Models;
 
-namespace Taskmanager.DatabaseAccess
+namespace Task_Manager_Prism.DatabaseAccess
 {
     public class DatabaseAccessService: IDatabaseAccessService
     {

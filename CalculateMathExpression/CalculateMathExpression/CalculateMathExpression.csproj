@@ -119,6 +119,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\TextboxItem.cs" />
+    <Compile Include="ViewModels\CalculateTabModel.cs" />
     <Compile Include="ViewModels\IMessageService.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MessageService.cs" />

@@ -1,11 +1,9 @@
 ﻿
-
 using System.Diagnostics;
+using Task_Manager_Prism.Models;
 using Task_Manager_Prism.Ultils;
 using Task_Manager_Prism.ViewModels;
-using Taskmanager.DatabaseAccess;
-using Taskmanager.Models;
-using Taskmanager.Views;
+using Task_Manager_Prism.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -22,7 +20,7 @@ namespace Task_Manager_Prism.Views
         {
             this.InitializeComponent();
             Debug.WriteLine("--------------init view--------------");
-         
+
         }
 
         private void OnDasboardButtonClick(object sender, RoutedEventArgs e)
@@ -30,7 +28,7 @@ namespace Task_Manager_Prism.Views
             lvTodayTask.Visibility = Visibility.Visible;
             this.lvTasks.Header = "Overdue tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
-          //  this.lvTasks.ItemsSource = new ViewModelLocator().Main.OverdueTasks;
+      
 
         }
 
@@ -39,12 +37,12 @@ namespace Task_Manager_Prism.Views
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(AddTaskPage));
             Window.Current.Activate();
-            
+
         }
 
         private void OnImportantTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-       //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+            //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
             lvTodayTask.Visibility = Visibility.Collapsed;
             this.lvTasks.Header = "Important tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.ImportantTaskListID);
@@ -54,21 +52,21 @@ namespace Task_Manager_Prism.Views
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListView listView =sender as ListView;
+            ListView listView = sender as ListView;
             if (listView.SelectedItem == null)
             {
                 return;
             }
-                    //    new ViewModelLocator().Main.SelectListItemRelayCommand.Execute((listView.SelectedItem as TaskItem).ID);
+            //    new ViewModelLocator().Main.SelectListItemRelayCommand.Execute((listView.SelectedItem as TaskItem).ID);
             (DataContext as MainPageViewModel).SelectListItemDelegateCommand.Execute((listView.SelectedItem as TaskItem).ID);
             Frame rootFrame = Window.Current.Content as Frame;
-         //   rootFrame.Navigate(typeof(DetailTaskPage));
+            //   rootFrame.Navigate(typeof(DetailTaskPage));
         }
 
 
         private void AllTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-       //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+            //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
             this.lvTasks.Header = "All tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.AllTaskListID);
@@ -83,7 +81,7 @@ namespace Task_Manager_Prism.Views
             this.lvTasks.Header = "Normal tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
 
-            
+
 
         }
 
@@ -114,16 +112,20 @@ namespace Task_Manager_Prism.Views
 
         private void OnSearchByTagButtonClicked(object sender, RoutedEventArgs e)
         {
-            
+
             SearchByTagDialog dialog = new SearchByTagDialog();
+
             dialog.PrimaryButtonClick += SearchByTagDialog_PrimaryButtonClick;
+            dialog.AllTags = (DataContext as MainPageViewModel).AllTags;
             dialog.PrimaryButtonText = "Ok";
             dialog.ShowAsync();
+            
         }
         private void SearchByTagDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        
             string tag = (sender as SearchByTagDialog).SelectedTag;
-            if (tag==null|| tag == "")
+            if (tag == null || tag == "")
             {
                 lvTasks.Header = "Result for all TAG:";
                 lvTodayTask.Visibility = Visibility.Collapsed;
@@ -133,10 +135,10 @@ namespace Task_Manager_Prism.Views
             }
             else
             {
-                lvTasks.Header = "Result for "+tag+" TAG:";
+                lvTasks.Header = "Result for " + tag + " TAG:";
                 lvTodayTask.Visibility = Visibility.Collapsed;
-                (DataContext as MainPageViewModel ).SelectTaskWithTag.Execute(tag);
-                
+                (DataContext as MainPageViewModel).SelectTaskWithTag.Execute(tag);
+
             }
         }
 
@@ -146,6 +148,7 @@ namespace Task_Manager_Prism.Views
             dialog.PrimaryButtonClick += AddTagTagDialog_PrimaryButtonClick;
             dialog.PrimaryButtonText = "Ok";
             dialog.ShowAsync();
+            
         }
         private void AddTagTagDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
@@ -156,16 +159,9 @@ namespace Task_Manager_Prism.Views
             }
             else
             {
-               
-             (DataContext as MainPageViewModel).AddTagToDatabaseCommand.Execute(tag);
-                
-            }
-        }
-        public MainPageViewModel ConcreteDataContext
-        {
-            get
-            {
-                return DataContext as MainPageViewModel;
+
+                (DataContext as MainPageViewModel).AddTagToDatabaseCommand.Execute(tag);
+
             }
         }
     }

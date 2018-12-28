@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taskmanager.Models;
 
-namespace Taskmanager.DatabaseAccess
+using System.Threading.Tasks;
+using Task_Manager_Prism.Models;
+
+namespace Task_Manager_Prism.DatabaseAccess
 {
     public class DummyDatabaseAccessService : IDatabaseAccessService
     {

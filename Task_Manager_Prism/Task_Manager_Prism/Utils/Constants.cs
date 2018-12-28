@@ -15,6 +15,8 @@ namespace Task_Manager_Prism.Ultils
         public const int TodayTaskListID = 4;
         public const int NormalTaskListID = 5;
         public const int NoneDateTaskListID = 6;
+        public const string SelectedTaskKey = "SELECTEDTASK";
+        public const string TasksListKey = "TASKLIST";
 
     }
 }

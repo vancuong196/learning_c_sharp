@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taskmanager.Models
+namespace Task_Manager_Prism.Models
 {
     public class TagItem
     {
