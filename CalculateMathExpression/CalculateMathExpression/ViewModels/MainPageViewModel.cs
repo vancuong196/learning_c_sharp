@@ -17,7 +17,7 @@ namespace CalculateMathExpression.ViewModels
         private bool _radioButtonXChecked;
         private bool _radioButtonYChecked;
         private RelayCommand _saveRelayCommand;
-        private RelayCommand<string> _genericButtonClickedCommand;
+        private RelayCommand<string> _buttonClickedCommand;
 
         public MainPageViewModel()
         {
@@ -73,15 +73,15 @@ namespace CalculateMathExpression.ViewModels
                 return _saveRelayCommand;
             }
         }
-        public RelayCommand<string> GenericButtonClickedCommand
+        public RelayCommand<string> ButtonClickedCommand
         {
             get
             {
-                if (_genericButtonClickedCommand == null)
+                if (_buttonClickedCommand == null)
                 {
-                    return _genericButtonClickedCommand = new RelayCommand<string> (ButtonClickedHandler);
+                    return _buttonClickedCommand = new RelayCommand<string> (ButtonClickedHandler);
                 }
-                return _genericButtonClickedCommand;
+                return _buttonClickedCommand;
             }
         }
         private void ButtonClickedHandler(string content)
