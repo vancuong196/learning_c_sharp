@@ -10,229 +10,235 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="40">
+    <Grid Background="{Binding Source={ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+
+        <Grid Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+
             </Grid.RowDefinitions>
-            <AppBarButton
-                Grid.Row="0"
-                Grid.Column="0"
-                Width="70"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Click="OnBackButtonClicked"
-                Icon="Back"
-                LabelPosition="Collapsed" />
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="0,12"
-                VerticalAlignment="Center"
-                FontSize="44"
-                HorizontalTextAlignment="Center"
-                Style="{StaticResource BaseTextBlockStyle}"
-                TextAlignment="Center">
-                Add task
-            </TextBlock>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Column="0"
-                Margin="0,12"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Style="{StaticResource BaseTextBlockStyle}">
-                Task Name
-            </TextBlock>
-            <Grid Grid.Column="1" Margin="12,12,0,12">
-                <TextBox
-                    Name="tbTaskName"
-                    Width="Auto"
-                    HorizontalAlignment="Stretch" />
-            </Grid>
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,12,24,6"
-                    FontSize="20"
-                    Style="{StaticResource BaseTextBlockStyle}">
-                    Does this task have time constraint?
-                </TextBlock>
-                <ToggleSwitch
-                    Name="tsIsTimeConstraint"
-                    Grid.Row="1"
-                    Margin="0,8,24,12"
-                    FontSize="16"
-                    IsOn="False"
-                    OffContent="No"
-                    OnContent="Yes" />
-                <TextBlock
-                    Grid.Row="2"
-                    Margin="0,12,24,12"
-                    FontSize="20"
-                    Style="{StaticResource BaseTextBlockStyle}">
-                    Remind me on:
-                </TextBlock>
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        FontSize="16">
-                        Date:
-                    </TextBlock>
-                    <DatePicker
-                        Name="datePicker"
-                        Grid.Column="1"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        FontSize="16">
-                        Time:
-                    </TextBlock>
-                    <TimePicker
-                        Name="timePicker"
-                        Grid.Column="1"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Important:
-                    </TextBlock>
-                    <RadioButton
-                        Name="radioButtonYes"
-                        Grid.Column="1"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        GroupName="priority"
-                        IsChecked="True">
-                        Yes
-                    </RadioButton>
-                    <RadioButton
-                        Name="radioButtonNo"
-                        Grid.Column="2"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        GroupName="priority">
-                        No
-                    </RadioButton>
-                </Grid>
-                <Grid Grid.Row="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Tag:
-                    </TextBlock>
-                    <ComboBox
-                        Name="cbTag"
-                        Grid.Column="1"
-                        Margin="0,12,24,12"
-                        VerticalAlignment="Center"
-                        ItemsSource="{Binding Path=AllTags}"
-                        PlaceholderText="None" />
-                </Grid>
-
-
-
-            </Grid>
-            <Grid Grid.Column="1" Margin="0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,12,24,12"
-                    FontSize="20"
-                    Text="Description" />
-                <TextBox
-                    Name="tbDescription"
-                    Grid.Row="1"
-                    AcceptsReturn="True" />
-            </Grid>
-        </Grid>
-
-    </Grid>
-    <Page.BottomAppBar>
-        <AppBar ClosedDisplayMode="Minimal" IsOpen="True">
-            <StackPanel Orientation="Horizontal">
                 <AppBarButton
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Width="70"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
                     Click="OnBackButtonClicked"
                     Icon="Back"
-                    Label="Back" />
-                <AppBarButton
-                    Click="OnSaveButtonClicked"
-                    Icon="Save"
-                    Label="Save" />
-            </StackPanel>
-        </AppBar>
-    </Page.BottomAppBar>
+                    LabelPosition="Collapsed" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,12"
+                    VerticalAlignment="Center"
+                    FontSize="44"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    TextAlignment="Center">
+                    Add task
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="0,12"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Style="{StaticResource BaseTextBlockStyle}">
+                    Task Name
+                </TextBlock>
+                <Grid Grid.Column="1" Margin="12,12,0,12">
+                    <TextBox
+                        Name="tbTaskName"
+                        Width="Auto"
+                        HorizontalAlignment="Stretch" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,12,24,6"
+                        FontSize="20"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Does this task have time constraint?
+                    </TextBlock>
+                    <ToggleSwitch
+                        Name="tsIsTimeConstraint"
+                        Grid.Row="1"
+                        Margin="0,8,24,12"
+                        FontSize="16"
+                        IsOn="False"
+                        OffContent="No"
+                        OnContent="Yes" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Margin="0,12,24,12"
+                        FontSize="20"
+                        Style="{StaticResource BaseTextBlockStyle}">
+                        Remind me on:
+                    </TextBlock>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            FontSize="16">
+                            Date:
+                        </TextBlock>
+                        <DatePicker
+                            Name="datePicker"
+                            Grid.Column="1"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            FontSize="16">
+                            Time:
+                        </TextBlock>
+                        <TimePicker
+                            Name="timePicker"
+                            Grid.Column="1"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Important:
+                        </TextBlock>
+                        <RadioButton
+                            Name="radioButtonYes"
+                            Grid.Column="1"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            GroupName="priority"
+                            IsChecked="True">
+                            Yes
+                        </RadioButton>
+                        <RadioButton
+                            Name="radioButtonNo"
+                            Grid.Column="2"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            GroupName="priority">
+                            No
+                        </RadioButton>
+                    </Grid>
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Tag:
+                        </TextBlock>
+                        <ComboBox
+                            Name="cbTag"
+                            Grid.Column="1"
+                            Margin="0,12,24,12"
+                            VerticalAlignment="Center"
+                            ItemsSource="{Binding Path=AllTags}"
+                            PlaceholderText="None" />
+                    </Grid>
+
+
+
+                </Grid>
+                <Grid Grid.Column="1" Margin="0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="0,12,24,12"
+                        FontSize="20"
+                        Text="Description" />
+                    <TextBox
+                        Name="tbDescription"
+                        Grid.Row="1"
+                        AcceptsReturn="True" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <StackPanel
+            Grid.Row="1"
+            Background="{Binding Source={StaticResource AppBarBackgroundThemeBrush}}"
+            Orientation="Horizontal">
+            <AppBarButton
+                Click="OnBackButtonClicked"
+                Icon="Back"
+                Label="Back" />
+            <AppBarButton
+                Click="OnSaveButtonClicked"
+                Icon="Save"
+                Label="Save" />
+        </StackPanel>
+    </Grid>
+
 </Page>

@@ -9,211 +9,218 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="32">
+    <Grid Background="{Binding Source={ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="0"
-            Margin="0,20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <AppBarButton
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Width="70"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Click="OnBackButtonClicked"
-                    Icon="Back"
-                    LabelPosition="Collapsed" />
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="0,12"
-                    VerticalAlignment="Center"
-                    FontSize="44"
-                    HorizontalTextAlignment="Center"
-                    Style="{StaticResource BaseTextBlockStyle}"
-                    TextAlignment="Center">
-                    Task Details
-                </TextBlock>
-            </Grid>
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="0,24,0,0"
-                VerticalAlignment="Center"
-                FontSize="32"
-                MaxLines="2"
-                Style="{StaticResource BaseTextBlockStyle}"
-                Text="{Binding SelectedItem.Title}" />
-
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock
-                        Margin="0"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Date
-                    </TextBlock>
-                    <TextBlock
-                        Margin="0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="{Binding SelectedItem.Date}" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-
-                    <TextBlock
-                        Margin="0,0,12,0"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Time
-                    </TextBlock>
-                    <TextBlock
-                        Margin="0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="{Binding SelectedItem.Time}" />
-                </StackPanel>
-
-
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock
-                        Margin="0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Priority
-                    </TextBlock>
-                    <TextBlock
-                        Margin="0,0,0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="{Binding SelectedItem.Priority}" />
-                </StackPanel>
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock
-                        Margin="0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource BaseTextBlockStyle}">
-                        Tag
-                    </TextBlock>
-                    <TextBlock
-                        Margin="0,0,0,12"
-                        VerticalAlignment="Center"
-                        FontSize="30"
-                        Style="{StaticResource TitleTextBlockStyle}"
-                        Text="{Binding SelectedItem.Tag}" />
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Margin="32">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
                 Grid.Row="0"
-                Margin="0,0,0,12"
-                VerticalAlignment="Center"
-                FontSize="30"
-                Style="{StaticResource BaseTextBlockStyle}">
-                Description
-            </TextBlock>
+                Grid.Column="0"
+                Margin="0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <AppBarButton
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="70"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Click="OnBackButtonClicked"
+                        Icon="Back"
+                        LabelPosition="Collapsed" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,12"
+                        VerticalAlignment="Center"
+                        FontSize="44"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        TextAlignment="Center">
+                        Task Details
+                    </TextBlock>
+                </Grid>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,24,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    MaxLines="2"
+                    Style="{StaticResource BaseTextBlockStyle}"
+                    Text="{Binding SelectedItem.Title}" />
 
-            <TextBox
-                Grid.Row="1"
-                MinWidth="400"
-                AcceptsReturn="True"
-                FontSize="20"
-                IsReadOnly="True"
-                Text="{Binding SelectedItem.Description}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            Margin="0"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Date
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding SelectedItem.Date}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+
+                        <TextBlock
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Time
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding SelectedItem.Time}" />
+                    </StackPanel>
+
+
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            Margin="0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Priority
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding SelectedItem.Priority}" />
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock
+                            Margin="0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            Tag
+                        </TextBlock>
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{Binding SelectedItem.Tag}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,12"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Style="{StaticResource BaseTextBlockStyle}">
+                    Description
+                </TextBlock>
+
+                <TextBox
+                    Grid.Row="1"
+                    MinWidth="400"
+                    AcceptsReturn="True"
+                    FontSize="20"
+                    IsReadOnly="True"
+                    Text="{Binding SelectedItem.Description}" />
+            </Grid>
+
         </Grid>
 
-    </Grid>
-    <Page.BottomAppBar>
-        <AppBar ClosedDisplayMode="Minimal" IsOpen="True">
-            <StackPanel Orientation="Horizontal">
-                <AppBarButton
-                    Click="OnBackButtonClicked"
-                    Icon="Back"
-                    Label="Back" />
-                <AppBarButton
-                    Command="{Binding Path=DeleteCommand}"
-                    CommandParameter="{Binding Path=SelectedItem.ID}"
-                    Icon="Delete"
-                    Label="Delete" />
+        <StackPanel
+            Grid.Row="1"
+            Background="{Binding Source={StaticResource AppBarBackgroundThemeBrush}}"
+            Orientation="Horizontal">
+            <AppBarButton
+                Click="OnBackButtonClicked"
+                Icon="Back"
+                Label="Back" />
+            <AppBarButton
+                Command="{Binding Path=DeleteCommand}"
+                CommandParameter="{Binding Path=SelectedItem.ID}"
+                Icon="Delete"
+                Label="Delete" />
 
-                <AppBarButton
-                    Command="{Binding EditCommand}"
-                    Icon="Edit"
-                    Label="Edit" />
-                <AppBarButton
-                    Command="{Binding MarkAsFinishedCommand}"
-                    Icon="Accept"
-                    IsEnabled="{Binding Path=SelectedItem.IsUnFinish}"
-                    Label="Finished" />
-                <AppBarButton
-                    Command="{Binding PreviousItemCommand}"
-                    Icon="Previous"
-                    Label="Previous" />
-                <AppBarButton
-                    Command="{Binding NextItemCommand}"
-                    Icon="Next"
-                    Label="Next" />
-            </StackPanel>
-        </AppBar>
-    </Page.BottomAppBar>
+            <AppBarButton
+                Command="{Binding EditCommand}"
+                Icon="Edit"
+                Label="Edit" />
+            <AppBarButton
+                Command="{Binding MarkAsFinishedCommand}"
+                Icon="Accept"
+                IsEnabled="{Binding Path=SelectedItem.IsUnFinish}"
+                Label="Finished" />
+            <AppBarButton
+                Command="{Binding PreviousItemCommand}"
+                Icon="Previous"
+                Label="Previous" />
+            <AppBarButton
+                Command="{Binding NextItemCommand}"
+                Icon="Next"
+                Label="Next" />
+        </StackPanel>
+    </Grid>
 </Page>

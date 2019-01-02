@@ -22,6 +22,7 @@ namespace Task_Manager_Prism.ViewModels
         private readonly INavigationService _navigationService;
         private int _currentListID;
         private ObservableCollection<TaskItem> _allTask;
+        private ObservableCollection<TaskItem> _todayTask;
         private ObservableCollection<TaskItem> _searchResultTasks;
         private ObservableCollection<String> _allTags;
         private DelegateCommand<int?> _selectTaskItemDelegateCommand;
@@ -81,7 +82,17 @@ namespace Task_Manager_Prism.ViewModels
                 return _tasksToShow;
             }
         }
-
+        public ObservableCollection<TaskItem> TodayTasks
+        {
+            set
+            {
+                SetProperty(ref _todayTask, value);
+            }
+            get
+            {
+                return _todayTask;
+            }
+        }
 
         public ObservableCollection<TaskItem> AllTasks
 
@@ -140,6 +151,7 @@ namespace Task_Manager_Prism.ViewModels
                                                                  select tag.Name).ToList<String>()
                                                                     ); 
                         AllTasks = new ObservableCollection<TaskItem>(items);
+                        TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
                         LoadNewList(_currentListID);
                     });
                 }
@@ -158,6 +170,7 @@ namespace Task_Manager_Prism.ViewModels
                     {
                         Debug.WriteLine(s.ToString());
                         _databaseAccessService.AddTagItem(s);
+
                         ReloadCommand.Execute();
 
                     });
@@ -179,6 +192,7 @@ namespace Task_Manager_Prism.ViewModels
                     return _selectTaskItemWithTag = new DelegateCommand<string>(s =>
                     {
                         TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(item => item.Tag.Trim() == s));
+
 
                     });
                 }
