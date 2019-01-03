@@ -16,6 +16,7 @@ namespace CalculateMathExpression.ViewModels
         private string _savedyFormula;
         private RelayCommand _saveCommand;
         private IInfomationService _messageService;
+        private ICalculator _calculator;
         public TextboxItem XC1Box { set; get; }
         public TextboxItem XC2Box { set; get; }
         public TextboxItem XC3Box { set; get; }
@@ -32,8 +33,9 @@ namespace CalculateMathExpression.ViewModels
         public TextboxItem YBC2Box { set; get; }
         public TextboxItem YBC3Box { set; get; }
         public TextboxItem YBC4Box { set; get; }
-        public CalculateTabModel(IInfomationService messageService)
+        public CalculateTabModel(IInfomationService messageService, ICalculator calculator)
         {
+            _calculator = calculator;
             _messageService = messageService;
             SavedXFormula = "";
             SavedYFormula = "";
@@ -53,6 +55,7 @@ namespace CalculateMathExpression.ViewModels
             YBC2Box = new TextboxItem("[ΔYBC2]", "0");
             YBC3Box = new TextboxItem("[ΔYBC3]", "0");
             YBC4Box = new TextboxItem("[ΔYBC4]", "0");
+            
         }
 
         public string SavedYFormula
@@ -119,7 +122,7 @@ namespace CalculateMathExpression.ViewModels
             string yResult;
             try
             {
-                xResult = Math.Round(parser.Parse(xSpreadFormula), 3).ToString();
+                xResult = Math.Round(_calculator.Calculate(xSpreadFormula), 3).ToString();
 
             }
             catch (Exception exception)

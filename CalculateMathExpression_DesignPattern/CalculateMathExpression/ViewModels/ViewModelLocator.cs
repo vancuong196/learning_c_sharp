@@ -49,10 +49,10 @@ namespace CalculateMathExpression.ViewModels
 #endif
 
             MainPageViewModel mainPageViewModel = new MainPageViewModel(messageService);
-            CalculateTabModel calculateTabModel = new CalculateTabModel(messageService);
+            CalculateTabModel calculateTabModel = new CalculateTabModel(messageService, new Calculator());
             // register Observers of MainPageViewModel.
             mainPageViewModel.AddOnDataChangeListener(calculateTabModel);
-            mainPageViewModel.AddOnDataChangeListener(LogService.GetLogger());
+            mainPageViewModel.AddOnDataChangeListener(new InformationServiceFactory().GetInformationService("LogService") as MainPageDataChangedListener);
             // add Instance to ObjectLocator.
             ObjectLocator.Current().RegisterInstance<MainPageViewModel>(mainPageViewModel);
             ObjectLocator.Current().RegisterInstance<CalculateTabModel>(calculateTabModel);

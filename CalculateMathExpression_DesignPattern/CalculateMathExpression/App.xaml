@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CalculateMathExpression"
     xmlns:viewModels="using:CalculateMathExpression.ViewModels">
-    
+
     <Application.Resources>
         <viewModels:ViewModelLocator x:Key="Locator" />
     </Application.Resources>

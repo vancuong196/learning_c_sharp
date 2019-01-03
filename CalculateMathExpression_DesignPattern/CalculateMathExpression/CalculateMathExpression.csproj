@@ -121,6 +121,8 @@
     </Compile>
     <Compile Include="Exceptions\InstanceNotFoundException.cs" />
     <Compile Include="Models\TextboxItem.cs" />
+    <Compile Include="Utils\Calculator.cs" />
+    <Compile Include="Utils\ICalculator.cs" />
     <Compile Include="Utils\LogService.cs" />
     <Compile Include="Utils\InformationServiceFactory.cs" />
     <Compile Include="Utils\NullMessageService.cs" />

@@ -259,7 +259,7 @@
                             VerticalAlignment="Stretch"
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="1" />
+                            Content="0" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="3"
