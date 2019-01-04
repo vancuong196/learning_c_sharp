@@ -9,7 +9,7 @@ namespace CalculateMathExpression.ViewModels
             get
             {
                 // return ServiceLocator.Current.GetInstance<MainPageViewModel>();
-                return ObjectLocator.Current().GetInstance<MainPageViewModel>();
+                return ObjectLocatorService.Current().GetInstance<MainPageViewModel>();
 
             }
             set
@@ -22,7 +22,7 @@ namespace CalculateMathExpression.ViewModels
             get
             {
                 //return ServiceLocator.Current.GetInstance<CalculateTabModel>();
-                return ObjectLocator.Current().GetInstance<CalculateTabModel>();
+                return ObjectLocatorService.Current().GetInstance<CalculateTabModel>();
             }
             set
             {
@@ -49,13 +49,13 @@ namespace CalculateMathExpression.ViewModels
 #endif
 
             MainPageViewModel mainPageViewModel = new MainPageViewModel(messageService);
-            CalculateTabModel calculateTabModel = new CalculateTabModel(messageService, new Calculator());
+            CalculateTabModel calculateTabModel = new CalculateTabModel(messageService, new ThirdPartyCalculator());
             // register Observers of MainPageViewModel.
             mainPageViewModel.AddOnDataChangeListener(calculateTabModel);
             mainPageViewModel.AddOnDataChangeListener(new InformationServiceFactory().GetInformationService("LogService") as MainPageDataChangedListener);
             // add Instance to ObjectLocator.
-            ObjectLocator.Current().RegisterInstance<MainPageViewModel>(mainPageViewModel);
-            ObjectLocator.Current().RegisterInstance<CalculateTabModel>(calculateTabModel);
+            ObjectLocatorService.Current().RegisterInstance<MainPageViewModel>(mainPageViewModel);
+            ObjectLocatorService.Current().RegisterInstance<CalculateTabModel>(calculateTabModel);
         }
 
             

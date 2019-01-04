@@ -120,18 +120,32 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\InstanceNotFoundException.cs" />
-    <Compile Include="Models\TextboxItem.cs" />
-    <Compile Include="Utils\Calculator.cs" />
-    <Compile Include="Utils\ICalculator.cs" />
-    <Compile Include="Utils\LogService.cs" />
-    <Compile Include="Utils\InformationServiceFactory.cs" />
-    <Compile Include="Utils\NullMessageService.cs" />
-    <Compile Include="Utils\ObjectLocator.cs" />
+    <Compile Include="Models\FormulaVariable.cs" />
+    <Compile Include="Utils\Calculator\ThirdPartyCalculator.cs" />
+    <Compile Include="Utils\FormulaHelper\FormulaCutter.cs" />
+    <Compile Include="Utils\GrammarValidate\AdditionOperatorGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\ClosingBracketGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\DivisionOperatorGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\GrammarValidatorFactory.cs" />
+    <Compile Include="Utils\GrammarValidate\IGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\MultiplicationOperatorGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\NumberGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\SentenceGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\SqrGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\SubtractionOperatorGrammarChecker.cs" />
+    <Compile Include="Utils\GrammarValidate\TrueGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\VariableGrammarVailidator.cs" />
+    <Compile Include="Utils\Calculator\ICalculator.cs" />
+    <Compile Include="Utils\FormulaHelper\FormulaDictionary.cs" />
+    <Compile Include="Utils\InformationService\LogService.cs" />
+    <Compile Include="Utils\InformationService\InformationServiceFactory.cs" />
+    <Compile Include="Utils\InformationService\NullMessageService.cs" />
+    <Compile Include="Utils\ObjectLocatorService.cs" />
     <Compile Include="ViewModels\CalculateTabModel.cs" />
-    <Compile Include="Utils\IInformationService.cs" />
+    <Compile Include="Utils\InformationService\IInformationService.cs" />
     <Compile Include="ViewModels\MainPageDataChangedListener.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="Utils\MessageService.cs" />
+    <Compile Include="Utils\InformationService\MessageService.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -153,6 +167,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="readme!.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

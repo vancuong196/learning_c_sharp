@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 namespace CalculateMathExpression.Utils
 {
 
-    class ObjectLocator
+    class ObjectLocatorService
     {
         Dictionary<string, object> _classObjectHolder;
-        private ObjectLocator()
+        private ObjectLocatorService()
         {
             _classObjectHolder = new Dictionary<string, object>();
         }
         private static class InstanceHolder
         {
-            public static ObjectLocator Instance = new ObjectLocator();
+            public static ObjectLocatorService Instance = new ObjectLocatorService();
         }
-        public static ObjectLocator Current()
+        public static ObjectLocatorService Current()
         {
             return InstanceHolder.Instance;
         }
@@ -30,9 +30,9 @@ namespace CalculateMathExpression.Utils
                 _classObjectHolder.Add(typeof(T).Name, instance);
             } else
             {
-                
+
                 bool isExist = false;
-               
+
                 foreach (string type in _classObjectHolder.Keys)
                 {
                     if (type.Equals(typeof(T).Name))
@@ -50,6 +50,13 @@ namespace CalculateMathExpression.Utils
                 }
             }
         }
+
+        public void RegisterInstance<TB, TS>(TS instance) where TS : TB
+        {
+            RegisterInstance<TB>(instance);
+           
+        }
+
         public T GetInstance<T>()
         {
             object ob = null;
@@ -61,8 +68,7 @@ namespace CalculateMathExpression.Utils
             {
                 throw new InstanceNotFoundException("Can't not found any instance of " + typeof(T).Name);
             }
-
-
         }
+        
     }
 }

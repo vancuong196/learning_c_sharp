@@ -1,4 +1,6 @@
 ﻿using CalculateMathExpression.Utils;
+using CalculateMathExpression.Utils.FormulaHelper;
+using CalculateMathExpression.Utils.GrammarValidate;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -13,8 +15,6 @@ namespace CalculateMathExpression.ViewModels
     {
         private string _yFormula;
         private string _xFormula;
-        private string _savedxFormula;
-        private string _savedyFormula;
         private IInfomationService _messageService;
         private bool _radioButtonXChecked;
         private bool _radioButtonYChecked;
@@ -91,166 +91,38 @@ namespace CalculateMathExpression.ViewModels
                 return _buttonClickedCommand;
             }
         }
-        private void ButtonClickedHandler(string content)
+        private void ButtonClickedHandler(string buttonType)
         {
-            if (content.Length == 1 && "0123456789*)-+(/".Contains(content))
-            {
-                OnGenericButtonClicked(content);
-            }
-            else if (content.Contains("["))
-            {
-                OnVariableButtonClicked(content);
-            }
-            else if (content == "sqrt")
-            {
-                OnSqrtButtonClicked();
-            } else if (content == "sqr")
-            {
-                OnSquareRootButtonClicked();
-            } else if (content == "clear")
+           
+            if (buttonType == "clear")
             {
                 OnClearButtonClicked();
-            } else if (content == "back")
+            } else if (buttonType == "back")
             {
                 OnBackspaceButtonClicked();
+            } else
+            {
+                AppendTextToFormula(buttonType);
+                
             }
 
         }
-        private void OnGenericButtonClicked(string content)
+
+        private void OnClearButtonClicked()
         {
-            
-            
             if (IsRadioButtonYChecked == true)
             {
-                
-                if ("*/".Contains(content) && !IsCanAddMulOrDivOperater(YFormula))
-                {
-                    return;
-                }
-                if (")".Contains(content) && !IsCanAddClosingBracket(YFormula))
-                {
-                    return;
-                }
-                if ("0123456789".Contains(content) && !IsCanAddNumber(YFormula))
-                {
-                    return;
-                }
-                if (content == "-")
-                {
 
-                    if ("+-*/".Contains(YFormula[YFormula.Length - 1]))
-                    {
-                        return;
-                    }
-                }
-                if (content == "+")
-                {
-                    if (YFormula == "")
-                    {
-                        return;
-                    }
-                    if ("+-*/(".Contains(YFormula[YFormula.Length - 1]))
-                    {
-                        return;
-                    }
-                }
-
-
-                YFormula = YFormula + content;
+                YFormula = "";
             }
             else
             {
-                if ("*/".Contains(content) && !IsCanAddMulOrDivOperater(XFormula))
-                {
-                    return;
-                }
-                if (")".Contains(content) && !IsCanAddClosingBracket(XFormula))
-                {
-                    return;
-                }
-                if ("0123456789".Contains(content) && !IsCanAddNumber(XFormula))
-                {
-                    return;
-                }
-                if (content == "-")
-                {
 
-                    if (XFormula.Length > 0 && "+-*/".Contains(XFormula[XFormula.Length - 1]))
-                    {
-                        return;
-                    }
-                }
-                if (content == "+")
-                {
-                    if (XFormula == "")
-                    {
-                        return;
-                    }
-                    if ("+-*/(".Contains(XFormula[XFormula.Length - 1]))
-                    {
-                        return;
-                    }
-                }
-                XFormula = XFormula + content;
-
+                XFormula = "";
             }
         }
-        private bool IsCanAddClosingBracket(string text)
-        {
-            if (text == "" || text == null)
-            {
-                return false;
-            }
-            int count = 0;
-            if ("+-*/(".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            foreach (char c in text)
-            {
-                if (c == '(')
-                {
-                    count++;
-                }
-                if (c == ')')
-                {
-                    count--;
-                }
-            }
-            if (count <= 0)
-            {
-                return false;
-            }
-            return true;
 
-        }
-        private bool IsCanAddMulOrDivOperater(string text)
-        {
-            if (text == "" || text == null)
-            {
-                return false;
-            }
-            int count = 0;
-            if ("-+*/(".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private bool IsCanAddNumber(string text)
-        {
-            if (text == "")
-            {
-                return true;
-            }
-
-            if (")]²".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            return true;
-        }
+ 
         public string YFormula
         {
             set
@@ -273,92 +145,23 @@ namespace CalculateMathExpression.ViewModels
                 return _xFormula;
             }
         }
-        public string SavedYFormula
-        {
-            set
-            {
-                Set(ref _savedyFormula, value);
-            }
-            get
-            {
-                return _savedyFormula;
-            }
-        }
-        public string SavedXFormula
-        {
-            set
-            {
-                Set(ref _savedxFormula, value);
-            }
-            get
-            {
-                return _savedxFormula;
-            }
-        }
+
 
         private void saveFormula()
         {
-
-
-            int count = 0;
-            if (YFormula != "" && YFormula!=null)
+            try
             {
-                if ("^+-*/(√".Contains(YFormula[YFormula.Length - 1]))
-                {
-                    throw new System.Exception("YFormula is not correct! (End with '"+ YFormula[YFormula.Length - 1]+"').");
-                }
-                foreach (char c in YFormula)
-                {
-                    if (c == '(')
-                    {
-                        count++;
-                    }
-                    if (c == ')')
-                    {
-                        count--;
-                    }
-                }
-                if (count != 0)
-                {
-                    throw new Exception("Error! Missing closing bracket in YFormula.");
-                }
+                GrammarValidatorFactory.GetSentenceGrammarValidator().Validate(XFormula);
+                GrammarValidatorFactory.GetSentenceGrammarValidator().Validate(YFormula);
+                OnSaveFormula(XFormula, YFormula);
             }
-            if (XFormula != "" && XFormula!=null)
+            catch (Exception e)
             {
-                if ("^+-*/(√".Contains(XFormula[XFormula.Length - 1]))
-                {
-                    throw new System.Exception("XFormula is not correct! (End with '"+ XFormula[XFormula.Length - 1]+"')");
-                }
-                count = 0;
-                foreach (char c in XFormula)
-                {
-                    if (c == '(')
-                    {
-                        count++;
-                    }
-                    if (c == ')')
-                    {
-                        count--;
-                    }
-                }
-                if (count != 0)
-                {
-                    throw new Exception("Error! Missing closing bracket in XFormula");
-                }
-                
-
-            }
-
-            SavedXFormula = XFormula;
-            SavedYFormula = YFormula;
-            // notify observer 
-            OnDataChanged();
-
-            
-            
+                throw e;
+            }       
         }
 
-        public void OnDataChanged()
+        public void OnSaveFormula(string xFormula, string yFormula)
         {
             if (_dataChangedListeners.Count == 0)
             {
@@ -368,207 +171,55 @@ namespace CalculateMathExpression.ViewModels
             {
                 if (listener != null)
                 {
-                    listener.OnSavedFormula(SavedXFormula, SavedYFormula);
+                    listener.OnSavedFormula(xFormula, yFormula);
                 }
             }
         }
-        private void OnSquareRootButtonClicked()
+
+
+        private void AppendTextToFormula(string rawText)
         {
-            if (IsRadioButtonYChecked == true)
+
+            IGrammarValidator grammarValidator = GrammarValidatorFactory.GetGrammarValidator(rawText);
+
+            string toAppendText = "";
+            if ("0123456789*)-+(/".Contains(rawText))
             {
-                if (!IsCanAddSquareRoot(YFormula))
-                {
-                    return;
-                }
-                YFormula = YFormula + "²";
+                toAppendText = rawText;
             }
-            else
+            else if (rawText!=null && rawText.Contains("["))
             {
-                if (!IsCanAddSquareRoot(XFormula))
-                {
-                    return;
-                }
-                XFormula = XFormula + "²";
+                toAppendText = rawText;
+            }
+            else if (rawText == "sqrt")
+            {
+                toAppendText = "√(";
+            }
+            else if (rawText == "sqr")
+            {
+                toAppendText = "²";
+            }
+
+            if (IsRadioButtonYChecked == true && grammarValidator.Validate(YFormula))
+            {
+                YFormula = YFormula+toAppendText;
+            }
+            else if (grammarValidator.Validate(XFormula))
+            {
+                XFormula = XFormula+toAppendText;
 
             }
-        }
-        private void OnSqrtButtonClicked()
-        {
-            if (IsRadioButtonYChecked == true)
-            {
-                YFormula = YFormula + " √(";
-            }
-            else
-            {
-                XFormula = XFormula + " √(";
 
-            }
-        }
-        private void OnClearButtonClicked()
-        {
-            if (IsRadioButtonYChecked == true)
-            {
-                YFormula = "";
-            }
-            else
-            {
-                XFormula = "";
-
-            }
         }
         private void OnBackspaceButtonClicked()
         {
-
-
             if (IsRadioButtonXChecked == true)
             {
-
-
-                if (XFormula == "")
-                {
-                    return;
-                }
-                else
-                {
-                    if (XFormula.Length >= 2)
-                    {
-                        if (XFormula[XFormula.Length - 1] == '(' && XFormula[XFormula.Length - 2] == '√')
-                        {
-                            XFormula = XFormula.Substring(0, XFormula.Length - 2);
-                            return;
-                        }
-
-                    }
-                    if (XFormula[XFormula.Length - 1] == ']')
-                    {
-                        int i = XFormula.Length - 1;
-                        while (i > 0)
-                        {
-                            i--;
-                            if (XFormula[i] == '[')
-                            {
-                                XFormula = XFormula.Substring(0, i);
-                                break;
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        XFormula = XFormula.Substring(0, XFormula.Length - 1);
-                    }
-
-                }
+                XFormula = FormulaCutter.GetInstance().CutLastElement(XFormula);
             } else
-            {
-                if (YFormula == "")
-                {
-                    return;
-                }
-                else
-                {
-                    if (YFormula.Length >= 2)
-                    {
-                        if (YFormula[YFormula.Length - 1] == '(' && YFormula[YFormula.Length - 2] == '√')
-                        {
-                            YFormula = YFormula.Substring(0, YFormula.Length - 2);
-                            return;
-                        }
-
-                    }
-                    if (YFormula[YFormula.Length - 1] == ']')
-                    {
-                        int i = YFormula.Length - 1;
-                        while (i > 0)
-                        {
-                            i--;
-                            if (YFormula[i] == '[')
-                            {
-                                YFormula = YFormula.Substring(0, i);
-                                break;
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        YFormula = YFormula.Substring(0, YFormula.Length - 1);
-                    }
-
-                }
-            }
-
+                YFormula = FormulaCutter.GetInstance().CutLastElement(YFormula);
         }
 
-        private void OnVariableButtonClicked(string content)
-        {
-
-           
-            if (IsRadioButtonYChecked == true)
-            {
-                if (!IsCanAddVariableToFormula(YFormula))
-                {
-                    return;
-                }
-                YFormula = YFormula + content;
-            }
-            else
-            {
-                if (!IsCanAddVariableToFormula(XFormula))
-                {
-                    return;
-                }
-                XFormula = XFormula + content;
-            }
-        }
-        private bool IsCanAddSquareRoot(string text)
-        {
-            if (text == "" || text == null)
-            {
-                return false;
-            }
-
-            if (text.Contains("²") && text[text.Length - 1] != '²')
-            {
-                int i = text.Length - 1;
-                while (i > 0)
-                {
-                    if (text[i] == '²')
-                    {
-                        break;
-                    }
-                    i--;
-                }
-                string subGap = text.Substring(i, text.Length - 1 - i);
-                if (!(subGap.Contains("*") || subGap.Contains("+") || subGap.Contains("/") || subGap.Contains("-") || subGap.Contains("(") || subGap.Contains(")")))
-                {
-                    return false;
-                }
-            }
-
-
-            if ("+-*/(²".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            return true;
-
-        }
-
-        private bool IsCanAddVariableToFormula(string text)
-        {
-            if (text == "")
-            {
-                return true;
-            }
-
-            if ("0123456789])²".Contains(text[text.Length - 1]))
-            {
-                return false;
-            }
-            return true;
-        }
-
-
+        
     }
 }

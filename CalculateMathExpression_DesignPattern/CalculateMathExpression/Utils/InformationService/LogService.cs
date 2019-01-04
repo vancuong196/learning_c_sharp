@@ -31,6 +31,7 @@ namespace CalculateMathExpression.Utils
         public void OnSavedFormula(string formulaX, string formulaY)
         {
             ShowMessgae("Saved formulas! XFormula=" + formulaX + " YFormula=" + formulaY);
+            
         }
     }
 }

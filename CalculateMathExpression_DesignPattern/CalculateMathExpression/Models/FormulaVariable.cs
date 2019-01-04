@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CalculateMathExpression.Models
 {
-    public class TextboxItem
+    public class FormulaVariable
     {
         public String Value { set; get; }
         public String Name { set; get; }
-        public TextboxItem(string name, string value)
+        public FormulaVariable(string name, string value)
         {
             Name = name;
             Value = value;

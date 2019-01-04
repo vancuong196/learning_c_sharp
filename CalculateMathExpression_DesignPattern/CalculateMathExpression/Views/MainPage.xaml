@@ -587,7 +587,7 @@
                         Header="ΔXC4:"
                         InputScope="Number"
                         Tag="[ΔXC4]"
-                       Text="{Binding Path=SecondTabViewModel.XC4Box.Value, Mode=TwoWay}" />
+                        Text="{Binding Path=SecondTabViewModel.XC4Box.Value, Mode=TwoWay}" />
                     <TextBox
                         Name="yc1"
                         Grid.Row="0"
