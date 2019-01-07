@@ -1,20 +1,21 @@
 ﻿
 namespace CalculateMathExpression.Utils.GrammarValidate
 {
-    class SqrGrammarValidator : IGrammarValidator
+    class NumberGrammarValidator : IGrammarValidator
     {
         public bool Validate(string context)
         {
-            if (context == "" || context == null)
+            if (context == "")
             {
-                return false;
+                return true;
             }
 
-            if ("+-*/(²".Contains(context[context.Length - 1]))
+            if (")]²".Contains(context[context.Length - 1]))
             {
                 return false;
             }
             return true;
         }
+
     }
 }
