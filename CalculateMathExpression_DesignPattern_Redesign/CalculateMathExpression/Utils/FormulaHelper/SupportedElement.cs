@@ -41,29 +41,9 @@ namespace CalculateMathExpression.Utils.FormulaHelper
             _supportedElements.Add(sqr);
             FormulaElement sqrt = new FormulaElement.FormulaElementBuilder("sqrt", "√(", "sqrt(").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(false).Build();
             _supportedElements.Add(sqrt);
-            FormulaElement zero = new FormulaElement.FormulaElementBuilder("0", "0", "0").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(zero);
-            FormulaElement one = new FormulaElement.FormulaElementBuilder("1", "1", "1").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(one);
-            FormulaElement two = new FormulaElement.FormulaElementBuilder("2", "2", "2").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(two);
-            FormulaElement three = new FormulaElement.FormulaElementBuilder("3", "3", "3").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(three);
-            FormulaElement four = new FormulaElement.FormulaElementBuilder("4", "4", "4").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(four);
-            FormulaElement five = new FormulaElement.FormulaElementBuilder("5", "5", "5").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(five);
-            FormulaElement six = new FormulaElement.FormulaElementBuilder("6", "6", "6").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(six);
-            FormulaElement seven = new FormulaElement.FormulaElementBuilder("7", "7", "7").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(seven);
-            FormulaElement eight = new FormulaElement.FormulaElementBuilder("8", "8", "8").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(eight);
-            FormulaElement nine = new FormulaElement.FormulaElementBuilder("9", "9", "9").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
-            _supportedElements.Add(nine);
-   
-
-
+            FormulaElement variableClose = new FormulaElement.FormulaElementBuilder("]", "]", "]").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).Build();
+            _supportedElements.Add(variableClose);
+        
         }
         public static SupportedElement GetInstance()
         {
@@ -76,15 +56,47 @@ namespace CalculateMathExpression.Utils.FormulaHelper
                 SupportedElementList.Add(element);
             }
         }
+        public bool IsANumberElement(string code)
+        {
+            return code==null?false:"0123456789".Contains(code) && code.Length == 1;
+        }
+        public FormulaElement GetNumberElementByCode(string code)
+        {
+            if (!IsANumberElement(code))
+            {
+                return null;
+            } else
+            {
+                return new FormulaElement.FormulaElementBuilder(code, code, code).SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).Build();
+
+            }
+        }
+        public bool IsAVariableElement(string code)
+        {
+            return code == null ? false :code.Length>=2 &&code[0]=='[' && code[code.Length-1] == ']';
+        }
+        public FormulaElement GetNumberVariableByCode(string code)
+        {
+            if (!IsAVariableElement(code))
+            {
+                return null;
+            }
+            else
+            {
+                return new FormulaElement.FormulaElementBuilder(code, code, code).SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(true).SetIsAvariable(true).Build();
+
+            }
+        }
         public bool IsElementSupported(string code)
         {
+
             if (code == null|| code =="" || _supportedElements==null)
             {
                 return false;
             }
             foreach (FormulaElement e in _supportedElements)
             {
-                if (code == e.Code)
+                if (code == e.Code|| e.ShowForm.Contains(code))
                 {
                     return true;
                 }
@@ -93,6 +105,14 @@ namespace CalculateMathExpression.Utils.FormulaHelper
         }
         public FormulaElement GetElementByCode(string code)
         {
+            if (IsANumberElement(code))
+            {
+                return GetNumberElementByCode(code);
+            }
+            if (IsAVariableElement(code))
+            {
+                return GetNumberVariableByCode(code);
+            }
             if (!IsElementSupported(code))
             {
                 return null;

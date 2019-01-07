@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CalculateMathExpression.Models;
+using CalculateMathExpression.Utils.FormulaHelper;
+using System;
 
 
 namespace CalculateMathExpression.Utils.GrammarValidate
@@ -8,18 +10,19 @@ namespace CalculateMathExpression.Utils.GrammarValidate
         private bool ValidateEnding(string context)
         {
            
-
-            if (context != "" && context != null)
-            {
                 if (context != "" && context != null)
                 {
-                    if ("^+-*/(√".Contains(context[context.Length - 1]))
-                    {
-                        return false;
-                    }     
+                FormulaElement lastElement = SupportedElement.GetInstance().GetElementByCode(context[context.Length - 1].ToString());
+                if (lastElement == null)
+                {
+                    return false;
                 }
-            }
-            return true;
+                if (!lastElement.IsCanDelegateLeftNumber)
+                {
+                    return false;
+                }
+                }
+                return true;
         
 
         }
@@ -59,7 +62,7 @@ namespace CalculateMathExpression.Utils.GrammarValidate
             }
             if (!ValidateBracket(context))
             {
-                throw new Exception("Error! Missing closing bracket in Formula: " + context);
+                throw new Exception("Error! Bracket fault in Formula: " + context);
             }
 
             return true;

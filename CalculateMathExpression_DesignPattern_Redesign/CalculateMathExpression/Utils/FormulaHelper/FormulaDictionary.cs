@@ -1,4 +1,5 @@
 ﻿using CalculateMathExpression.Models;
+using CalculateMathExpression.Utils.FormulaHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,11 @@ namespace CalculateMathExpression.Utils
         {
             _knownVariableList = variablesList;
             _symbolsDictionary = new Dictionary<string, string>();
-            _symbolsDictionary.Add("√", "sqrt");
-            _symbolsDictionary.Add("²", "^(2)");
+            List<FormulaElement> formulaElements = SupportedElement.GetInstance().SupportedElementList;
+            foreach (FormulaElement e in formulaElements)
+            {
+                _symbolsDictionary.Add(e.ShowForm, e.MathForm);
+            }
 
         }
         private string ReplaceSymbol(string formula)

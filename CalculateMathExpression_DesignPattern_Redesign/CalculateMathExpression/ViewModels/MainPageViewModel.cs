@@ -195,7 +195,7 @@ namespace CalculateMathExpression.ViewModels
                 {
                    
                     lastElement = SupportedElement.GetInstance().GetElementByCode(YFormula[YFormula.Length-1].ToString());
-                    _messageService.ShowMessgae("N"+lastElement.MathForm);
+                  
 
                 }
                 if (grammarValidator.Validate(lastElement, toAddElement))

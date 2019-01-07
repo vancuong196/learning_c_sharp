@@ -14,7 +14,7 @@ namespace CalculateMathExpression.Models
         public bool IsCanDouplicate { set; get; }
         public bool IsCanDelegateLeftNumber { set; get; }
         public bool IsCanDelegateRightNumber { set; get; }
-      
+        public bool IsAVariable { set; get; }
         private FormulaElement(FormulaElementBuilder builder)
         {
             Code = builder.Code;
@@ -23,6 +23,7 @@ namespace CalculateMathExpression.Models
             IsCanDelegateRightNumber = builder.IsCanDelegateRightNumber;
             IsCanDelegateLeftNumber = builder.IsCanDelegateLeftNumber;
             IsCanDouplicate = builder.IsCanDouplicate;
+            IsAVariable = builder.IsAVariable;
 
         }
         public class FormulaElementBuilder
@@ -33,11 +34,13 @@ namespace CalculateMathExpression.Models
             public bool IsCanDouplicate { set; get; }
             public bool IsCanDelegateLeftNumber { set; get; }
             public bool IsCanDelegateRightNumber { set; get; }
+            public bool IsAVariable { set; get; }
             public FormulaElementBuilder(string code, string showForm, string mathForm)
             {
                 Code = code;
                 MathForm = mathForm;
                 ShowForm = showForm;
+                IsAVariable = false;
             }
             public FormulaElementBuilder SetIsCanDouplicate(bool isCanDouplicate)
             {
@@ -47,6 +50,11 @@ namespace CalculateMathExpression.Models
             public FormulaElementBuilder SetIsCanDelegateLeftNumber(bool isCanDelegateLeftNumber)
             {
                 IsCanDelegateLeftNumber = isCanDelegateLeftNumber;
+                return this;
+            }
+            public FormulaElementBuilder SetIsAvariable(bool isVariable)
+            {
+                IsAVariable = isVariable;
                 return this;
             }
             public FormulaElementBuilder SetIsCanDelegateRightNumber(bool isCanDelegateRightNumber)

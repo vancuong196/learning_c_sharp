@@ -33,10 +33,6 @@ namespace CalculateMathExpression.ViewModels
 
         static ViewModelLocator()
         {
-            // ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            // SimpleIoc.Default.Register<IMessageService, MessageService>();
-            // SimpleIoc.Default.Register<MainPageViewModel>();
-            //  SimpleIoc.Default.Register<CalculateTabModel>();
 #if LOG_ONLY
             IInfomationService messageService = new InformationServiceFactory().GetInformationService("LogService");
 #endif

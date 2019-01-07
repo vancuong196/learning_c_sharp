@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculateMathExpression.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,10 @@ namespace CalculateMathExpression.Utils.FormulaHelper
 {
     class FormulaCutter
     {
+        List<FormulaElement> supportedElements;
         private FormulaCutter()
         {
-
+            supportedElements = SupportedElement.GetInstance().SupportedElementList;
         }
         private static class FormulaCutterHolder
         {
@@ -28,15 +30,7 @@ namespace CalculateMathExpression.Utils.FormulaHelper
             }
             else
             {
-                if (formula.Length >= 2)
-                {
-                    if (formula[formula.Length - 1] == '(' && formula[formula.Length - 2] == '√')
-                    {
-                        formula = formula.Substring(0, formula.Length - 2);
-                        return formula;
-                    }
 
-                }
                 if (formula[formula.Length - 1] == ']')
                 {
                     int i = formula.Length - 1;
@@ -45,18 +39,22 @@ namespace CalculateMathExpression.Utils.FormulaHelper
                         i--;
                         if (formula[i] == '[')
                         {
-                            formula = formula.Substring(0, i);
-                            break;
-                           
+                            return formula = formula.Substring(0, i);
                         }
 
                     }
                 }
-                else
+                foreach (FormulaElement e in supportedElements)
                 {
-                    formula = formula.Substring(0, formula.Length - 1);
-                    
+                    if (e.ShowForm.Length>=2&&formula.EndsWith(e.ShowForm))
+                    {
+                        formula = formula.Substring(0, formula.Length - e.ShowForm.Length);
+                        return formula;
+                    }
                 }
+             
+                formula = formula.Substring(0, formula.Length - 1);
+
                 return formula;
             }
         }
