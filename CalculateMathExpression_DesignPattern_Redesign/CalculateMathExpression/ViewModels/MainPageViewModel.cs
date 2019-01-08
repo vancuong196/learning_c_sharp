@@ -179,12 +179,12 @@ namespace CalculateMathExpression.ViewModels
         }
 
 
-        private void AppendTextToFormula(string rawText)
+        private void AppendTextToFormula(string buttonCode)
         {
            
             ILastElementGrammarValidator grammarValidator = GrammarValidatorFactory.GetLastElementValidator();
             FormulaElement lastElement;
-            FormulaElement toAddElement = SupportedElement.GetInstance().GetElementByCode(rawText);
+            FormulaElement toAddElement = SupportedElement.GetInstance().GetElementByCode(buttonCode);
             if (IsRadioButtonYChecked == true)
             {
                 

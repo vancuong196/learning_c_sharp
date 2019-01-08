@@ -28,7 +28,17 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                     return false;
                 }
             }
-            // ) ^2 ... can not follow by a number
+
+            if (lastElement.Code == toAddElement.Code)
+            {
+                // element follow by the same element is fault. (ex: ++ --)
+                if (!lastElement.IsCanDouplicate)
+                {
+                    return false;
+                }
+
+            }
+            
             if (lastElement.IsCanDelegateLeftNumber && !lastElement.IsCanDelegateRightNumber && toAddElement.IsCanDelegateRightNumber && toAddElement.IsCanDelegateLeftNumber)
             {
                 return false;
@@ -43,7 +53,7 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                 }
 
             }
-            // element that delegate a number in right side can not follow by an element that delegate a number in left side. (ex '()' is fault ) 
+            // element that delegate a number in left side can not follow by an element that delegate a number in right side. (ex '()' is fault ) 
             if (lastElement.IsCanDelegateRightNumber&&!lastElement.IsCanDelegateLeftNumber&&toAddElement.IsCanDelegateLeftNumber&& !toAddElement.IsCanDelegateRightNumber)
             {
                 return false;
@@ -55,16 +65,7 @@ namespace CalculateMathExpression.Utils.GrammarValidate
             }
 
 
-            if (lastElement.Code == toAddElement.Code)
-            {
-                // element follow by the same element is fault. (ex: ++ --)
-                if (!lastElement.IsCanDouplicate)
-                {
-                    return false;
-                } 
-                
-            }
-            // operator that need to operand need second operand to be a number.
+            // operator that need two operand need second operand to be a number.
             if (!lastElement.IsCanDelegateRightNumber && !lastElement.IsCanDelegateLeftNumber)
             {
                 if (!toAddElement.IsCanDelegateRightNumber)

@@ -27,7 +27,7 @@ namespace CalculateMathExpression.Utils.FormulaHelper
             _supportedElements = new List<FormulaElement>();
             FormulaElement addOperator = new FormulaElement.FormulaElementBuilder("+", "+", "+").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).Build();
             _supportedElements.Add(addOperator);
-            FormulaElement subOperator = new FormulaElement.FormulaElementBuilder("-", "-", "-").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).Build();
+            FormulaElement subOperator = new FormulaElement.FormulaElementBuilder("-", "-", "-").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(true).SetIsCanDouplicate(false).Build();
             _supportedElements.Add(subOperator);
             FormulaElement mulOperator = new FormulaElement.FormulaElementBuilder("*", "*", "*").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).Build();
             _supportedElements.Add(mulOperator);

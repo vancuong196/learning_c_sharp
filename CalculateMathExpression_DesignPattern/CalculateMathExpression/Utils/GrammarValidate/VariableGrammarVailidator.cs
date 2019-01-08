@@ -16,9 +16,9 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                 if (!(context.Length >= 1 && "0123456789".Contains(context[context.Length - 1])))
                 {
                    // LogService.GetLogger().ShowMessgae("true");
-                    return true;
+                    return true;                                                                                                                                                        
                     
-                }
+                }                                                                                                                                                                                                                                                                                                                                                      
             }
          //   LogService.GetLogger().ShowMessgae("false");
             return false;
