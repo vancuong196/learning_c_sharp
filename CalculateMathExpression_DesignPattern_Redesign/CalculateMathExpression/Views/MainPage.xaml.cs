@@ -23,22 +23,10 @@ namespace CalculateMathExpression
           
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(900, 500));
-            UpdatePermissions();
+          
 
         }
-        public void UpdatePermissions()
-        {
-            IEnumerable<ToggleButton> buttons1 = ButtonsGroup1.Children.OfType<ToggleButton>();
-            IEnumerable<ToggleButton> buttons2 = ButtonsGroup2.Children.OfType<ToggleButton>();
-            IEnumerable<ToggleButton> buttons3 = ButtonsGroup3.Children.OfType<ToggleButton>();
-            buttons1 = buttons1.Concat(buttons2);
-            buttons1 = buttons1.Concat(buttons3);
-            foreach (ToggleButton button in buttons1)
-            {
-                Debug.WriteLine(button.Content);
-            }
-        }
-    
+
     }
     
 }

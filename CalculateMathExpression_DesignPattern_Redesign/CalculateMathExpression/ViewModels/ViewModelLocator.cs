@@ -60,13 +60,6 @@ namespace CalculateMathExpression.ViewModels
             IInfomationService messageService = new InformationServiceFactory().GetInformationService("");
 #endif
             IDataAccessService dataAccessService = new DataAccessService();
-            ButtonPermission e = new ButtonPermission();
-            List<ButtonPermission> permissions = new List<ButtonPermission>();
-            e.Code = "test";
-            e.IsEnable = false;
-            permissions.Add(e);
-            dataAccessService.Save(permissions);
-
             MainPageViewModel mainPageViewModel = new MainPageViewModel(messageService);
             CalculateTabModel calculateTabModel = new CalculateTabModel(messageService, new ThirdPartyCalculator());
             // register Observers of MainPageViewModel.
@@ -75,8 +68,8 @@ namespace CalculateMathExpression.ViewModels
             // add Instance to ObjectLocator.
             ObjectLocatorService.Current().RegisterInstance<MainPageViewModel>(mainPageViewModel);
             ObjectLocatorService.Current().RegisterInstance<CalculateTabModel>(calculateTabModel);
-            ObjectLocatorService.Current().RegisterInstance<IDataAccessService>(new DataAccessService());
-            ObjectLocatorService.Current().RegisterInstance<PermissionTabViewModel>(new PermissionTabViewModel(messageService, new DataAccessService()));
+            ObjectLocatorService.Current().RegisterInstance<IDataAccessService>(dataAccessService);
+            ObjectLocatorService.Current().RegisterInstance<PermissionTabViewModel>(new PermissionTabViewModel(messageService, dataAccessService));
 
             
             

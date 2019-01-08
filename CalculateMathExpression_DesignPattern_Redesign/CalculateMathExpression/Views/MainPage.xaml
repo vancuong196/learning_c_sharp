@@ -210,7 +210,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="x²"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[SQR]}"
                             Tag="sqr" />
                         <Button
                             Grid.Row="3"
@@ -220,7 +220,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="-"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[SUB]}"
+                            Tag="SUB" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="1"
@@ -229,7 +230,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="2"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[TWO]}"
+                            Tag="TWO" />
                         <Button
                             Grid.Row="4"
                             Grid.Column="2"
@@ -238,7 +240,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="("
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[OPENB]}"
+                            Tag="OPENB" />
                         <Button
                             Grid.Row="3"
                             Grid.Column="2"
@@ -247,7 +250,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="*"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[MUL]}"
+                            Tag="MUL" />
                         <Button
                             Grid.Row="2"
                             Grid.Column="2"
@@ -256,7 +260,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="3"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[THREE]}"
+                            Tag="THREE" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="1"
@@ -265,7 +270,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="5"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[FIVE]}"
+                            Tag="FIVE" />
                         <Button
                             Grid.Row="1"
                             Grid.Column="3"
@@ -304,7 +310,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content=")"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[CLOSEB]}"
+                            Tag="CLOSEB" />
                     </Grid>
                     <Grid
                         Grid.Row="0"
@@ -335,7 +342,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 1"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XC1]}"
                             Tag="[ΔXC1]" />
                         <Button
                             Grid.Row="0"
@@ -345,7 +352,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 1"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YC1]}"
                             Tag="[ΔYC1]" />
                         <Button
                             Grid.Row="1"
@@ -355,7 +362,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 2"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XC2]}"
                             Tag="[ΔXC2]" />
                         <Button
                             Grid.Row="1"
@@ -365,7 +372,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 2"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YC2]}"
                             Tag="[ΔYC2]" />
                         <Button
                             Grid.Row="2"
@@ -375,7 +382,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 3"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XC3]}"
                             Tag="[ΔXC3]" />
                         <Button
                             Grid.Row="2"
@@ -385,7 +392,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 3"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YC3]}"
                             Tag="[ΔYC3]" />
                         <Button
                             Grid.Row="3"
@@ -395,7 +402,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 4"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XC4]}"
                             Tag="[ΔXC4]" />
                         <Button
                             Grid.Row="3"
@@ -405,7 +412,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 4"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YC4]}"
                             Tag="[ΔYC4]" />
                         <Button
                             Grid.Row="4"
@@ -413,10 +420,10 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Command="{Binding Main.ButtonClickedCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="."
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
-                            Tag="." />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[DOT]}"
+                            Tag="DOT" />
 
                     </Grid>
                     <Grid
@@ -448,7 +455,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 1"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XBC1]}"
                             Tag="[ΔXBC1]" />
                         <Button
                             Grid.Row="0"
@@ -458,8 +465,8 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 1"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
-                            Tag="[ΔYBC2]" />
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YBC1]}"
+                            Tag="[ΔYBC1]" />
                         <Button
                             Grid.Row="1"
                             HorizontalAlignment="Stretch"
@@ -467,7 +474,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 2"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XBC2]}"
                             Tag="[ΔXBC2]" />
                         <Button
                             Grid.Row="1"
@@ -477,7 +484,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 2"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YBC2]}"
                             Tag="[ΔYBC2]" />
                         <Button
                             Grid.Row="2"
@@ -487,7 +494,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 3"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XBC3]}"
                             Tag="[ΔXBC3]" />
                         <Button
                             Grid.Row="2"
@@ -497,7 +504,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 3"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YBC3]}"
                             Tag="[ΔYBC3]" />
                         <Button
                             Grid.Row="3"
@@ -508,7 +515,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 4"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[XBC4]}"
                             Tag="[ΔXBC4]" />
                         <Button
                             Grid.Row="3"
@@ -518,7 +525,7 @@
                             Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 4"
-                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[ONE]}"
+                            IsEnabled="{Binding Path=PermissiontabViewModel.Permissons[YBC4]}"
                             Tag="[ΔYBC4]" />
 
                     </Grid>
@@ -753,7 +760,6 @@
             </Grid>
         </PivotItem>
 
-
         <PivotItem Header="Permissions">
             <Grid Margin="12,32,0,0">
 
@@ -768,8 +774,6 @@
                     <RowDefinition Height="*" MinHeight="60" />
 
                 </Grid.RowDefinitions>
-
-
                 <Grid
                     Grid.Row="1"
                     Grid.RowSpan="2"
@@ -787,7 +791,6 @@
                         <RowDefinition Height="*" MinHeight="200" />
                     </Grid.RowDefinitions>
                     <Grid
-                        Name="ButtonsGroup1"
                         Grid.Row="0"
                         Grid.Column="0"
                         ColumnSpacing="5"
@@ -811,28 +814,28 @@
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="7"
-                            IsChecked="{Binding [SEVEN]}" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[SEVEN],Mode=TwoWay}"
+                            Tag="SEVEN" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="4"
-                            IsChecked="{Binding [FOUR]}" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[FOUR],Mode=TwoWay}"
+                            Tag="FOUR" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="1"
-                            IsChecked="{Binding Permissons[2]}" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[ONE],Mode=TwoWay}"
+                            Tag="ONE" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.RowSpan="2"
@@ -840,33 +843,36 @@
                             Height="36"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="+" />
+                            Content="+"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[ADD],Mode=TwoWay}"
+                            Tag="ADD" />
                         <ToggleButton
                             Grid.Row="4"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="√"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[SQRT],Mode=TwoWay}"
                             Tag="sqrt" />
                         <ToggleButton
                             Grid.Row="0"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="8" />
+                            Content="8"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[EIGHT],Mode=TwoWay}"
+                            Tag="EIGTH" />
                         <ToggleButton
                             Grid.Row="0"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="9" />
+                            Content="9"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[NINE],Mode=TwoWay}"
+                            Tag="NINE" />
                         <ToggleButton
                             Grid.Row="0"
                             Grid.Column="3"
@@ -874,76 +880,82 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="Back"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[BACK],Mode=TwoWay}"
                             Tag="back" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="6" />
+                            Content="6"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[SIX],Mode=TwoWay}"
+                            Tag="SIX" />
                         <ToggleButton
                             Grid.Row="4"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="x²"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[SQR],Mode=TwoWay}"
                             Tag="sqr" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="-" />
+                            Content="-"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[SUB],Mode=TwoWay}"
+                            Tag="SUB" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="2"
-                            IsChecked="{Binding [TWO]}" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[TWO],Mode=TwoWay}"
+                            Tag="TWO" />
                         <ToggleButton
                             Grid.Row="4"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="(" />
+                            Content="("
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[OPENB],Mode=TwoWay}"
+                            Tag="OPENB" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="*" />
+                            Content="*"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[MUL],Mode=TwoWay}"
+                            Tag="MUL" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="3" />
+                            Content="3"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[THREE],Mode=TwoWay}"
+                            Tag="THREE" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="5" />
+                            Content="5"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[FIVE],Mode=TwoWay}"
+                            Tag="FIVE" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="3"
@@ -951,37 +963,37 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="Clear"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[ONE],Mode=TwoWay}"
                             Tag="clear" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="0" />
+                            Content="0"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[ONE],Mode=TwoWay}" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content="/" />
+                            Content="/"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[ONE],Mode=TwoWay}" />
                         <ToggleButton
                             Grid.Row="4"
                             Grid.Column="3"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Content=")" />
+                            Content=")"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[CLOSEB],Mode=TwoWay}"
+                            Tag="CLOSEB" />
                     </Grid>
                     <Grid
-                        Name="ButtonsGroup2"
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="5,0"
@@ -1007,86 +1019,85 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 1"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XC1],Mode=TwoWay}"
                             Tag="[ΔXC1]" />
                         <ToggleButton
                             Grid.Row="0"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 1"
-                            Tag="[ΔYC1]" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YC1],Mode=TwoWay}"
+                            Tag="[ΔYC1]"/>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 2"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XC2],Mode=TwoWay}"
                             Tag="[ΔXC2]" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 2"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YC2],Mode=TwoWay}"
                             Tag="[ΔYC2]" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 3"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XC3],Mode=TwoWay}"
                             Tag="[ΔXC3]" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 3"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YC3],Mode=TwoWay}"
                             Tag="[ΔYC3]" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Camera 4"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XC4],Mode=TwoWay}"
                             Tag="[ΔXC4]" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Camera 4"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YC4],Mode=TwoWay}"
                             Tag="[ΔYC4]" />
                         <ToggleButton
                             Grid.Row="4"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
                             Content="."
-                            Tag="." />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[DOT],Mode=TwoWay}"
+                            Tag="DOT" />
 
                     </Grid>
                     <Grid
-                        Name="ButtonsGroup3"
                         Grid.Row="0"
                         Grid.Column="2"
                         Margin="5,0"
@@ -1112,53 +1123,53 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 1"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XBC1],Mode=TwoWay}"
                             Tag="[ΔXBC1]" />
                         <ToggleButton
                             Grid.Row="0"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 1"
-                            Tag="[ΔYBC2]" />
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YBC1],Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Tag="[ΔYBC1]" />
                         <ToggleButton
                             Grid.Row="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 2"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XBC2],Mode=TwoWay}"
                             Tag="[ΔXBC2]" />
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 2"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YBC2],Mode=TwoWay}"
                             Tag="[ΔYBC2]" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 3"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XBC3],Mode=TwoWay}"
                             Tag="[ΔXBC3]" />
                         <ToggleButton
                             Grid.Row="2"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 3"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YBC3],Mode=TwoWay}"
                             Tag="[ΔYBC3]" />
                         <ToggleButton
                             Grid.Row="3"
@@ -1166,18 +1177,18 @@
                             Width="Auto"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔX Bot. Camera 4"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[XBC4],Mode=TwoWay}"
                             Tag="[ΔXBC4]" />
                         <ToggleButton
                             Grid.Row="3"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Command="{Binding Main.ButtonClickedCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
                             Content="ΔY Bot. Camera 4"
+                            IsChecked="{Binding Path=PermissiontabViewModel.Permissons[YBC4],Mode=TwoWay}"
                             Tag="[ΔYBC4]" />
 
                     </Grid>
@@ -1188,10 +1199,10 @@
                     Grid.Row="5"
                     Margin="0,30,0,30"
                     VerticalAlignment="Bottom">
-                    <ToggleButton
+                    <Button
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Command="{Binding Path=Main.SaveCommand}"
+                        Command="{Binding Path=PermissiontabViewModel.SaveCommand}"
                         Content="Save" />
                 </StackPanel>
             </Grid>

@@ -53,17 +53,18 @@ namespace CalculateMathExpression.Utils.GrammarValidate
             {
                 return true;
             }
-            for (int i= 0; i < context.Length-1; i++)
+            for (int i= 0; i < context.Length; i++)
             {
                 if (context[i] == '.')
                 {
                     bool isFault = true;
                     int j = i + 1;
-                    while (j<context.Length-1&&context[j]!='.')
+                    while (j<context.Length&&context[j]!='.')
                     {
                         if (!"0123456789".Contains(context[j]))
                         {
                             isFault = false;
+                            break;
                         }
                         j++;
                     }

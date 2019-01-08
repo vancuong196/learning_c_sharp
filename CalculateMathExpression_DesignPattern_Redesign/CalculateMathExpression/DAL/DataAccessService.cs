@@ -4,17 +4,19 @@ using System.IO;
 using Windows.Storage;
 using System;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Collections.Concurrent;
 
 namespace CalculateMathExpression.DAL
 {
     class DataAccessService : IDataAccessService
     {
-        public async Task<List<ButtonPermission>> GetButtonPermissions()
+        public async Task<Dictionary<string,bool>> GetButtonPermissions()
         {
             var file = await ApplicationData.Current.LocalFolder.GetFileAsync("data.txt");
 
             var lines = await FileIO.ReadLinesAsync(file);
-            List<ButtonPermission> permissions = new List<ButtonPermission>();
+            Dictionary<string, bool> permissions = new Dictionary<string, bool>();
             foreach (string line in lines)
             {
 
@@ -27,32 +29,35 @@ namespace CalculateMathExpression.DAL
                 {
                     continue;
                 }
-                ButtonPermission permission = new ButtonPermission();
-                permission.Code = lineParts[0];
-                permission.IsEnable = false;
-                if (lineParts[0] == "1")
+               
+                string code = lineParts[0];
+                Debug.WriteLine(code);
+                bool isEnable = false;
+                if (lineParts[1] == "1")
                 {
-                    permission.IsEnable = true;
+                    isEnable = true;
                 }
-                permissions.Add(permission);
+                permissions.Add(code,isEnable);
 
             }
             return permissions;
 
         }
 
-        public void Save(List<ButtonPermission> buttonPermissions)
+        public void Save(Dictionary<string,bool> buttonPermissions)
         {
 
                 List<string> lines = new List<string>();
-                foreach (ButtonPermission buttonPermission in buttonPermissions)
+                foreach (string code in buttonPermissions.Keys)
                 {
+                    bool isEnable = true;
+                    buttonPermissions.TryGetValue(code, out isEnable);
                     string temp = "0";
-                    if (buttonPermission.IsEnable)
+                    if (isEnable)
                     {
                         temp = "1";
                     }
-                    lines.Add(buttonPermission.Code + "  " + temp);
+                    lines.Add(code + "  " + temp);
                 }
                 Write(lines);
 
@@ -70,7 +75,7 @@ namespace CalculateMathExpression.DAL
 
         }
 
-        public Task<List<ButtonPermission>> GetButtonPermissionAsync()
+        public Task<Dictionary<string,bool>> GetButtonPermissionAsync()
         {
             return GetButtonPermissions();
         }
