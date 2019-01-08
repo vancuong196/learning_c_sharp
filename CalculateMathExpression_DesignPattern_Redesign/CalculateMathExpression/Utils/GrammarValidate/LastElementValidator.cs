@@ -38,7 +38,6 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                 }
 
             }
-            
             if (lastElement.IsCanDelegateLeftNumber && !lastElement.IsCanDelegateRightNumber && toAddElement.IsCanDelegateRightNumber && toAddElement.IsCanDelegateLeftNumber)
             {
                 return false;
@@ -77,5 +76,7 @@ namespace CalculateMathExpression.Utils.GrammarValidate
            
             return true;
         }
+      
+       
     }
 }

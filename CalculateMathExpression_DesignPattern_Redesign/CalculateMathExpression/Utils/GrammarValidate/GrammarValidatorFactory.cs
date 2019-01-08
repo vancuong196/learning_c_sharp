@@ -6,7 +6,7 @@ namespace CalculateMathExpression.Utils.GrammarValidate
         public static ILastElementGrammarValidator GetLastElementValidator()
         {
 
-            return new LastElementValidator();
+            return new LastElementGrammarValidatorDoubleNumberSupported(new LastElementValidator());
         }
         public static IGrammarSentenceValidator GetSentenceGrammarValidator()
         {

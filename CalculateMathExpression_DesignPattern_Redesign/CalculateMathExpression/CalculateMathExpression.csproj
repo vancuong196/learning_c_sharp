@@ -119,7 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DAL\DataAccessService.cs" />
+    <Compile Include="DAL\IDataAccessService.cs" />
     <Compile Include="Exceptions\InstanceNotFoundException.cs" />
+    <Compile Include="Models\ButtonPermission.cs" />
     <Compile Include="Models\FormulaElement.cs" />
     <Compile Include="Models\FormulaVariable.cs" />
     <Compile Include="Utils\Calculator\ThirdPartyCalculator.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Utils\GrammarValidate\GrammarValidatorFactory.cs" />
     <Compile Include="Utils\GrammarValidate\IGrammarValidator.cs" />
     <Compile Include="Utils\GrammarValidate\ILastElementGrammarValidator.cs" />
+    <Compile Include="Utils\GrammarValidate\LastElementGrammarValidatorDoubleNumberSupported.cs" />
     <Compile Include="Utils\GrammarValidate\LastElementValidator.cs" />
     <Compile Include="Utils\GrammarValidate\SentenceGrammarValidator.cs" />
     <Compile Include="Utils\Calculator\ICalculator.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="ViewModels\MainPageDataChangedListener.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Utils\InformationService\MessageService.cs" />
+    <Compile Include="ViewModels\PermissionTabViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

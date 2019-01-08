@@ -43,7 +43,9 @@ namespace CalculateMathExpression.Utils.FormulaHelper
             _supportedElements.Add(sqrt);
             FormulaElement variableClose = new FormulaElement.FormulaElementBuilder("]", "]", "]").SetIsCanDelegateLeftNumber(true).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).Build();
             _supportedElements.Add(variableClose);
-        
+            FormulaElement dot = new FormulaElement.FormulaElementBuilder(".", ".", ".").SetIsCanDelegateLeftNumber(false).SetIsCanDelegateRightNumber(false).SetIsCanDouplicate(false).SetIsADot(true).Build();
+            _supportedElements.Add(dot);
+
         }
         public static SupportedElement GetInstance()
         {

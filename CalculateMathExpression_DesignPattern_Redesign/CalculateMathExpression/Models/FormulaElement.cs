@@ -8,13 +8,14 @@ namespace CalculateMathExpression.Models
 {
     public class FormulaElement
     {
-        public String Code { set; get; }
-        public string ShowForm { set; get; }
-        public string MathForm { set; get; }
-        public bool IsCanDouplicate { set; get; }
-        public bool IsCanDelegateLeftNumber { set; get; }
-        public bool IsCanDelegateRightNumber { set; get; }
-        public bool IsAVariable { set; get; }
+        public String Code { get; }
+        public string ShowForm { get; }
+        public string MathForm { get; }
+        public bool IsCanDouplicate { get; }
+        public bool IsCanDelegateLeftNumber { get; }
+        public bool IsCanDelegateRightNumber {get; }
+        public bool IsAVariable { get; }
+        public bool IsADot { get; }
         private FormulaElement(FormulaElementBuilder builder)
         {
             Code = builder.Code;
@@ -24,6 +25,7 @@ namespace CalculateMathExpression.Models
             IsCanDelegateLeftNumber = builder.IsCanDelegateLeftNumber;
             IsCanDouplicate = builder.IsCanDouplicate;
             IsAVariable = builder.IsAVariable;
+            IsADot = builder.IsDot;
 
         }
         public class FormulaElementBuilder
@@ -34,7 +36,9 @@ namespace CalculateMathExpression.Models
             public bool IsCanDouplicate { set; get; }
             public bool IsCanDelegateLeftNumber { set; get; }
             public bool IsCanDelegateRightNumber { set; get; }
+            //special element that need to have describe.
             public bool IsAVariable { set; get; }
+            public bool IsDot { set; get; }
             public FormulaElementBuilder(string code, string showForm, string mathForm)
             {
                 Code = code;
@@ -60,6 +64,15 @@ namespace CalculateMathExpression.Models
             public FormulaElementBuilder SetIsCanDelegateRightNumber(bool isCanDelegateRightNumber)
             {
                 IsCanDelegateRightNumber = isCanDelegateRightNumber;
+                return this;
+            }
+            public FormulaElementBuilder SetIsADot(bool isADot)
+            {
+                IsDot = isADot;
+                if (isADot)
+                {
+                    IsAVariable = false;
+                }
                 return this;
             }
             public FormulaElement Build()
