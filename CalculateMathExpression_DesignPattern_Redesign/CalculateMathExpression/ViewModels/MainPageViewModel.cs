@@ -38,6 +38,7 @@ namespace CalculateMathExpression.ViewModels
         public void AddOnDataChangeListener(MainPageDataChangedListener listener)
         {
             _dataChangedListeners.Add(listener);
+            OnSaveFormula(XFormula, YFormula);
         }
         public bool IsRadioButtonXChecked{
             set
