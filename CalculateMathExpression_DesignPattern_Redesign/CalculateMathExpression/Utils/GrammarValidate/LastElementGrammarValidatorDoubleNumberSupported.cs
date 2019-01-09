@@ -10,10 +10,43 @@ namespace CalculateMathExpression.Utils.GrammarValidate
     class LastElementGrammarValidatorDoubleNumberSupported : ILastElementGrammarValidator
     {
         private ILastElementGrammarValidator _basicValidator;
-        public LastElementGrammarValidatorDoubleNumberSupported(ILastElementGrammarValidator validator)
+        private string _sentence;
+        public LastElementGrammarValidatorDoubleNumberSupported(ILastElementGrammarValidator validator, string sentence)
         {
             _basicValidator = validator;
+            _sentence = sentence;
         }
+        private bool ValidateDot(string context)
+        {
+
+            if (!context.Contains('.'))
+            {
+                return true;
+            }
+            bool isFault = true;
+            int j = context.Length - 1;
+            while (j >= 0 && context[j] != '.')
+            {
+                if (!"0123456789".Contains(context[j]))
+                {
+                    isFault = false;
+                    break;
+                }
+                j--;
+            }
+            if (j < 0)
+            {
+                isFault = false;
+            }
+            if (isFault)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+    
         public bool Validate(FormulaElement lastElement, FormulaElement toAddElement)
         {
             if (lastElement != null && toAddElement != null)
@@ -29,6 +62,10 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                     {
                         return false;
                     }
+                    if (!ValidateDot(_sentence))
+                    {
+                        return false;
+                    }
                 }
                 if (lastElement.IsADot)
                 {
@@ -38,10 +75,11 @@ namespace CalculateMathExpression.Utils.GrammarValidate
                     }
                 }
 
+
             }
             return _basicValidator.Validate(lastElement, toAddElement);
-
         }
+        
       
     }
 }

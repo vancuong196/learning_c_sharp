@@ -59,8 +59,8 @@ namespace CalculateMathExpression.ViewModels
 #if !LOG_ONLY && !UI_MESSAGE
             IInfomationService messageService = new InformationServiceFactory().GetInformationService("");
 #endif
-            IDataAccessService dataAccessService = new DataAccessService();
-            MainPageViewModel mainPageViewModel = new MainPageViewModel(messageService);
+            IDataAccessService dataAccessService = new LocalFileAccessService();
+            MainPageViewModel mainPageViewModel = new MainPageViewModel(messageService,dataAccessService);
             CalculateTabModel calculateTabModel = new CalculateTabModel(messageService, new ThirdPartyCalculator());
             // register Observers of MainPageViewModel.
             mainPageViewModel.AddOnDataChangeListener(calculateTabModel);

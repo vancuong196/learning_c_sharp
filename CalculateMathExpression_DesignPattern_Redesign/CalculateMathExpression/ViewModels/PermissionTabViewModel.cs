@@ -48,7 +48,7 @@ namespace CalculateMathExpression.ViewModels
                 {
                     _saveCommand = new RelayCommand(()=>
                     {
-                        _dataAccessService.Save(_permissionsDictionary);
+                        _dataAccessService.SavePermissions(_permissionsDictionary);
                         _infomationService.ShowMessgae("Saved!");
                         Permissons = _permissionsDictionary;
                     });

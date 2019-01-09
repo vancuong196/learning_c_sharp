@@ -1,4 +1,5 @@
-﻿using CalculateMathExpression.Models;
+﻿using CalculateMathExpression.DAL;
+using CalculateMathExpression.Models;
 using CalculateMathExpression.Utils;
 using CalculateMathExpression.Utils.FormulaHelper;
 using CalculateMathExpression.Utils.GrammarValidate;
@@ -17,18 +18,22 @@ namespace CalculateMathExpression.ViewModels
         private string _yFormula;
         private string _xFormula;
         private IInfomationService _messageService;
+        private IDataAccessService  _dataAccessService;
         private bool _radioButtonXChecked;
         private bool _radioButtonYChecked;
         private RelayCommand _saveRelayCommand;
+        private RelayCommand _loadFormulaCommand;
         private RelayCommand<string> _buttonClickedCommand;
         private List<MainPageDataChangedListener> _dataChangedListeners;
-        public MainPageViewModel(IInfomationService messageService)
+        public MainPageViewModel(IInfomationService messageService, IDataAccessService dataAccessService)
         {
             _messageService = messageService;
+            _dataAccessService = dataAccessService;
             _dataChangedListeners = new List<MainPageDataChangedListener>();
             IsRadioButtonXChecked = true;
             XFormula = "";
             YFormula = "";
+            LoadFormulaCommand.Execute(null);
         }
         public void AddOnDataChangeListener(MainPageDataChangedListener listener)
         {
@@ -80,6 +85,34 @@ namespace CalculateMathExpression.ViewModels
                 }
                 return _saveRelayCommand;
             }
+        }
+        public RelayCommand LoadFormulaCommand
+        {
+            get
+            {
+                if (_loadFormulaCommand == null)
+                {
+                    return _loadFormulaCommand = new RelayCommand(() => {
+                        LoadFormula();
+                    }
+                    );
+                }
+                return _loadFormulaCommand;
+            }
+        }
+        private async void LoadFormula()
+        {
+            Dictionary<string, string> formula = await _dataAccessService.GetFormulas();
+            if (formula==null|| formula.Count !=2)
+            {
+                return;
+            }
+            formula.TryGetValue("Y", out _yFormula);
+            formula.TryGetValue("X",out _xFormula);
+            XFormula = _xFormula;
+            YFormula = _yFormula;
+            OnSaveFormula(XFormula, YFormula);
+           
         }
         public RelayCommand<string> ButtonClickedCommand
         {
@@ -156,6 +189,10 @@ namespace CalculateMathExpression.ViewModels
                 GrammarValidatorFactory.GetSentenceGrammarValidator().Validate(XFormula);
                 GrammarValidatorFactory.GetSentenceGrammarValidator().Validate(YFormula);
                 OnSaveFormula(XFormula, YFormula);
+                Dictionary<string, string> fs = new Dictionary<string, string>();
+                fs.Add("Y", YFormula);
+                fs.Add("X", XFormula);
+                _dataAccessService.SaveFormulas(fs);
             }
             catch (Exception e)
             {
@@ -182,7 +219,7 @@ namespace CalculateMathExpression.ViewModels
         private void AppendTextToFormula(string buttonCode)
         {
            
-            ILastElementGrammarValidator grammarValidator = GrammarValidatorFactory.GetLastElementValidator();
+           
             FormulaElement lastElement;
             FormulaElement toAddElement = SupportedElement.GetInstance().GetElementByCode(buttonCode);
             if (IsRadioButtonYChecked == true)
@@ -198,6 +235,7 @@ namespace CalculateMathExpression.ViewModels
                   
 
                 }
+                ILastElementGrammarValidator grammarValidator = GrammarValidatorFactory.GetLastElementValidator(YFormula);
                 if (grammarValidator.Validate(lastElement, toAddElement))
                 {
                     YFormula = YFormula + toAddElement.ShowForm;
@@ -213,6 +251,7 @@ namespace CalculateMathExpression.ViewModels
                 {
                     lastElement = SupportedElement.GetInstance().GetElementByCode(XFormula[XFormula.Length - 1] + "");
                 }
+                ILastElementGrammarValidator grammarValidator = GrammarValidatorFactory.GetLastElementValidator(XFormula);
                 if (grammarValidator.Validate(lastElement, toAddElement))
                 {
                     XFormula = XFormula + toAddElement.ShowForm;

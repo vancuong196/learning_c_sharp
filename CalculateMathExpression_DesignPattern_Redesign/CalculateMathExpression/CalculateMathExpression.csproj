@@ -119,10 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\DataAccessService.cs" />
+    <Compile Include="DAL\LocalFileAccessService.cs" />
     <Compile Include="DAL\IDataAccessService.cs" />
     <Compile Include="Exceptions\InstanceNotFoundException.cs" />
-    <Compile Include="Models\ButtonPermission.cs" />
     <Compile Include="Models\FormulaElement.cs" />
     <Compile Include="Models\FormulaVariable.cs" />
     <Compile Include="Utils\Calculator\ThirdPartyCalculator.cs" />
