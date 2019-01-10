@@ -159,7 +159,11 @@ namespace Task_Manager_Prism.ViewModels
                 return _reloadCommand;
             }
         }
-  
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        {
+               ReloadCommand.Execute();
+
+        }
         public DelegateCommand<string> AddTagToDatabaseCommand
         {
             get

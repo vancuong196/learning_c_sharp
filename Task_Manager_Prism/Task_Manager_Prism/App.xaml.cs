@@ -3,6 +3,7 @@ using Windows.ApplicationModel.Activation;
 using Prism.Unity.Windows;
 using Microsoft.Practices.Unity;
 using Task_Manager_Prism.DatabaseAccess;
+using Task_Manager_Prism.DAL;
 
 namespace Task_Manager_Prism
 {
@@ -34,7 +35,7 @@ namespace Task_Manager_Prism
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
 
-            Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessService());
+            Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceRemoteProxy());
 
             return base.OnInitializeAsync(args);
         }

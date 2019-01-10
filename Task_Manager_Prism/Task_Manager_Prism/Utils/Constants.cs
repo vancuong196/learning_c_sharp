@@ -17,6 +17,7 @@ namespace Task_Manager_Prism.Ultils
         public const int NoneDateTaskListID = 6;
         public const string SelectedTaskKey = "SELECTEDTASK";
         public const string TasksListKey = "TASKLIST";
+        public const string ApiBaseUrl = "http://localhost:54784/api/";
 
     }
 }
