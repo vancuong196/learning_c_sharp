@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using Task_Manager_Prism.Models;
 
 namespace Task_Manager_Prism.DatabaseAccess
@@ -10,7 +11,11 @@ namespace Task_Manager_Prism.DatabaseAccess
     public class DatabaseAccessService: IDatabaseAccessService
     {
 
-        private const string _connectionString =@"Data source=CPU003;initial catalog=TaskDatabase;user id=sa;password=123456;MultipleActiveResultSets=True;";
+        private readonly string _connectionString;
+        public DatabaseAccessService()
+        {
+            _connectionString = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        }
         private List<TaskItem> LoadTasksInDatabase()
         {
             string query = @"SELECT * FROM TasksTable;";

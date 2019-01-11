@@ -35,18 +35,10 @@ namespace Task_Manager_Prism
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
 
-            Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceRemoteProxy());
+            Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceProxy());
 
             return base.OnInitializeAsync(args);
         }
 
-        /// <summary>
-        /// We use this method to simulate the loading of resources from different sources asynchronously.
-        /// </summary>
-        /// <returns></returns>
-        private Task LoadAppResources()
-        {
-            return Task.Delay(1000);
-        }
     }
 }

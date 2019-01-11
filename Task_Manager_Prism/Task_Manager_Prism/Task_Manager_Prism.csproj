@@ -119,7 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DAL\RemoteDataAccessService.cs" />
+    <Compile Include="DAL\DataAccessServiceProxy.cs" />
     <Compile Include="DAL\DummyDatabaseAccessService.cs" />
     <Compile Include="DAL\IDatabaseAccessService.cs" />
     <Compile Include="Models\TagItem.cs" />

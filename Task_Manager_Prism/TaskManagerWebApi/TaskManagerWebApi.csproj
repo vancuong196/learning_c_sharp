@@ -116,7 +116,6 @@
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="DAL\DatabaseAccessService.cs" />
-    <Compile Include="DAL\DummyDatabaseAccessService.cs" />
     <Compile Include="DAL\IDatabaseAccessService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

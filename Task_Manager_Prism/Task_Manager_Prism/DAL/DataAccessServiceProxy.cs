@@ -11,11 +11,11 @@ using Task_Manager_Prism.Ultils;
 
 namespace Task_Manager_Prism.DAL
 {
-    class DatabaseAccessServiceRemoteProxy : IDatabaseAccessService
+    class DatabaseAccessServiceProxy : IDatabaseAccessService
 
     {
        
-        public DatabaseAccessServiceRemoteProxy()
+        public DatabaseAccessServiceProxy()
         {
             
         }
