@@ -4,6 +4,7 @@ using Prism.Unity.Windows;
 using Microsoft.Practices.Unity;
 using Task_Manager_Prism.DatabaseAccess;
 using Task_Manager_Prism.DAL;
+using Task_Manager_Prism.Utils;
 
 namespace Task_Manager_Prism
 {
@@ -29,13 +30,15 @@ namespace Task_Manager_Prism
                 // await LoadAppResources();
             }
 
-            NavigationService.Navigate("Main", null);
+            NavigationService.Navigate("Login", null);
         }
 
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
 
             Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceProxy());
+            Container.RegisterInstance<IMessageService>(new MessageService());
+            Container.RegisterInstance<ILoginService>(new LoginService());
 
             return base.OnInitializeAsync(args);
         }

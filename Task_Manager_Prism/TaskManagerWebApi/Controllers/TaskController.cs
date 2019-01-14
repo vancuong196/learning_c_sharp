@@ -9,6 +9,7 @@ using Task_Manager_Prism.Models;
 
 namespace TaskManagerWebApi.Controllers
 {
+    [Authorize]
     public class TaskController : ApiController
     {
         IDatabaseAccessService _databaseAccessService;
@@ -16,6 +17,7 @@ namespace TaskManagerWebApi.Controllers
         {
             _databaseAccessService = databaseAccessService;
         }
+
         public List<TaskItem> GetTaskItems()
         {
             return _databaseAccessService.GetTasks().Result;
