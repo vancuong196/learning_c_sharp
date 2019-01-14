@@ -9,6 +9,7 @@ using Task_Manager_Prism.Models;
 
 namespace TaskManagerWebApi.Controllers
 {
+    [Authorize]
     public class TagController : ApiController
     {
         private IDatabaseAccessService _databaseAccessService;
