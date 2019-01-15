@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -20,47 +21,90 @@ namespace Task_Manager_Prism.DAL
 
     {
         private TokenModel _tokenModel;
-        public DatabaseAccessServiceProxy()
+        private IMessageService _messageService;
+        public DatabaseAccessServiceProxy(IMessageService messageService)
         {
-           
+            _messageService = messageService;
         }
 
      
 
-        public void AddTagItem(string tagName)
+        async public void AddTagItem(string tagName)
         {
-            _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
-            client.BaseAddress = new Uri(Constants.ApiBaseUrl);
-            client.PostAsJsonAsync(
-             "tag", new TagItem(tagName));
+            try
+            {
+                _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
+                client.BaseAddress = new Uri(Constants.ApiBaseUrl);
+                var response = await client.PostAsJsonAsync(
+                 "tag", new TagItem(tagName));
+                if (!(response.StatusCode == HttpStatusCode.OK))
+
+                {
+                    _messageService.ShowMessage("Error", "Can not add tag!");
+
+                }
+            } catch
+            {
+                _messageService.ShowMessage("Error", "Can not connect to server!");
+            }
 
         }
 
-        public void AddTaskItem(TaskItem item)
+        async public void AddTaskItem(TaskItem item)
         {
-            _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
-            client.BaseAddress = new Uri(Constants.ApiBaseUrl);
-            client.PostAsJsonAsync(
-             "task", item);
+            try
+            {
+                _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
+                client.BaseAddress = new Uri(Constants.ApiBaseUrl);
+                var response = await client.PostAsJsonAsync(
+                 "task", item);
+                if (!(response.StatusCode == HttpStatusCode.OK))
+
+                {
+                    _messageService.ShowMessage("Error", "Can not add task!");
+
+                }
+            } catch
+            {
+                _messageService.ShowMessage("Error", "Can not connect to server!");
+            }
+          
 
         }
 
-        public void DeleteTaskItem(int id)
+        async public void DeleteTaskItem(int id)
         {
-            _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
-            client.BaseAddress = new Uri(Constants.ApiBaseUrl);
-            client.DeleteAsync(
-                    "task/"+id.ToString());
-           
+            try
+            {
+                _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
+                client.BaseAddress = new Uri(Constants.ApiBaseUrl);
+                var response = await client.DeleteAsync(
+                        "task/" + id.ToString());
+                if (response.StatusCode == HttpStatusCode.NotFound)
+
+                {
+                    _messageService.ShowMessage("Error", "Can not found task to delete!");
+
+                }
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+
+                {
+                    _messageService.ShowMessage("Error", "Can not delete task because of database's error!");
+                }
+            } catch
+            {
+                _messageService.ShowMessage("Error", "Can not connect to server!");
+            }
+
         }
 
-        public Task<List<TagItem>> GetTags()
+        async public Task<List<TagItem>> GetTags()
         {
             _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
             List<TagItem> tags = new List<TagItem>();
@@ -70,9 +114,8 @@ namespace Task_Manager_Prism.DAL
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
                     httpClient.BaseAddress = new Uri(Constants.ApiBaseUrl);
-                    var responseTask = httpClient.GetAsync("tag");
-                    responseTask.Wait();
-                    var result = responseTask.Result;
+                    var responseTask = httpClient.GetAsync("tag");                
+                    var result = await responseTask;
                     if (result.IsSuccessStatusCode)
                     {
 
@@ -89,12 +132,12 @@ namespace Task_Manager_Prism.DAL
                 }
             } catch (Exception e)
             {
-                Debug.WriteLine("Problem when access API");
+                _messageService.ShowMessage("Error", "Can not connect to server!");
             }
-            return Task.FromResult(tags);
+            return tags;
         }
 
-        public Task<List<TaskItem>> GetTasks()
+        async public Task<List<TaskItem>> GetTasks()
         {
             _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
             List<TaskItem> tasks = new List<TaskItem>();
@@ -111,9 +154,7 @@ namespace Task_Manager_Prism.DAL
                     {
 
                         var readTask = result.Content.ReadAsAsync<TaskItem[]>();
-                        readTask.Wait();
-
-                        var taskItems = readTask.Result;
+                        var taskItems = await readTask;
 
                         foreach (var item in taskItems)
                         {
@@ -123,19 +164,36 @@ namespace Task_Manager_Prism.DAL
                 }
             } catch (Exception e)
                 {
-                    Debug.WriteLine("Problem when access API");
-                }
-                return Task.FromResult(tasks);
+                _messageService.ShowMessage("Error", "Can not connect to server!");
+            }
+                return tasks;
         }
 
-        public void UpdateTaskItem(TaskItem item)
+        async public void UpdateTaskItem(TaskItem item)
         {
-            _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
-            client.BaseAddress = new Uri(Constants.ApiBaseUrl);
-            client.PutAsJsonAsync(
-             "task", item);
+            try
+            {
+                _tokenModel = ApplicaitonShareDataService.GetCurrent().Token;
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
+                client.BaseAddress = new Uri(Constants.ApiBaseUrl);
+                var response = await client.PutAsJsonAsync(
+                 "task", item);
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+
+                {
+                    _messageService.ShowMessage("Error", "Can not update task because task doesn't exist!");
+                }
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+
+                {
+                    _messageService.ShowMessage("Error", "Can not update task because of database's error!");
+                }
+            } catch
+            {
+                _messageService.ShowMessage("Error", "Can not connect to server!");
+            }
         }
     }
 }

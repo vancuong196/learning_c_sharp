@@ -30,6 +30,7 @@ namespace Task_Manager_Prism.ViewModels
         private DelegateCommand<string> _addTagToDatabase;
         private DelegateCommand<int> _deleteTaskItemDelegateCommand;
         private DelegateCommand _reloadCommand;
+        private DelegateCommand _logoutCommand;
         private DelegateCommand<int?> _loadListCommand;
         private ObservableCollection<TaskItem> _tasksToShow;
 
@@ -40,7 +41,7 @@ namespace Task_Manager_Prism.ViewModels
             _navigationService = navigationService;
             _currentListID = Constants.OverdueTaskListID;
             Debug.WriteLine("----------------------------------------- ");
-            ReloadCommand.Execute();
+           // ReloadCommand.Execute();
         }
 
 
@@ -56,6 +57,24 @@ namespace Task_Manager_Prism.ViewModels
                     return _loadListCommand;
                 }
                 return _loadListCommand;
+            }
+        }
+
+        public DelegateCommand LogoutCommand
+        {
+            get
+            {
+                if (_logoutCommand == null)
+                {
+                    _logoutCommand = new DelegateCommand(() =>
+                    {
+
+                        _navigationService.Navigate("Login", null);
+                    }
+                    );
+                    
+                }
+                return _logoutCommand;
             }
         }
 

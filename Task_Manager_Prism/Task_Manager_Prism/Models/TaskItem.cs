@@ -8,13 +8,43 @@ namespace Task_Manager_Prism.Models
 
     public class TaskItem
     {
+
+        private string _time;
+        private string _date;
         public string Title { set; get; }
 
         public string Description { set; get; }
 
-        public string Time { set; get; }
-
-        public string Date { set; get; }
+        public string Time
+        {
+            set
+            {
+                _time = value;
+            }
+            get
+            {
+                if (_time == "" || _time == null)
+                {
+                    return "--:--:--";
+                }
+                return _time;
+            }
+        }
+        public string Date
+        {
+            set
+            {
+                _date = value;
+            }
+            get
+            {
+                if (_date==null|| _date == "")
+                {
+                    return "--/--/----";
+                }
+                return _date;
+            }
+        }
 
         public string Tag { set; get; }
 
@@ -42,7 +72,7 @@ namespace Task_Manager_Prism.Models
         {
             get
             {
-                if (Date.Trim() == "" || Time.Trim() == "")
+                if (Date.Trim() == "" || Time.Trim() == "" || Date == "--/--/----" || Time == "--:--:--")
                 {
                     return false;
                 }

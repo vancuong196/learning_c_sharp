@@ -12,10 +12,11 @@ namespace Task_Manager_Prism.DatabaseAccess
 
         Task<List<TaskItem>> GetTasks();
         Task<List<TagItem>> GetTags();
-        void AddTaskItem(TaskItem item);
-        void UpdateTaskItem(TaskItem item);
-        void DeleteTaskItem(int id);
-        void AddTagItem(string tagName);
+        bool AddTaskItem(TaskItem item);
+        bool UpdateTaskItem(TaskItem item);
+        bool DeleteTaskItem(int id);
+        bool AddTagItem(string tagName);
+        bool FindTaskById(int id);
     }
 
 }

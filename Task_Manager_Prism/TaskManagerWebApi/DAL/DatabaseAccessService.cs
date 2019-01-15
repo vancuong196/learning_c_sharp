@@ -110,7 +110,7 @@ namespace Task_Manager_Prism.DatabaseAccess
             return LoadTagInDatabase();
         }
 
-        public void AddTaskItem(TaskItem item)
+        public bool AddTaskItem(TaskItem item)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -129,6 +129,7 @@ namespace Task_Manager_Prism.DatabaseAccess
                         command.Parameters.Add(new SqlParameter("IsCompleted", item.IsFinished));
 
                         command.ExecuteNonQuery();
+                        return true;
                     }
                 }
                 catch (Exception e)
@@ -136,12 +137,12 @@ namespace Task_Manager_Prism.DatabaseAccess
                 { 
 
                     Debug.WriteLine("Count not insert."+e.Message);
-                    throw new Exception();
+                    return false;
                 }
             }
         }
 
-        public void UpdateTaskItem(TaskItem item)
+        public bool UpdateTaskItem(TaskItem item)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -161,7 +162,7 @@ namespace Task_Manager_Prism.DatabaseAccess
                         command.Parameters.Add(new SqlParameter("IsCompleted", item.IsFinished));
                         command.Parameters.Add(new SqlParameter("ID", item.ID));
                         command.ExecuteNonQuery();
-                        
+                        return true;
                     }
                 }
                 catch (Exception e)
@@ -169,12 +170,12 @@ namespace Task_Manager_Prism.DatabaseAccess
                 {
 
                     Debug.WriteLine("Count not update." + e.Message);
-                    throw new Exception();
+                    return false;
                 }
             }
         }
 
-        public void DeleteTaskItem(int id)
+        public bool DeleteTaskItem(int id)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -185,20 +186,21 @@ namespace Task_Manager_Prism.DatabaseAccess
                         "Delete from TasksTable Where ID=@ID;", con))
                     {
                         command.Parameters.Add(new SqlParameter("ID", id));
-
                         command.ExecuteNonQuery();
+                        return true;
                     }
                 }
                 catch (Exception e)
 
                 {
 
-                    Debug.WriteLine("Count not insert." + e.Message);
+                    Debug.WriteLine("Count not delete." + e.Message);
+                    return false;
                 }
             }
         }
 
-        public void AddTagItem(string tagName)
+        public bool AddTagItem(string tagName)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
@@ -209,8 +211,14 @@ namespace Task_Manager_Prism.DatabaseAccess
                         "INSERT INTO TagTable (TagName) VALUES(@Name)", con))
                     {
                         command.Parameters.Add(new SqlParameter("Name", tagName));
-
-                        command.ExecuteNonQuery();
+                        int numberOfRowAdded = command.ExecuteNonQuery();
+                        if (numberOfRowAdded == 1)
+                        {
+                            return true;
+                        } else
+                        {
+                            return false;
+                        }
                     }
                 }
                 catch (Exception e)
@@ -218,8 +226,14 @@ namespace Task_Manager_Prism.DatabaseAccess
                 {
 
                     Debug.WriteLine("Count not insert." + e.Message);
+                    return false;
                 }
             }
+        }
+
+        public bool FindTaskById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

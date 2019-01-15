@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,110 +13,171 @@ namespace TaskManagerWebApi.DAL
 {
     public class EntityDatabaseService : IDatabaseAccessService
     {
-        public void AddTagItem(string tagName)
+        public bool AddTagItem(string tagName)
         {
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                TagTable tag = new TagTable();
-                tag.TagName = tagName;
-                db.TagTables.Add(tag);
-                db.SaveChanges();
+                using (var db = new TaskDatabaseContext())
+                {
+                    TagTable tag = new TagTable();
+                    tag.TagName = tagName;
+                    db.TagTables.Add(tag);
+                    db.SaveChanges();
+                    return true;
+
+                }
+            } catch (Exception e)
+            {
+                return false;
             }
         }
 
-        public void AddTaskItem(TaskItem t)
+        public bool AddTaskItem(TaskItem t)
         {
-
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                TasksTable taskItem = new TasksTable();
-                taskItem.Date = t.Date.Trim();
-                taskItem.ID = t.ID;
-                taskItem.Priority = t.IsImportant;
-                taskItem.Title = t.Title;
-                taskItem.Description = t.Description;
-                taskItem.IsCompleted = t.IsFinished;
-                taskItem.Tag = t.Tag.Trim();
-                taskItem.Time = t.Time.Trim();
-                db.TasksTables.Add(taskItem);
-                db.SaveChanges();
+                using (var db = new TaskDatabaseContext())
+                {
+                    TasksTable taskItem = new TasksTable();
+                    taskItem.Date = t.Date.Trim();
+                    taskItem.ID = t.ID;
+                    taskItem.Priority = t.IsImportant;
+                    taskItem.Title = t.Title.Trim();
+                    taskItem.Description = t.Description.Trim();
+                    taskItem.IsCompleted = t.IsFinished;
+                    taskItem.Tag = t.Tag.Trim();
+                    taskItem.Time = t.Time.Trim();
+                    db.TasksTables.Add(taskItem);
+                    db.SaveChanges();
+                    return true;
+                }
+            } catch (Exception e)
+            {
+                return false;
             }
         }
 
-        public void DeleteTaskItem(int id)
+        public bool DeleteTaskItem(int id)
         {
-          
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                var task = db.TasksTables.Where(s => s.ID == id).Single();
-                db.TasksTables.Remove(task);
-                db.SaveChanges();
+                using (var db = new TaskDatabaseContext())
+                {
+                    var task = db.TasksTables.Where(s => s.ID == id).Single();
+                    db.TasksTables.Remove(task);
+                    db.SaveChanges();
+                    return true;
+                }
+            } catch
+            {
+                return false;
             }
           
+        }
+
+        public bool FindTaskById(int id)
+        {
+            try
+            {
+                using (var db = new TaskDatabaseContext())
+                {
+                    var task = db.TasksTables.Where(s => s.ID == id).Single();
+                    if (task == null)
+                    {
+                        return false;
+                    }
+                   
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
         }
 
         public Task<List<TagItem>> GetTags()
         {
-            List<TagItem> tagItems = new List<TagItem>();
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                var tasks = db.TagTables.Where(s => true);
-                foreach (TagTable t in tasks)
+                List<TagItem> tagItems = new List<TagItem>();
+                using (var db = new TaskDatabaseContext())
                 {
-                    TagItem tagItem = new TagItem();
-                    tagItem.Name = t.TagName;
-                    tagItems.Add(tagItem);
+                    var tasks = db.TagTables.Where(s => true);
+                    foreach (TagTable t in tasks)
+                    {
+                        TagItem tagItem = new TagItem();
+                        tagItem.Name = t.TagName.Trim();
+                        tagItems.Add(tagItem);
 
+                    }
                 }
+                return Task.FromResult(tagItems);
+            } catch
+            {
+                return null;
             }
-            return Task.FromResult(tagItems);
         }
 
         public Task<List<TaskItem>> GetTasks()
         {
-            List<TaskItem> taskItems = new List<TaskItem>();
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                var tasks = db.TasksTables.Where(s => true);
-                foreach (TasksTable t in tasks)
+                List<TaskItem> taskItems = new List<TaskItem>();
+                using (var db = new TaskDatabaseContext())
                 {
-                    TaskItem taskItem = new TaskItem();
-                    taskItem.Date = t.Date.Trim();
-                    taskItem.ID = t.ID;
-                    taskItem.IsImportant = t.Priority??false;
-                    taskItem.Title = t.Title;
-                    taskItem.Description = t.Description;
-                    taskItem.IsFinished = t.IsCompleted??false;
-                    taskItem.Tag = t.Tag.Trim();
-                    taskItem.Time = t.Time.Trim();
-                    taskItems.Add(taskItem);
-                    
+                    var tasks = db.TasksTables.Where(s => true);
+                    foreach (TasksTable t in tasks)
+                    {
+                        TaskItem taskItem = new TaskItem();
+                        taskItem.Date = t.Date.Trim();
+                        taskItem.ID = t.ID;
+                        taskItem.IsImportant = t.Priority ?? false;
+                        taskItem.Title = t.Title.Trim();
+                        taskItem.Description = t.Description.Trim();
+                        taskItem.IsFinished = t.IsCompleted ?? false;
+                        taskItem.Tag = t.Tag.Trim();
+                        taskItem.Time = t.Time.Trim();
+                        taskItems.Add(taskItem);
+
+                    }
                 }
+                return Task.FromResult(taskItems);
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
             }
-            return Task.FromResult(taskItems);
         }
 
-        public void UpdateTaskItem(TaskItem t)
+        public bool UpdateTaskItem(TaskItem t)
         {
-           
-            using (var db = new TaskDatabaseContext())
+            try
             {
-                var task = db.TasksTables.Where(s => s.ID == t.ID).Single();
-                if (task == null)
+                using (var db = new TaskDatabaseContext())
                 {
-                    return;
+                    var task = db.TasksTables.Where(s => s.ID == t.ID).Single();
+                    if (task == null)
+                    {
+                        return false;
+                    }
+                    task.Date = t.Date.Trim();
+                    task.ID = t.ID;
+                    task.Priority = t.IsImportant;
+                    task.Title = t.Title.Trim();
+                    task.Description = t.Description.Trim();
+                    task.IsCompleted = t.IsFinished;
+                    task.Tag = t.Tag.Trim();
+                    task.Time = t.Time.Trim();
+                    db.SaveChanges();
+                    return true;
                 }
-
-                task.Date = t.Date.Trim();
-                task.ID = t.ID;
-                task.Priority = t.IsImportant;
-                task.Title = t.Title;
-                task.Description = t.Description;
-                task.IsCompleted = t.IsFinished;
-                task.Tag = t.Tag.Trim();
-                task.Time = t.Time.Trim();
-                db.SaveChanges();
+            } catch
+            {
+                return false;
             }
+
         }
     }
 }

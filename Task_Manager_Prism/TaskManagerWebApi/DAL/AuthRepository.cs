@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 public class AuthRepository : IDisposable
 {
-    private AuthContext _ctx;
+    private AuthContext _context;
 
     private UserManager<IdentityUser> _userManager;
 
     public AuthRepository()
     {
-        _ctx = new AuthContext();
-        _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+        _context = new AuthContext();
+        _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_context));
     }
 
     public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -34,7 +34,7 @@ public class AuthRepository : IDisposable
 
     public void Dispose()
     {
-        _ctx.Dispose();
+        _context.Dispose();
         _userManager.Dispose();
 
     }

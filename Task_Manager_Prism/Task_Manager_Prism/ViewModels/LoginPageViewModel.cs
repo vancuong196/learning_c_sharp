@@ -1,11 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task_Manager_Prism.Utils;
 
 namespace Task_Manager_Prism.ViewModels
@@ -16,13 +11,53 @@ namespace Task_Manager_Prism.ViewModels
         private IMessageService _messageService;
         private INavigationService _navigationService;
         private DelegateCommand _loginCommand;
+        private DelegateCommand _toRegisterPageCommand;
+        private bool _isProgressVisible;
+        private bool _isButtonClickAble;
+        public bool IsProgressVisible
+        {
+           set
+            {
+                SetProperty(ref _isProgressVisible, value);
+            }
+            get
+            {
+                return _isProgressVisible;
+            }
+        }
+        
+        public bool IsClickAble
+        {
+            set
+            {
+                SetProperty(ref _isButtonClickAble, value);
+            }
+            get
+            {
+                return _isButtonClickAble;
+            }
+        }
+        public DelegateCommand ToRegisterPageCommand
+        {
+            get
+            {
+                if (_toRegisterPageCommand == null)
+                {
+                    _toRegisterPageCommand = new DelegateCommand(() =>
+                    {
+                        _navigationService.Navigate("Register", null);
+                    });
+                }
+                return _toRegisterPageCommand;
+            }
+        }
         public DelegateCommand LoginCommand
         {
             get
             {
                 if (_loginCommand == null)
                 {
-                    _loginCommand = new DelegateCommand(() =>
+                    _loginCommand = new DelegateCommand(async () =>
                     {
                         if (UserName==""|| UserName == null)
                         {
@@ -34,9 +69,13 @@ namespace Task_Manager_Prism.ViewModels
                             _messageService.ShowMessage("Error", "Password can not be empty!");
                             return;
                         }
-                        var loginTask = _loginService.Login(UserName, Password);
-                        loginTask.Wait();
-                        if (loginTask.Result == true)
+                        IsProgressVisible = true;
+                        IsClickAble = false;
+                        var loginTask = await _loginService.Login(UserName, Password);
+                       
+                        IsProgressVisible = false;
+                        IsClickAble = true;
+                        if (loginTask == true)
                         {
                             ApplicaitonShareDataService.GetCurrent().Token = _loginService.GetToken();
                             _navigationService.Navigate("Main", null);
@@ -45,7 +84,7 @@ namespace Task_Manager_Prism.ViewModels
                         else
                         {
                             ApplicaitonShareDataService.GetCurrent().Token = null;
-                            _messageService.ShowMessage("Error", "Can not login now");
+                            _messageService.ShowMessage("Error", _loginService.GetError());
                             
                         }
                     });
@@ -60,6 +99,7 @@ namespace Task_Manager_Prism.ViewModels
             _loginService = loginService;
             _messageService = messageService;
             _navigationService = navigationService;
+            IsClickAble = true;
         }
     }
 }

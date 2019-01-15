@@ -303,6 +303,12 @@
                     Icon="Add"
                     Label="Add Tag"
                     LabelPosition="Default" />
+                <AppBarButton
+                    Command="{Binding Path=LogoutCommand}"
+                    Icon="Cancel"
+                    Label="Logout"
+                    LabelPosition="Default" />
+
 
 
             </StackPanel>

@@ -19,12 +19,24 @@ namespace TaskManagerWebApi.Controllers
         }
         public List<TagItem> GetTagItems()
         {
-            return _databaseAccessService.GetTags().Result;
+            var tags = _databaseAccessService.GetTags().Result;
+            if (tags == null)
+            {
+                tags = new List<TagItem>();
+            }
+            return tags;
         }
-        public void PostTag(TagItem item)
+        public IHttpActionResult PostTag(TagItem item)
         {
-            _databaseAccessService.AddTagItem(item.Name);
-
+            
+            bool isCompleted = _databaseAccessService.AddTagItem(item.Name);
+            if (isCompleted)
+            {
+                return Ok();
+            } else
+            {
+                return BadRequest();
+            }
         }
     }
 }

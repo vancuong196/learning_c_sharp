@@ -51,7 +51,7 @@ namespace Task_Manager_Prism.ViewModels
             {
                 if (_updateTaskItemDelegateCommand == null)
                 {
-                    return _updateTaskItemDelegateCommand = new DelegateCommand<TaskItem>(s =>
+                    return _updateTaskItemDelegateCommand = new DelegateCommand<TaskItem>( s =>
                     {
                         s.ID = SelectedItem.ID;
                         _databaseAccessService.UpdateTaskItem(s);

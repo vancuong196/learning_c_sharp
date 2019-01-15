@@ -20,27 +20,52 @@ namespace TaskManagerWebApi.Controllers
 
         public List<TaskItem> GetTaskItems()
         {
-            return _databaseAccessService.GetTasks().Result;
+            var tasks=  _databaseAccessService.GetTasks().Result;
+            if (tasks == null)
+            {
+                return new List<TaskItem>();
+            }
+            return tasks;
         }
-        public TaskItem GetTaskItems(int id)
+
+        public IHttpActionResult PostTask(TaskItem item)
         {
-            return _databaseAccessService.GetTasks().Result.FirstOrDefault(s=> s.ID == id);
-        }
-        public void PostTask(TaskItem item)
-        {
-            _databaseAccessService.AddTaskItem(item);
+            bool isCompleted = _databaseAccessService.AddTaskItem(item);
+            if (isCompleted)
+            {
+                return Ok();
+            }
+            return BadRequest();
             
         }
         public IHttpActionResult PutTask(TaskItem item)
         {
-
-            _databaseAccessService.UpdateTaskItem(item);
-            return Ok();
+            bool isAvailable = _databaseAccessService.FindTaskById(item.ID);
+            if (!isAvailable)
+            {
+                return NotFound();
+            }
+            bool isCompleted = _databaseAccessService.UpdateTaskItem(item);
+            if (isCompleted)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
         public IHttpActionResult DeleteTask(int id)
         {
-            _databaseAccessService.DeleteTaskItem(id);
-            return Ok();
+            bool isAvailable = _databaseAccessService.FindTaskById(id);
+            if (!isAvailable)
+            {
+                return NotFound();
+            }
+
+            bool isCompleted = _databaseAccessService.DeleteTaskItem(id);
+            if (isCompleted)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
     }

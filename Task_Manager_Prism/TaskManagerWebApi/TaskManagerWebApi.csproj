@@ -156,16 +156,6 @@
       <DependentUpon>ModelDb.edmx</DependentUpon>
       <LastGenOutput>ModelDb.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\UserDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-      <LastGenOutput>UserDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\UserDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-      <LastGenOutput>UserDb.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +166,6 @@
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="DAL\AuthRepository.cs" />
-    <Compile Include="DAL\DatabaseAccessService.cs" />
     <Compile Include="DAL\EntityDatabaseService.cs" />
     <Compile Include="DAL\IDatabaseAccessService.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,25 +194,6 @@
     <Compile Include="Models\TasksTable.cs">
       <DependentUpon>ModelDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TokenModel.cs" />
-    <Compile Include="Models\User.cs">
-      <DependentUpon>UserDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
@@ -235,13 +205,6 @@
     </EntityDeploy>
     <Content Include="Models\ModelDb.edmx.diagram">
       <DependentUpon>ModelDb.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\UserDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UserDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\UserDb.edmx.diagram">
-      <DependentUpon>UserDb.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

@@ -21,9 +21,9 @@ namespace TaskManagerWebApi.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (AuthRepository _repo = new AuthRepository())
+            using (AuthRepository authRepository = new AuthRepository())
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+                IdentityUser user = await authRepository.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

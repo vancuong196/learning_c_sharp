@@ -36,9 +36,12 @@ namespace Task_Manager_Prism
         protected override Task OnInitializeAsync(IActivatedEventArgs args)
         {
 
-            Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceProxy());
+          //  Container.RegisterInstance<IDatabaseAccessService>(new DatabaseAccessServiceProxy());
+            
             Container.RegisterInstance<IMessageService>(new MessageService());
             Container.RegisterInstance<ILoginService>(new LoginService());
+            Container.RegisterInstance<IRegisterService>(new RegisterService());
+            Container.RegisterType<IDatabaseAccessService, DatabaseAccessServiceProxy>();
 
             return base.OnInitializeAsync(args);
         }
