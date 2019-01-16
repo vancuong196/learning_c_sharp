@@ -26,34 +26,37 @@
                 Name="UserNameTb"
                 Margin="5"
                 Header="User name"
+                IsEnabled="{Binding IsClickAble}"
                 MaxLength="30"
                 Text="{Binding Path=UserName, Mode=TwoWay}" />
             <PasswordBox
                 Name="PasswordTb"
                 Margin="5"
                 Header="Password"
+                IsEnabled="{Binding IsClickAble}"
                 MaxLength="15"
                 Password="{Binding Path=Password, Mode=TwoWay}" />
             <PasswordBox
                 Name="ConfirmPasswordTb"
                 Margin="5"
                 Header="Confirm Password"
+                IsEnabled="{Binding IsClickAble}"
                 MaxLength="15"
                 Password="{Binding Path=ConfirmPassword, Mode=TwoWay}" />
             <Button
                 Name="LoginBtn"
                 Margin="5"
-                IsEnabled="{Binding IsClickAble}"
                 HorizontalAlignment="Stretch"
                 Command="{Binding Path=RegisterCommand}"
-                Content="Register" />
+                Content="Register"
+                IsEnabled="{Binding IsClickAble}" />
             <Button
                 Name="cancelRegisterbtn"
                 Margin="5"
-                IsEnabled="{Binding IsClickAble}"
                 HorizontalAlignment="Stretch"
                 Command="{Binding Path=ToLoginPageCommand}"
-                Content="I have an account!" />
+                Content="I have an account!"
+                IsEnabled="{Binding IsClickAble}" />
             <ProgressRing
                 Width="50"
                 Height="50"

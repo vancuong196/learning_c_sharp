@@ -1,11 +1,17 @@
 ﻿
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Task_Manager_Prism.Models;
 using Task_Manager_Prism.Ultils;
 using Task_Manager_Prism.ViewModels;
 using Task_Manager_Prism.ViewModels;
+using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -18,9 +24,9 @@ namespace Task_Manager_Prism.Views
     {
         public MainPage()
         {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             this.InitializeComponent();
             Debug.WriteLine("--------------init view--------------");
-
         }
 
         private void OnDasboardButtonClick(object sender, RoutedEventArgs e)
@@ -28,8 +34,7 @@ namespace Task_Manager_Prism.Views
             lvTodayTask.Visibility = Visibility.Visible;
             this.lvTasks.Header = "Overdue tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
-      
-
+            ChangeColor(sender as Button);
         }
 
         private void OnAddTaskButtonClicked(object sender, RoutedEventArgs e)
@@ -42,11 +47,11 @@ namespace Task_Manager_Prism.Views
 
         private void OnImportantTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+            //this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
             lvTodayTask.Visibility = Visibility.Collapsed;
             this.lvTasks.Header = "Important tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.ImportantTaskListID);
-
+            ChangeColor(sender as Button);
 
         }
 
@@ -70,9 +75,7 @@ namespace Task_Manager_Prism.Views
             this.lvTasks.Header = "All tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.AllTaskListID);
-
-
-
+            ChangeColor(sender as Button);
         }
 
         private void OnNormalTaskButtonClicked(object sender, RoutedEventArgs e)
@@ -80,9 +83,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NormalTaskListID);
             this.lvTasks.Header = "Normal tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
-
-
-
+            ChangeColor(sender as Button);
         }
 
         private void OnTaskWithoutDateButtonClicked(object sender, RoutedEventArgs e)
@@ -90,9 +91,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NoneDateTaskListID);
             this.lvTasks.Header = "Tasks without day";
             lvTodayTask.Visibility = Visibility.Collapsed;
-
-
-
+            ChangeColor(sender as Button);
         }
 
         private void OnFinishedTaskButtonClicked(object sender, RoutedEventArgs e)
@@ -100,7 +99,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.FinishedTaskListID);
             this.lvTasks.Header = "Finished task";
             lvTodayTask.Visibility = Visibility.Collapsed;
-
+            ChangeColor(sender as Button);
         }
 
         private void OnOverdueTaskButtonClicked(object sender, RoutedEventArgs e)
@@ -108,18 +107,17 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
             this.lvTasks.Header = "Overdue task";
             lvTodayTask.Visibility = Visibility.Collapsed;
+            ChangeColor(sender as Button);
         }
 
         private void OnSearchByTagButtonClicked(object sender, RoutedEventArgs e)
         {
-
             SearchByTagDialog dialog = new SearchByTagDialog();
-
             dialog.PrimaryButtonClick += SearchByTagDialog_PrimaryButtonClick;
             dialog.AllTags = (DataContext as MainPageViewModel).AllTags;
             dialog.PrimaryButtonText = "Ok";
             dialog.ShowAsync();
-            
+            ChangeColor(sender as Button);
         }
         private void SearchByTagDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
@@ -163,6 +161,28 @@ namespace Task_Manager_Prism.Views
                 (DataContext as MainPageViewModel).AddTagToDatabaseCommand.Execute(tag);
 
             }
+        }
+        private void ChangeColor(Button clickedButton)
+        {
+            var buttons = MenuButtonsGroup.Children.OfType<Button>();
+            Debug.WriteLine("Button lenght: "+buttons.Count());
+            foreach (Button b in buttons)
+            {
+                if (b.Name == clickedButton.Name )
+                {
+                    b.Background = new SolidColorBrush(Colors.Black);
+                    b.Foreground = new SolidColorBrush(Colors.Red);
+                } else
+                {
+                    b.Background = new SolidColorBrush(Colors.AliceBlue);
+                    b.Foreground = new SolidColorBrush(Colors.Black);
+                }
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

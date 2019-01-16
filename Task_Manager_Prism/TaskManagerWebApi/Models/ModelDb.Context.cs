@@ -13,10 +13,10 @@ namespace TaskManagerWebApi.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TaskDatabaseContext : DbContext
+    public partial class Entities : DbContext
     {
-        public TaskDatabaseContext()
-            : base("name=TaskDatabaseEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

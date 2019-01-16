@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaskDatabaseContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TaskDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TagTable">
           <Key>
             <PropertyRef Name="id" />
@@ -24,8 +24,9 @@
           <Property Name="Tag" Type="nchar" MaxLength="100" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IsCompleted" Type="bit" />
+          <Property Name="UserId" Type="nchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TaskDatabaseContextStoreContainer">
+        <EntityContainer Name="TaskDatabaseModelStoreContainer">
           <EntitySet Name="TagTable" EntityType="Self.TagTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TasksTable" EntityType="Self.TasksTable" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -33,7 +34,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="TaskDatabaseContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TaskDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="TagTable">
           <Key>
             <PropertyRef Name="id" />
@@ -53,8 +54,9 @@
           <Property Name="Tag" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IsCompleted" Type="Boolean" />
+          <Property Name="UserId" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TaskDatabaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TagTables" EntityType="Self.TagTable" />
           <EntitySet Name="TasksTables" EntityType="Self.TasksTable" />
         </EntityContainer>
@@ -63,9 +65,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TaskDatabaseContextStoreContainer" CdmEntityContainer="TaskDatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="TaskDatabaseModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="TagTables">
-            <EntityTypeMapping TypeName="TaskDatabaseContext.TagTable">
+            <EntityTypeMapping TypeName="TaskDatabaseModel.TagTable">
               <MappingFragment StoreEntitySet="TagTable">
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -73,7 +75,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TasksTables">
-            <EntityTypeMapping TypeName="TaskDatabaseContext.TasksTable">
+            <EntityTypeMapping TypeName="TaskDatabaseModel.TasksTable">
               <MappingFragment StoreEntitySet="TasksTable">
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -83,6 +85,7 @@
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

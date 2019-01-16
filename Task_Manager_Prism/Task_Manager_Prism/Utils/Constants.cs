@@ -18,9 +18,9 @@ namespace Task_Manager_Prism.Ultils
         public const string SelectedTaskKey = "SELECTEDTASK";
         public const string TasksListKey = "TASKLIST";
         //temporary server
-        public const string ApiBaseUrl = "http://localhost:54784/api/";
-        public const string TokenBaseUrl = "http://localhost:54784/token";
-        public const string RegisterAccountBaseUrl = "http://localhost:54784/api/account/register";
+        public const string ApiBaseUrl = "http://7b8539bf.ngrok.io/api/";
+        public const string TokenBaseUrl = "http://7b8539bf.ngrok.io/token";
+        public const string RegisterAccountBaseUrl = "http://7b8539bf.ngrok.io/api/account/register";
 
     }
 }

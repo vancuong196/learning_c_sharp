@@ -19,9 +19,7 @@ public class AuthRepository : IDisposable
     {
         IdentityUser user = new IdentityUser();
         user.UserName = userModel.UserName;
-
         var result = await _userManager.CreateAsync(user, userModel.Password);
-
         return result;
     }
 

@@ -22,5 +22,6 @@ namespace TaskManagerWebApi.Models
         public string Tag { get; set; }
         public int ID { get; set; }
         public Nullable<bool> IsCompleted { get; set; }
+        public string UserId { get; set; }
     }
 }

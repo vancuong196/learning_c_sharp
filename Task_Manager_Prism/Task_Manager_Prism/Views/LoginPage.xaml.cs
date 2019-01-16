@@ -1,4 +1,5 @@
 ﻿
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
 
@@ -13,6 +14,7 @@ namespace Task_Manager_Prism.Views
     {
         public LoginPage()
         {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             this.InitializeComponent();
             //
          

@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace TaskManagerWebApi.Providers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+            Debug.WriteLine("hello");
             context.Validated();
         }
 
@@ -37,7 +39,8 @@ namespace TaskManagerWebApi.Providers
             identity.AddClaim(new Claim("role", "user"));
 
             context.Validated(identity);
-
+            
+           
         }
     }
 }

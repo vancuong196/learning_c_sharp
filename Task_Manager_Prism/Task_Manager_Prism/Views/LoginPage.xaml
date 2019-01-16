@@ -20,34 +20,38 @@
                 Margin="5"
                 HorizontalAlignment="Center"
                 FontSize="28"
+               
                 Style="{Binding Source={StaticResource HeaderTextBlockStyle}}"
                 Text="SIGN IN" />
             <TextBox
                 Name="UserNameTb"
                 Margin="5"
                 Header="User name"
+                IsEnabled="{Binding IsClickAble}"
                 MaxLength="30"
                 Text="{Binding Path=UserName, Mode=TwoWay}" />
             <PasswordBox
                 Name="PasswordTb"
                 Margin="5"
                 Header="Password"
+                IsEnabled="{Binding IsClickAble}"
                 MaxLength="15"
                 Password="{Binding Path=Password, Mode=TwoWay}" />
             <Button
+                
                 Name="LoginBtn"
                 Margin="5"
-                IsEnabled="{Binding IsClickAble}"
                 HorizontalAlignment="Stretch"
                 Command="{Binding Path=LoginCommand}"
-                Content="Login" />
+                Content="Login"
+                IsEnabled="{Binding IsClickAble}" />
             <Button
                 Name="RegisterBtn"
                 Margin="5"
-                IsEnabled="{Binding IsClickAble}"
                 HorizontalAlignment="Stretch"
                 Command="{Binding Path=ToRegisterPageCommand}"
-                Content="Don't have an account? Register now." />
+                Content="Don't have an account? Register now."
+                IsEnabled="{Binding IsClickAble}" />
             <ProgressRing
                 Width="50"
                 Height="50"

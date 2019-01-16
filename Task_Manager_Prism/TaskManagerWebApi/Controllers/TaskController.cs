@@ -6,6 +6,10 @@ using System.Net.Http;
 using System.Web.Http;
 using Task_Manager_Prism.DatabaseAccess;
 using Task_Manager_Prism.Models;
+using Microsoft.AspNet.Identity;
+using System.Diagnostics;
+using System.Security.Claims;
+using System.Web;
 
 namespace TaskManagerWebApi.Controllers
 {
@@ -20,13 +24,17 @@ namespace TaskManagerWebApi.Controllers
 
         public List<TaskItem> GetTaskItems()
         {
+
             var tasks=  _databaseAccessService.GetTasks().Result;
             if (tasks == null)
             {
                 return new List<TaskItem>();
             }
+           // Debug.WriteLine("User -----------------------:" + id);
             return tasks;
+
         }
+        
 
         public IHttpActionResult PostTask(TaskItem item)
         {
@@ -66,6 +74,19 @@ namespace TaskManagerWebApi.Controllers
                 return Ok();
             }
             return BadRequest();
+        }
+        public string GetIdentity()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+
+            foreach (var claim in claimsIdentity.Claims)
+            {
+                if (claim.Type == "sub")
+                {
+                    return claim.Value;
+                }    
+            }
+            return null;
         }
 
     }

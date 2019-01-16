@@ -17,17 +17,19 @@ namespace TaskManagerWebApi.DAL
         {
             try
             {
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     TagTable tag = new TagTable();
                     tag.TagName = tagName;
                     db.TagTables.Add(tag);
                     db.SaveChanges();
+                    db.Dispose();
                     return true;
 
                 }
             } catch (Exception e)
             {
+               
                 return false;
             }
         }
@@ -36,7 +38,7 @@ namespace TaskManagerWebApi.DAL
         {
             try
             {
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     TasksTable taskItem = new TasksTable();
                     taskItem.Date = t.Date.Trim();
@@ -49,10 +51,12 @@ namespace TaskManagerWebApi.DAL
                     taskItem.Time = t.Time.Trim();
                     db.TasksTables.Add(taskItem);
                     db.SaveChanges();
+                    db.Dispose();
                     return true;
                 }
             } catch (Exception e)
             {
+               
                 return false;
             }
         }
@@ -61,15 +65,18 @@ namespace TaskManagerWebApi.DAL
         {
             try
             {
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == id).Single();
                     db.TasksTables.Remove(task);
                     db.SaveChanges();
+                    db.Dispose();
                     return true;
+
                 }
             } catch
             {
+               
                 return false;
             }
           
@@ -79,14 +86,15 @@ namespace TaskManagerWebApi.DAL
         {
             try
             {
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == id).Single();
                     if (task == null)
                     {
+                        db.Dispose();
                         return false;
                     }
-                   
+                    db.Dispose();
                     return true;
                 }
             }
@@ -102,7 +110,7 @@ namespace TaskManagerWebApi.DAL
             try
             {
                 List<TagItem> tagItems = new List<TagItem>();
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     var tasks = db.TagTables.Where(s => true);
                     foreach (TagTable t in tasks)
@@ -112,10 +120,12 @@ namespace TaskManagerWebApi.DAL
                         tagItems.Add(tagItem);
 
                     }
+                    db.Dispose();
                 }
                 return Task.FromResult(tagItems);
             } catch
             {
+              
                 return null;
             }
         }
@@ -125,7 +135,7 @@ namespace TaskManagerWebApi.DAL
             try
             {
                 List<TaskItem> taskItems = new List<TaskItem>();
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     var tasks = db.TasksTables.Where(s => true);
                     foreach (TasksTable t in tasks)
@@ -140,13 +150,15 @@ namespace TaskManagerWebApi.DAL
                         taskItem.Tag = t.Tag.Trim();
                         taskItem.Time = t.Time.Trim();
                         taskItems.Add(taskItem);
-
+                        
                     }
+                    db.Dispose();
                 }
                 return Task.FromResult(taskItems);
             } catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
+              
                 return null;
             }
         }
@@ -155,7 +167,7 @@ namespace TaskManagerWebApi.DAL
         {
             try
             {
-                using (var db = new TaskDatabaseContext())
+                using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == t.ID).Single();
                     if (task == null)
@@ -171,10 +183,12 @@ namespace TaskManagerWebApi.DAL
                     task.Tag = t.Tag.Trim();
                     task.Time = t.Time.Trim();
                     db.SaveChanges();
+                    db.Dispose();
                     return true;
                 }
             } catch
             {
+             
                 return false;
             }
 

@@ -8,6 +8,7 @@
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
+
     <Grid Background="{Binding Source={ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -43,8 +44,11 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Grid.Column="0">
-                        <StackPanel Orientation="Vertical" Visibility="Visible">
+                    <Grid
+                        
+                        Grid.Row="0"
+                        Grid.Column="0">
+                        <StackPanel Name="MenuButtonsGroup" Orientation="Vertical" Visibility="Visible">
                             <TextBlock
                                 x:Name="PaneHeader"
                                 Margin="6,0"
@@ -52,85 +56,246 @@
                                 Style="{StaticResource BaseTextBlockStyle}"
                                 Text="Categories" />
                             <Button
+                                Name="dashboardButton"
                                 Height="60"
                                 Margin="6,8,6,0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnDasboardButtonClick"
                                 Content="Dashboard"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="allTaskButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="AllTaskButtonClicked"
                                 Content="All Tasks"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="importanceTaskButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnImportantTaskButtonClicked"
                                 Content="Important Tasks"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="OverdueTaskButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnOverdueTaskButtonClicked"
                                 Content="Overdue Task"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="normalTaskButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnNormalTaskButtonClicked"
                                 Content="Normal Taks"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="taskWithoutDateButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnTaskWithoutDateButtonClicked"
                                 Content="Task Without Date"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="searchButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnSearchByTagButtonClicked"
                                 Content="Search by Tag"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
                             <Button
+                                Name="finishTaskButton"
                                 Height="60"
                                 Margin="6,1"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 VerticalContentAlignment="Bottom"
+                                Background="AliceBlue"
                                 Click="OnFinishedTaskButtonClicked"
                                 Content="Finished Tasks"
-                                FontSize="24" />
+                                FontSize="24"
+                                Foreground="Black">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black" />
+
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
 
                         </StackPanel>
                     </Grid>

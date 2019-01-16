@@ -5,6 +5,7 @@ using Microsoft.Practices.Unity;
 using Task_Manager_Prism.DatabaseAccess;
 using Task_Manager_Prism.DAL;
 using Task_Manager_Prism.Utils;
+using Windows.UI.Core;
 
 namespace Task_Manager_Prism
 {
@@ -20,7 +21,8 @@ namespace Task_Manager_Prism
         public App()
         {
             this.InitializeComponent();
-            
+            //var navMgr = SystemNavigationManager.GetForCurrentView();
+            //navMgr.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
         protected override async Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {

@@ -12,11 +12,11 @@ namespace TaskManagerWebApi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private AuthRepository _authRepository = null;
 
         public AccountController()
         {
-            _repo = new AuthRepository();
+            _authRepository = new AuthRepository();
         }
 
         // POST api/Account/Register
@@ -29,7 +29,7 @@ namespace TaskManagerWebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            IdentityResult result = await _authRepository.RegisterUser(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -45,7 +45,7 @@ namespace TaskManagerWebApi.Controllers
         {
             if (disposing)
             {
-                _repo.Dispose();
+                _authRepository.Dispose();
             }
 
             base.Dispose(disposing);
