@@ -59,7 +59,10 @@ namespace Task_Manager_Prism.ViewModels
                         {
                             TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
                         }
-                        
+                        if (AllTags == null)
+                        {
+                            AllTags = new ObservableCollection<string>();
+                        }
                         AllTags = new ObservableCollection<string>(AllTags);
                     }   
                     );
@@ -218,12 +221,16 @@ namespace Task_Manager_Prism.ViewModels
 
         private void CurrentListTagFilter(string tag)
         {
+       
         if (tag.Trim() == "All")
             {
+                if (AllTasks==null)
+                {
+                    return;
+                }
                 TasksToShow = LoadNewList(_currentListID);
                 TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
-                Debug.WriteLine("debug check point");
-
+          
                 return;
             }
          TasksToShow = new ObservableCollection<TaskItem>(LoadNewList(_currentListID).Where(s => s.Tag.Trim() == tag.Trim()).ToList());
@@ -315,6 +322,10 @@ namespace Task_Manager_Prism.ViewModels
         private ObservableCollection<TaskItem> LoadNewList(int? listID)
         {
             _currentListID = listID??Constants.OverdueTaskListID;
+            if (AllTasks==null)
+            {
+                return new ObservableCollection<TaskItem>();
+            }
             switch (listID)
             {
                 case Constants.AllTaskListID:

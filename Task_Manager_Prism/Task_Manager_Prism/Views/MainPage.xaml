@@ -328,46 +328,50 @@
                                     <ListView.ItemTemplate>
 
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <Grid Height="5" />
-                                                <Border Background="AliceBlue">
-                                                    <StackPanel Width="500" Padding="12">
-                                                        <TextBlock
+                                            <Grid>
+                                                <StackPanel>
+                                                    <Grid Height="5" />
+                                                    <Border Background="AliceBlue">
+                                                        <StackPanel Width="500" Padding="12">
+                                                            <TextBlock
                                                             FontSize="32"
                                                             MaxLines="2"
                                                             Style="{StaticResource HeaderTextBlockStyle}"
                                                             Text="{Binding Path=Title}" />
-                                                        <TextBlock
+                                                            <TextBlock
                                                             MaxLines="2"
                                                             Style="{StaticResource SubtitleTextBlockStyle}"
                                                             Text="{Binding Path=Description}" />
-                                                        <Grid ColumnSpacing="10">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="auto" />
-                                                                <ColumnDefinition Width="auto" />
-                                                                <ColumnDefinition Width="*" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <TextBlock
+                                                            <Grid ColumnSpacing="10">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="110" />
+                                                                    <ColumnDefinition Width="110" />
+                                                                    <ColumnDefinition Width="auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock
                                                                 Grid.Column="0"
                                                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                                                 Text="{Binding Path=Date}" />
-                                                            <TextBlock
+                                                                <TextBlock
                                                                 Grid.Column="1"
                                                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                                                 Text="{Binding Path=Time}" />
-                                                            <TextBlock
+                                                                <TextBlock
                                                                 Grid.Column="2"
                                                                 MaxLines="1"
                                                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                                                 Text="{Binding Path=Tag}" />
 
-                                                        </Grid>
+                                                            </Grid>
 
-                                                    </StackPanel>
-                                                </Border>
-                                                <Grid Height="5" />
-                                            </StackPanel>
+                                                        </StackPanel>
 
+                                                    </Border>
+
+                                                    <Grid Height="5" />
+                                                </StackPanel>
+                                                <Grid Background="Red" Height="100" Width="4" Visibility="{Binding IsImportantInt}" HorizontalAlignment="Right"></Grid>
+                                            </Grid>
                                         </DataTemplate>
 
                                     </ListView.ItemTemplate>
@@ -387,46 +391,50 @@
                                 <ListView.ItemTemplate>
 
                                     <DataTemplate>
-                                        <StackPanel>
-                                            <Grid Height="5" />
-                                            <Border Background="AliceBlue">
-                                                <StackPanel Width="520" Padding="12">
-                                                    <TextBlock
-                                                        FontSize="32"
-                                                        MaxLines="2"
-                                                        Style="{StaticResource HeaderTextBlockStyle}"
-                                                        Text="{Binding Path=Title}" />
-                                                    <TextBlock
-                                                        MaxLines="2"
-                                                        Style="{StaticResource SubtitleTextBlockStyle}"
-                                                        Text="{Binding Path=Description}" />
-                                                    <Grid ColumnSpacing="10">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="auto" />
-                                                            <ColumnDefinition Width="auto" />
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <StackPanel>
+                                                <Grid Height="5" />
+                                                <Border Background="AliceBlue">
+                                                    <StackPanel Width="500" Padding="12">
                                                         <TextBlock
-                                                            Grid.Column="0"
-                                                            Style="{StaticResource SubtitleTextBlockStyle}"
-                                                            Text="{Binding Path=Date}" />
+                                                            FontSize="32"
+                                                            MaxLines="2"
+                                                            Style="{StaticResource HeaderTextBlockStyle}"
+                                                            Text="{Binding Path=Title}" />
                                                         <TextBlock
-                                                            Grid.Column="1"
+                                                            MaxLines="2"
                                                             Style="{StaticResource SubtitleTextBlockStyle}"
-                                                            Text="{Binding Path=Time}" />
-                                                        <TextBlock
-                                                            Grid.Column="2"
-                                                            MaxLines="1"
-                                                            Style="{StaticResource SubtitleTextBlockStyle}"
-                                                            Text="{Binding Path=Tag}" />
+                                                            Text="{Binding Path=Description}" />
+                                                        <Grid ColumnSpacing="10">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="110" />
+                                                                <ColumnDefinition Width="110" />
+                                                                <ColumnDefinition Width="auto" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock
+                                                                Grid.Column="0"
+                                                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                                                Text="{Binding Path=Date}" />
+                                                            <TextBlock
+                                                                Grid.Column="1"
+                                                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                                                Text="{Binding Path=Time}" />
+                                                            <TextBlock
+                                                                Grid.Column="2"
+                                                                MaxLines="1"
+                                                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                                                Text="{Binding Path=Tag}" />
 
-                                                    </Grid>
+                                                        </Grid>
 
-                                                </StackPanel>
-                                            </Border>
-                                            <Grid Height="5" />
-                                        </StackPanel>
+                                                    </StackPanel>
 
+                                                </Border>
+
+                                                <Grid Height="5" />
+                                            </StackPanel>
+                                            <Grid Background="Red" Height="100" Width="4" Visibility="{Binding IsImportantInt}" HorizontalAlignment="Right"></Grid>
+                                        </Grid>
                                     </DataTemplate>
 
                                 </ListView.ItemTemplate>
@@ -438,6 +446,7 @@
                                     Margin="40,0"
                                     FontSize="24"
                                     Header="Tags"
+                                    SelectedItem="All"
                                     MinWidth="200"
                                     MaxWidth="500"
                                     ItemsSource="{Binding Path=AllTags}"

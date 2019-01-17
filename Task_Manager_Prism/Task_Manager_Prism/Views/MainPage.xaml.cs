@@ -37,6 +37,7 @@ namespace Task_Manager_Prism.Views
             lvTodayTask.Visibility = Visibility.Visible;
             this.lvTasks.Header = "Overdue tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
@@ -54,6 +55,7 @@ namespace Task_Manager_Prism.Views
             lvTodayTask.Visibility = Visibility.Collapsed;
             this.lvTasks.Header = "Important tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.ImportantTaskListID);
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
 
         }
@@ -79,6 +81,7 @@ namespace Task_Manager_Prism.Views
             this.lvTasks.Header = "All tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.AllTaskListID);
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
@@ -88,6 +91,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NormalTaskListID);
             this.lvTasks.Header = "Normal tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
@@ -97,6 +101,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NoneDateTaskListID);
             this.lvTasks.Header = "Tasks without day";
             lvTodayTask.Visibility = Visibility.Collapsed;
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
@@ -106,6 +111,7 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.FinishedTaskListID);
             this.lvTasks.Header = "Finished task";
             lvTodayTask.Visibility = Visibility.Collapsed;
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
@@ -115,11 +121,13 @@ namespace Task_Manager_Prism.Views
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
             this.lvTasks.Header = "Overdue task";
             lvTodayTask.Visibility = Visibility.Collapsed;
+            TagList.SelectedItem = "All";
             ChangeColor(sender as Button);
         }
 
         private void OnSearchByTagButtonClicked(object sender, RoutedEventArgs e)
         {
+
             TagList.Visibility = Visibility.Collapsed;
             SearchByTagDialog dialog = new SearchByTagDialog();
             dialog.PrimaryButtonClick += SearchByTagDialog_PrimaryButtonClick;
@@ -159,6 +167,7 @@ namespace Task_Manager_Prism.Views
         private void OnAddTagButtonClicked(object sender, RoutedEventArgs e)
         {
             AddTagDialog dialog = new AddTagDialog();
+           
             dialog.PrimaryButtonClick += AddTagTagDialog_PrimaryButtonClick;
             dialog.PrimaryButtonText = "Ok";
             dialog.ShowAsync();

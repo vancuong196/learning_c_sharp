@@ -49,6 +49,19 @@ namespace Task_Manager_Prism.Models
         public string Tag { set; get; }
 
         public bool IsImportant { set; get; }
+
+        public int IsImportantInt
+        {
+
+            get
+            {
+                if (IsImportant)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+        }
         
         public int ID { set; get; }
 
