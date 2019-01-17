@@ -16,6 +16,7 @@ namespace Task_Manager_Prism.Views
         public EditTaskPage()
         {
             this.InitializeComponent();
+         //   datePicker.Date = (this.DataContext as EditTaskPage). 
         }
 
         private void OnSaveButtonClicked(object sender, RoutedEventArgs e)

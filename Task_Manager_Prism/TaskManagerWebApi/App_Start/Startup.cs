@@ -34,6 +34,7 @@ namespace TaskManagerWebApi
          
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
 
         }
 

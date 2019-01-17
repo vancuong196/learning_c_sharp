@@ -14,7 +14,6 @@ namespace TaskManagerWebApi.Providers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            Debug.WriteLine("hello");
             context.Validated();
         }
 
@@ -37,7 +36,6 @@ namespace TaskManagerWebApi.Providers
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
-
             context.Validated(identity);
             
            
