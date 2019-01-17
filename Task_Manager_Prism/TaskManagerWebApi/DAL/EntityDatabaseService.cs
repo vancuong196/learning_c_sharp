@@ -13,14 +13,21 @@ namespace TaskManagerWebApi.DAL
 {
     public class EntityDatabaseService : IDatabaseAccessService
     {
+        private string _userID;
         public bool AddTagItem(string tagName)
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return false;
+            }
             try
             {
                 using (var db = new Entities())
                 {
                     TagTable tag = new TagTable();
                     tag.TagName = tagName;
+                    tag.UserID = _userID;
                     db.TagTables.Add(tag);
                     db.SaveChanges();
                     db.Dispose();
@@ -29,13 +36,18 @@ namespace TaskManagerWebApi.DAL
                 }
             } catch (Exception e)
             {
-               
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
 
         public bool AddTaskItem(TaskItem t)
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return false;
+            }
             try
             {
                 using (var db = new Entities())
@@ -49,6 +61,7 @@ namespace TaskManagerWebApi.DAL
                     taskItem.IsCompleted = t.IsFinished;
                     taskItem.Tag = t.Tag.Trim();
                     taskItem.Time = t.Time.Trim();
+                    taskItem.UserId = _userID;
                     db.TasksTables.Add(taskItem);
                     db.SaveChanges();
                     db.Dispose();
@@ -63,15 +76,27 @@ namespace TaskManagerWebApi.DAL
 
         public bool DeleteTaskItem(int id)
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return false;
+            }
             try
             {
                 using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == id).Single();
-                    db.TasksTables.Remove(task);
-                    db.SaveChanges();
-                    db.Dispose();
-                    return true;
+                    if (task.UserId.Trim() == _userID.Trim())
+                    {
+                        db.TasksTables.Remove(task);
+                        db.SaveChanges();
+                        db.Dispose();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
                 }
             } catch
@@ -82,14 +107,46 @@ namespace TaskManagerWebApi.DAL
           
         }
 
+        public bool FindTagByName(string name)
+        {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return true;
+            }
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var tag = db.TagTables.Where(s => s.TagName.Trim() == name && s.UserID.Trim() == _userID).Single();
+                    if (tag == null)
+                    {
+                        db.Dispose();
+                        return false;
+                    }
+                    db.Dispose();
+                    return true;
+                }
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
         public bool FindTaskById(int id)
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return false;
+            }
             try
             {
                 using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == id).Single();
-                    if (task == null)
+                    if (task == null|| task.UserId.Trim() != _userID)
                     {
                         db.Dispose();
                         return false;
@@ -107,12 +164,18 @@ namespace TaskManagerWebApi.DAL
 
         public Task<List<TagItem>> GetTags()
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return Task.FromResult(new List<TagItem>());
+            }
             try
             {
+                Debug.WriteLine("Getting all tags");
                 List<TagItem> tagItems = new List<TagItem>();
                 using (var db = new Entities())
                 {
-                    var tasks = db.TagTables.Where(s => true);
+                    var tasks = db.TagTables.Where(s => s.UserID.Trim().Equals(_userID.Trim()));
                     foreach (TagTable t in tasks)
                     {
                         TagItem tagItem = new TagItem();
@@ -132,12 +195,17 @@ namespace TaskManagerWebApi.DAL
 
         public Task<List<TaskItem>> GetTasks()
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return Task.FromResult(new List<TaskItem>());
+            }
             try
             {
                 List<TaskItem> taskItems = new List<TaskItem>();
                 using (var db = new Entities())
                 {
-                    var tasks = db.TasksTables.Where(s => true);
+                    var tasks = db.TasksTables.Where(s => s.UserId == _userID);
                     foreach (TasksTable t in tasks)
                     {
                         TaskItem taskItem = new TaskItem();
@@ -163,14 +231,24 @@ namespace TaskManagerWebApi.DAL
             }
         }
 
+        public void SetCurrentUser(string userID)
+        {
+            _userID = userID;
+        }
+
         public bool UpdateTaskItem(TaskItem t)
         {
+            if (_userID == null)
+            {
+                Debug.WriteLine("UserID is not set");
+                return false;
+            }
             try
             {
                 using (var db = new Entities())
                 {
                     var task = db.TasksTables.Where(s => s.ID == t.ID).Single();
-                    if (task == null)
+                    if (task == null || task.UserId.Trim() != _userID)
                     {
                         return false;
                     }
@@ -193,5 +271,6 @@ namespace TaskManagerWebApi.DAL
             }
 
         }
+
     }
 }

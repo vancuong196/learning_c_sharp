@@ -120,9 +120,9 @@ namespace Task_Manager_Prism.DAL
                     {
 
                         var readTask = result.Content.ReadAsAsync<TagItem[]>();
-                        readTask.Wait();
+                       
 
-                        var taskItems = readTask.Result;
+                        var taskItems = await readTask;
 
                         foreach (var item in taskItems)
                         {
@@ -148,8 +148,7 @@ namespace Task_Manager_Prism.DAL
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _tokenModel.access_token);
                     httpClient.BaseAddress = new Uri(Constants.ApiBaseUrl);
                     var responseTask = httpClient.GetAsync("task");
-                    responseTask.Wait();
-                    var result = responseTask.Result;
+                    var result = await responseTask;
                     if (result.IsSuccessStatusCode)
                     {
 

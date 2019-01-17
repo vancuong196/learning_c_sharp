@@ -14,10 +14,20 @@ namespace Task_Manager_Prism.Views
     {
         public LoginPage()
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+           
             this.InitializeComponent();
             //
          
         }
+
+        private void UserNameTb_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                LoginBtn.Command.Execute(null);
+            }
+            
+        }
+
     }
 }

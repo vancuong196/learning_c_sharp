@@ -30,11 +30,7 @@ namespace Task_Manager_Prism.ViewModels
             _navigationService = navigationService;
             
         }
-        public TaskItem CurrentTask
-        {
-            set;
-            get;
-        }
+
         public TaskItem SelectedItem
         {
             set
@@ -63,13 +59,15 @@ namespace Task_Manager_Prism.ViewModels
         }
         public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            Load();
+           // Load();
             if (e != null)
             {
                 var dictionary = e.Parameter as Dictionary<string,object>;
                 object selectedTask;
                 object tasks;
                 dictionary.TryGetValue(Constants.SelectedTaskKey, out selectedTask);
+                dictionary.TryGetValue("list", out tasks);
+                AllTasks = tasks as ObservableCollection<TaskItem>;
                 SelectedItem = selectedTask as TaskItem;
 
             }
@@ -172,7 +170,16 @@ namespace Task_Manager_Prism.ViewModels
                     _markAsFinishedDelegateComand = new DelegateCommand(() =>
                     {
                         SelectedItem.IsFinished = true;
-                        SelectedItem = SelectedItem;
+                        TaskItem item = new TaskItem();
+                        item.Date = SelectedItem.Date;
+                        item.Time = SelectedItem.Time;
+                        item.Tag = SelectedItem.Tag;
+                        item.IsFinished = SelectedItem.IsFinished;
+                        item.ID = SelectedItem.ID;
+                        item.IsImportant = SelectedItem.IsImportant;
+                        item.Title = SelectedItem.Title;
+                        item.Description = SelectedItem.Description;
+                        SelectedItem = item;
                         _databaseAccessService.UpdateTaskItem(SelectedItem);
                     });
                     return _markAsFinishedDelegateComand;

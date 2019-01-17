@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task_Manager_Prism.Utils
 {
-    interface IMessageService
+    public interface IMessageService
     {
         void ShowMessage(string messsage);
         void ShowMessage(string title, string message);

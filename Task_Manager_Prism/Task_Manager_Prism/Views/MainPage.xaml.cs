@@ -1,4 +1,5 @@
 ﻿
+using Prism.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,13 +25,15 @@ namespace Task_Manager_Prism.Views
     {
         public MainPage()
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            
             this.InitializeComponent();
             Debug.WriteLine("--------------init view--------------");
+       
         }
 
         private void OnDasboardButtonClick(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Visible;
             lvTodayTask.Visibility = Visibility.Visible;
             this.lvTasks.Header = "Overdue tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
@@ -47,7 +50,7 @@ namespace Task_Manager_Prism.Views
 
         private void OnImportantTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            //this.lvTasks.ItemsSource = new ViewModelLocator().Main.ImportantTasks;
+            TagList.Visibility = Visibility.Visible;
             lvTodayTask.Visibility = Visibility.Collapsed;
             this.lvTasks.Header = "Important tasks";
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.ImportantTaskListID);
@@ -71,7 +74,8 @@ namespace Task_Manager_Prism.Views
 
         private void AllTaskButtonClicked(object sender, RoutedEventArgs e)
         {
-            //     this.lvTasks.ItemsSource = new ViewModelLocator().Main.AllTasks;
+            TagList.Visibility = Visibility.Visible;
+
             this.lvTasks.Header = "All tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.AllTaskListID);
@@ -80,6 +84,7 @@ namespace Task_Manager_Prism.Views
 
         private void OnNormalTaskButtonClicked(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Visible;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NormalTaskListID);
             this.lvTasks.Header = "Normal tasks";
             lvTodayTask.Visibility = Visibility.Collapsed;
@@ -88,6 +93,7 @@ namespace Task_Manager_Prism.Views
 
         private void OnTaskWithoutDateButtonClicked(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Visible;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.NoneDateTaskListID);
             this.lvTasks.Header = "Tasks without day";
             lvTodayTask.Visibility = Visibility.Collapsed;
@@ -96,6 +102,7 @@ namespace Task_Manager_Prism.Views
 
         private void OnFinishedTaskButtonClicked(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Visible;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.FinishedTaskListID);
             this.lvTasks.Header = "Finished task";
             lvTodayTask.Visibility = Visibility.Collapsed;
@@ -104,6 +111,7 @@ namespace Task_Manager_Prism.Views
 
         private void OnOverdueTaskButtonClicked(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Visible;
             (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.OverdueTaskListID);
             this.lvTasks.Header = "Overdue task";
             lvTodayTask.Visibility = Visibility.Collapsed;
@@ -112,8 +120,10 @@ namespace Task_Manager_Prism.Views
 
         private void OnSearchByTagButtonClicked(object sender, RoutedEventArgs e)
         {
+            TagList.Visibility = Visibility.Collapsed;
             SearchByTagDialog dialog = new SearchByTagDialog();
             dialog.PrimaryButtonClick += SearchByTagDialog_PrimaryButtonClick;
+            dialog.SecondaryButtonClick += SearchByTagDialog_CancelButtonClick;
             dialog.AllTags = (DataContext as MainPageViewModel).AllTags;
             dialog.PrimaryButtonText = "Ok";
             dialog.ShowAsync();
@@ -138,6 +148,12 @@ namespace Task_Manager_Prism.Views
                 (DataContext as MainPageViewModel).SelectTaskWithTag.Execute(tag);
 
             }
+        }
+        private void SearchByTagDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+                lvTasks.Header = "Result for all TAG:";
+                lvTodayTask.Visibility = Visibility.Collapsed;
+                (DataContext as MainPageViewModel).LoadListCommand.Execute(Constants.AllTaskListID);
         }
 
         private void OnAddTagButtonClicked(object sender, RoutedEventArgs e)
@@ -180,9 +196,16 @@ namespace Task_Manager_Prism.Views
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void TagList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            ListView listView = sender as ListView;
+            if (listView.SelectedItem == null)
+            {
+                return;
+            }
+            //    new ViewModelLocator().Main.SelectListItemRelayCommand.Execute((listView.SelectedItem as TaskItem).ID);
+            (DataContext as MainPageViewModel).SelectTagItemDelegateCommand.Execute(listView.SelectedItem as string);
+           
         }
     }
 }

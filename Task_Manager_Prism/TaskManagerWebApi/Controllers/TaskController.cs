@@ -20,14 +20,23 @@ namespace TaskManagerWebApi.Controllers
         public TaskController(IDatabaseAccessService databaseAccessService)
         {
             _databaseAccessService = databaseAccessService;
+            
         }
 
         public List<TaskItem> GetTaskItems()
         {
-
+            if (GetIdentity() == null)
+            {
+              
+                return new List<TaskItem>();
+            } else
+            {
+                _databaseAccessService.SetCurrentUser(GetIdentity());
+            }
             var tasks=  _databaseAccessService.GetTasks().Result;
             if (tasks == null)
             {
+           
                 return new List<TaskItem>();
             }
            // Debug.WriteLine("User -----------------------:" + id);
@@ -38,6 +47,14 @@ namespace TaskManagerWebApi.Controllers
 
         public IHttpActionResult PostTask(TaskItem item)
         {
+            if (GetIdentity() == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _databaseAccessService.SetCurrentUser(GetIdentity());
+            }
             bool isCompleted = _databaseAccessService.AddTaskItem(item);
             if (isCompleted)
             {
@@ -48,6 +65,14 @@ namespace TaskManagerWebApi.Controllers
         }
         public IHttpActionResult PutTask(TaskItem item)
         {
+            if (GetIdentity() == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _databaseAccessService.SetCurrentUser(GetIdentity());
+            }
             bool isAvailable = _databaseAccessService.FindTaskById(item.ID);
             if (!isAvailable)
             {
@@ -62,6 +87,14 @@ namespace TaskManagerWebApi.Controllers
         }
         public IHttpActionResult DeleteTask(int id)
         {
+            if (GetIdentity() == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _databaseAccessService.SetCurrentUser(GetIdentity());
+            }
             bool isAvailable = _databaseAccessService.FindTaskById(id);
             if (!isAvailable)
             {
@@ -75,8 +108,9 @@ namespace TaskManagerWebApi.Controllers
             }
             return BadRequest();
         }
-        public string GetIdentity()
+        private string GetIdentity()
         {
+
             var claimsIdentity = User.Identity as ClaimsIdentity;
 
             foreach (var claim in claimsIdentity.Claims)

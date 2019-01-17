@@ -17,7 +17,7 @@
         <ScrollViewer
             HorizontalScrollBarVisibility="Visible"
             HorizontalScrollMode="Enabled"
-            VerticalScrollMode="Disabled">
+            VerticalScrollMode="Enabled">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -30,8 +30,11 @@
                     Margin="40,12"
                     FontSize="44"
                     Style="{StaticResource BaseTextBlockStyle}">
-                    Task Manager
+                    Tasks Manager
                 </TextBlock>
+                <Grid Grid.Row="1" >
+                    <ProgressRing Height="60" Width="60" IsActive="{Binding IsLoading}"> </ProgressRing>
+                </Grid>
                 <Grid
                     x:Name="splitView"
                     Grid.Row="1"
@@ -44,11 +47,11 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid
-                        
-                        Grid.Row="0"
-                        Grid.Column="0">
-                        <StackPanel Name="MenuButtonsGroup" Orientation="Vertical" Visibility="Visible">
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <StackPanel
+                            Name="MenuButtonsGroup"
+                            Orientation="Vertical"
+                            Visibility="Visible">
                             <TextBlock
                                 x:Name="PaneHeader"
                                 Margin="6,0"
@@ -186,7 +189,7 @@
                                 VerticalContentAlignment="Bottom"
                                 Background="AliceBlue"
                                 Click="OnNormalTaskButtonClicked"
-                                Content="Normal Taks"
+                                Content="Normal Tasks"
                                 FontSize="24"
                                 Foreground="Black">
                                 <Button.Resources>
@@ -431,10 +434,14 @@
 
                             <StackPanel Grid.Column="2">
                                 <ListView
+                                    Name="TagList"
                                     Margin="40,0"
                                     FontSize="24"
                                     Header="Tags"
-                                    ItemsSource="{Binding Path=AllTags}">
+                                    MinWidth="200"
+                                    MaxWidth="500"
+                                    ItemsSource="{Binding Path=AllTags}"
+                                    SelectionChanged="TagList_SelectionChanged">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel>

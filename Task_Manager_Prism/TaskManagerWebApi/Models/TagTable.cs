@@ -16,5 +16,6 @@ namespace TaskManagerWebApi.Models
     {
         public string TagName { get; set; }
         public int id { get; set; }
+        public string UserID { get; set; }
     }
 }

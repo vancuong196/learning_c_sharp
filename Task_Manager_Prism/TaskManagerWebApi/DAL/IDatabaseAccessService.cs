@@ -17,6 +17,8 @@ namespace Task_Manager_Prism.DatabaseAccess
         bool DeleteTaskItem(int id);
         bool AddTagItem(string tagName);
         bool FindTaskById(int id);
+        bool FindTagByName(string name);
+        void SetCurrentUser(string userID);
     }
 
 }

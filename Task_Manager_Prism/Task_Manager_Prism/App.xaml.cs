@@ -6,6 +6,7 @@ using Task_Manager_Prism.DatabaseAccess;
 using Task_Manager_Prism.DAL;
 using Task_Manager_Prism.Utils;
 using Windows.UI.Core;
+using Prism.Windows.AppModel;
 
 namespace Task_Manager_Prism
 {
@@ -48,5 +49,11 @@ namespace Task_Manager_Prism
             return base.OnInitializeAsync(args);
         }
 
+        protected override IDeviceGestureService OnCreateDeviceGestureService()
+        {
+            var svc = base.OnCreateDeviceGestureService();
+            svc.UseTitleBarBackButton = false;
+            return svc;
+        }
     }
 }

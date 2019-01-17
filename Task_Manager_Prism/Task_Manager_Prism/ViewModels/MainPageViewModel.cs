@@ -10,8 +10,7 @@ using System.Linq;
 using Task_Manager_Prism.Models;
 using Task_Manager_Prism.Ultils;
 using Task_Manager_Prism.DatabaseAccess;
-
-
+using Task_Manager_Prism.Utils;
 
 namespace Task_Manager_Prism.ViewModels
 {
@@ -20,7 +19,9 @@ namespace Task_Manager_Prism.ViewModels
     {
         private readonly IDatabaseAccessService _databaseAccessService;
         private readonly INavigationService _navigationService;
+        private readonly IMessageService _messageService;
         private int _currentListID;
+        private bool _isLoading;
         private ObservableCollection<TaskItem> _allTask;
         private ObservableCollection<TaskItem> _todayTask;
         private ObservableCollection<TaskItem> _searchResultTasks;
@@ -29,30 +30,38 @@ namespace Task_Manager_Prism.ViewModels
         private DelegateCommand<string> _selectTaskItemWithTag;
         private DelegateCommand<string> _addTagToDatabase;
         private DelegateCommand<int> _deleteTaskItemDelegateCommand;
+        private DelegateCommand<string> _selectTagItemDelegateCommand;
         private DelegateCommand _reloadCommand;
         private DelegateCommand _logoutCommand;
         private DelegateCommand<int?> _loadListCommand;
         private ObservableCollection<TaskItem> _tasksToShow;
 
 
-        public MainPageViewModel(IDatabaseAccessService databaseAccessService, INavigationService navigationService)
+        public MainPageViewModel(IDatabaseAccessService databaseAccessService, INavigationService navigationService, IMessageService messageService)
         {
             _databaseAccessService = databaseAccessService;
             _navigationService = navigationService;
+            _messageService = messageService;
             _currentListID = Constants.OverdueTaskListID;
-            Debug.WriteLine("----------------------------------------- ");
-           // ReloadCommand.Execute();
+          
         }
 
-
-        
         public DelegateCommand<int?> LoadListCommand
         {
             get
             {
                 if (_loadListCommand == null)
                 {
-                    _loadListCommand = new DelegateCommand<int?>(LoadNewList
+                    _loadListCommand = new DelegateCommand<int?>( i =>
+                    {
+                        TasksToShow = LoadNewList(i);
+                        if (i == Constants.OverdueTaskListID)
+                        {
+                            TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
+                        }
+                        
+                        AllTags = new ObservableCollection<string>(AllTags);
+                    }   
                     );
                     return _loadListCommand;
                 }
@@ -101,6 +110,17 @@ namespace Task_Manager_Prism.ViewModels
                 return _tasksToShow;
             }
         }
+        public bool IsLoading
+        {
+            set
+            {
+                SetProperty(ref _isLoading, value);
+            }
+            get
+            {
+                return _isLoading;
+            }
+        }
         public ObservableCollection<TaskItem> TodayTasks
         {
             set
@@ -123,8 +143,31 @@ namespace Task_Manager_Prism.ViewModels
 
         public ObservableCollection<string> AllTags
         {
-            get { return _allTags; }
-            set { SetProperty(ref _allTags, value); }
+            get
+            {
+                return _allTags;
+            }
+            set
+            {
+                if (_allTags == null)
+                {
+                    value.Add("None");
+                    value.Add("All");
+                }
+                if (_allTags != null)
+                {
+                    if (_allTags.Where(s => s == "None").Count() == 0)
+                    {
+                        value.Add("None");
+                    }
+                    if (_allTags.Where(s => s == "All").Count() == 0)
+                    {
+                        value.Add("All");
+                    }
+                }
+                    
+                SetProperty(ref _allTags, value);
+            }
         }
 
    
@@ -138,7 +181,8 @@ namespace Task_Manager_Prism.ViewModels
                     return _selectTaskItemDelegateCommand = new DelegateCommand<int?>((itemID) => {
                         TaskItem selectedItem = AllTasks.FirstOrDefault(s => s.ID == itemID);
                         var navParameters = new Dictionary<string,object>();
-                        navParameters.Add(Constants.SelectedTaskKey, selectedItem);   
+                        navParameters.Add(Constants.SelectedTaskKey, selectedItem);
+                        navParameters.Add("list", AllTasks);
                         _navigationService.Navigate("Detail", navParameters);
                      
                     });
@@ -152,9 +196,41 @@ namespace Task_Manager_Prism.ViewModels
             }
             
         }
+        public DelegateCommand<string> SelectTagItemDelegateCommand
+        {
+            get
+            {
+                if (_selectTagItemDelegateCommand == null)
+                {
+                    return _selectTagItemDelegateCommand = new DelegateCommand<string>((tag) => {
+                        
+                        CurrentListTagFilter(tag);
+                    });
+                }
+                else
+                {
 
+                    return _selectTagItemDelegateCommand;
+                }
+            }
 
-        
+        }
+
+        private void CurrentListTagFilter(string tag)
+        {
+        if (tag.Trim() == "All")
+            {
+                TasksToShow = LoadNewList(_currentListID);
+                TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
+                Debug.WriteLine("debug check point");
+
+                return;
+            }
+         TasksToShow = new ObservableCollection<TaskItem>(LoadNewList(_currentListID).Where(s => s.Tag.Trim() == tag.Trim()).ToList());
+         TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy")) && s.Tag.Trim() == tag.Trim()));
+         
+        }
+
 
         public DelegateCommand ReloadCommand
         {
@@ -164,6 +240,7 @@ namespace Task_Manager_Prism.ViewModels
                 {
                     _reloadCommand = new DelegateCommand(async () =>
                     {
+                        IsLoading = true;
                         List<TaskItem> items = await _databaseAccessService.GetTasks();
                         List<TagItem> tags = await _databaseAccessService.GetTags();
                         AllTags = new ObservableCollection<String>((from tag in tags
@@ -171,7 +248,9 @@ namespace Task_Manager_Prism.ViewModels
                                                                     ); 
                         AllTasks = new ObservableCollection<TaskItem>(items);
                         TodayTasks = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
-                        LoadNewList(_currentListID);
+                        TasksToShow = LoadNewList(_currentListID);
+                        IsLoading = false;
+                       
                     });
                 }
 
@@ -191,7 +270,11 @@ namespace Task_Manager_Prism.ViewModels
                 {
                     return _addTagToDatabase = new DelegateCommand<string>(s =>
                     {
-                        Debug.WriteLine(s.ToString());
+                        if (s=="None"||s=="All")
+                        {
+                            _messageService.ShowMessage("Error", "Tag 'None' and 'All' can not be used!");
+                            return;
+                        }
                         _databaseAccessService.AddTagItem(s);
 
                         ReloadCommand.Execute();
@@ -214,9 +297,12 @@ namespace Task_Manager_Prism.ViewModels
                 {
                     return _selectTaskItemWithTag = new DelegateCommand<string>(s =>
                     {
+                        if (s == "All")
+                        {
+                            TasksToShow = AllTasks;
+                            return;
+                        }
                         TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(item => item.Tag.Trim() == s));
-
-
                     });
                 }
 
@@ -224,33 +310,33 @@ namespace Task_Manager_Prism.ViewModels
             }
         }
 
+        
 
-
-    private void LoadNewList(int? listID)
+        private ObservableCollection<TaskItem> LoadNewList(int? listID)
         {
             _currentListID = listID??Constants.OverdueTaskListID;
             switch (listID)
             {
                 case Constants.AllTaskListID:
-                    TasksToShow = AllTasks;
-                    break;
+                    return AllTasks;
+                   
                 case Constants.TodayTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
-                    break;
+                    return new ObservableCollection<TaskItem>(AllTasks.Where(s => s.Date.Trim().Equals(DateTime.Today.ToString("MM/dd/yyyy"))));
+                   
                 case Constants.FinishedTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsFinished == true).ToList());
-                    break;
+                    return new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsFinished == true).ToList());
+                    
                 case Constants.ImportantTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsImportant == true));
-                    break;
+                    return new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsImportant == true));
+                    
                 case Constants.NormalTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsNormal == true));
-                    break;
+                    return new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsNormal == true));
+                    
                 case Constants.NoneDateTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsTimeConstraint == false));
-                    break;
+                    return new ObservableCollection<TaskItem>(AllTasks.Where(s => s.IsTimeConstraint == false));
+               
                 case Constants.OverdueTaskListID:
-                    TasksToShow = new ObservableCollection<TaskItem>(AllTasks.Where(s =>
+                   return new ObservableCollection<TaskItem>(AllTasks.Where(s =>
                     {
                         //   DateTime d1;
                         if (!s.IsTimeConstraint || s.IsFinished)
@@ -278,7 +364,9 @@ namespace Task_Manager_Prism.ViewModels
                         return false;
                     }
                    ));
-                    break;
+
+                default:
+                    return new ObservableCollection<TaskItem>();
 
 
 

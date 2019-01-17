@@ -26,6 +26,7 @@
             <TextBox
                 Name="UserNameTb"
                 Margin="5"
+                KeyDown="UserNameTb_KeyDown"
                 Header="User name"
                 IsEnabled="{Binding IsClickAble}"
                 MaxLength="30"
@@ -33,6 +34,7 @@
             <PasswordBox
                 Name="PasswordTb"
                 Margin="5"
+                KeyDown="UserNameTb_KeyDown"
                 Header="Password"
                 IsEnabled="{Binding IsClickAble}"
                 MaxLength="15"
