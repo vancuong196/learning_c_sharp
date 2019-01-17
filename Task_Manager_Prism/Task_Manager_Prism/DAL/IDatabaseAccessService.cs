@@ -15,7 +15,7 @@ namespace Task_Manager_Prism.DatabaseAccess
         void AddTaskItem(TaskItem item);
         void UpdateTaskItem(TaskItem item);
         void DeleteTaskItem(int id);
-        void AddTagItem(string tagName);
+        Task<bool> AddTagItem(string tagName);
     }
 
 }

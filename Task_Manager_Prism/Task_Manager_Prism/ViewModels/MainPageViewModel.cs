@@ -156,11 +156,11 @@ namespace Task_Manager_Prism.ViewModels
                 }
                 if (_allTags != null)
                 {
-                    if (_allTags.Where(s => s == "None").Count() == 0)
+                    if (value.Where(s => s == "None").Count() == 0)
                     {
                         value.Add("None");
                     }
-                    if (_allTags.Where(s => s == "All").Count() == 0)
+                    if (value.Where(s => s == "All").Count() == 0)
                     {
                         value.Add("All");
                     }
@@ -268,15 +268,15 @@ namespace Task_Manager_Prism.ViewModels
             {
                 if (_addTagToDatabase == null)
                 {
-                    return _addTagToDatabase = new DelegateCommand<string>(s =>
+                    return _addTagToDatabase = new DelegateCommand<string>( async s =>
                     {
+                        s = s.Trim();
                         if (s=="None"||s=="All")
                         {
                             _messageService.ShowMessage("Error", "Tag 'None' and 'All' can not be used!");
                             return;
                         }
-                        _databaseAccessService.AddTagItem(s);
-
+                        await _databaseAccessService.AddTagItem(s);
                         ReloadCommand.Execute();
 
                     });

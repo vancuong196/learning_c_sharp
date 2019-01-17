@@ -57,5 +57,10 @@ namespace Task_Manager_Prism.DatabaseAccess
         {
             
         }
+
+        Task<bool> IDatabaseAccessService.AddTagItem(string tagName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

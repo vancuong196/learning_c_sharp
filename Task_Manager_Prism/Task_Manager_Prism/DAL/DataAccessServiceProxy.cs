@@ -29,7 +29,7 @@ namespace Task_Manager_Prism.DAL
 
      
 
-        async public void AddTagItem(string tagName)
+        async public Task<bool> AddTagItem(string tagName)
         {
             try
             {
@@ -43,13 +43,16 @@ namespace Task_Manager_Prism.DAL
 
                 {
                     _messageService.ShowMessage("Error", "Can not add tag!");
+                    return false;
 
                 }
+                return true;
             } catch
             {
                 _messageService.ShowMessage("Error", "Can not connect to server!");
+                return false;
             }
-
+            
         }
 
         async public void AddTaskItem(TaskItem item)

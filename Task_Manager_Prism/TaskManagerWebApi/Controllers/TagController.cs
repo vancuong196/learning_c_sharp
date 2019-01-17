@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -39,6 +40,7 @@ namespace TaskManagerWebApi.Controllers
         {
             if (GetIdentity() == null)
             {
+                Debug.WriteLine("Debug point1");
                 return BadRequest();
             }
             else
@@ -48,15 +50,17 @@ namespace TaskManagerWebApi.Controllers
 
             if (_databaseAccessService.FindTagByName(item.Name))
             {
+                Debug.WriteLine("Debug point2");
                 return BadRequest();
             }
-
+            Debug.WriteLine("Debug point");
             bool isCompleted = _databaseAccessService.AddTagItem(item.Name);
             if (isCompleted)
             {
                 return Ok();
             } else
             {
+                Debug.WriteLine("Debug point3");
                 return BadRequest();
             }
         }

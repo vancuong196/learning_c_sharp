@@ -130,7 +130,7 @@ namespace TaskManagerWebApi.DAL
             }
             catch
             {
-                return true;
+                return false;
             }
         }
 
